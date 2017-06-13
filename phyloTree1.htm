@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title> Tree of life  </title>
+
+    <!-- For MS IE/Edge compatibility:-->
+    <meta http-equiv="X-UA-Compatible" content="IE=100">
+
+    <!-- D3.js, jQuery, and jQuery UI:-->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+    <!-- SAX XML parser:-->
+    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/sax.js"></script>
+
+    <!--    tooltip D3-->
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+    <!-- The following five libraries are needed for download/export of images and files:-->
+    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/rgbcolor.js"></script>
+    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/Blob.js"></script>
+    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/canvas-toBlob.js"></script>
+    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/canvg.js"></script>
+    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/FileSaver.js"></script>
+
+    <!-- Archaeopteryx.js requires forester.js and phyloxml_parser.js:-->
+    <script src="http://localhost/js/phyloxml_0_912.js"></script>
+    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/forester_1_01.js"></script>
+    <script src="http://localhost/js/archaeopteryx_1_01.js"></script>
+
+    <!-- CSS for jQuery UI: -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+
+
+    <!-- CSS for this page's HTML: -->
+    <link rel="stylesheet" href="http://www.phyloxml.org/css/forester.css">
+
+    <script>
+
+        function load() {
+
+            var options = {};
+            options.alignPhylogram = true;
+            options.backgroundColorDefault = '#ffffff';
+            options.branchColorDefault = '#909090';
+            options.branchDataFontSize = 14;
+            options.branchWidthDefault = 2;
+            options.collapasedLabelLength = 7;
+            options.defaultFont = 'Arial';
+            options.dynahide = true;
+            options.externalNodeFontSize = 14;
+            options.found0and1ColorDefault = '#0000ff';
+            options.found0ColorDefault = '#00ff00';
+            options.found1ColorDefault = '#ff0000';
+            options.internalNodeFontSize = 14;
+            options.labelColorDefault = '#202020';
+            options.minBranchLengthValueToShow = 0.01;
+            options.minConfidenceValueToShow = 0.5;
+            options.nameForNhDownload = 'archaeopteryx-js.nh';
+            options.nameForPhyloXmlDownload = 'archaeopteryx-js.xml';
+            options.nameForPngDownload = 'archaeopteryx-js.png';
+            options.nameForSvgDownload = 'archaeopteryx-js.svg';
+            options.nodeSizeDefault = 3;
+            options.phylogram = true;
+            options.searchIsCaseSensitive = false;
+            options.searchIsPartial = true;
+            options.searchUsesRegex = false;
+            options.showBranchEvents = false;
+            options.showBranchLengthValues = false;
+            options.showConfidenceValues = false;
+            options.showDisributions = false;
+            options.showExternalLabels = true;
+            options.showExternalNodes = false;
+            options.showInternalLabels = false;
+            options.showInternalNodes = true;
+            options.showNodeEvents = false;
+            options.showNodeName = true;
+            options.showNodeVisualizations = true;
+            options.showSequence = false;
+            options.showSequenceAccession = true;
+            options.showSequenceGeneSymbol = true;
+            options.showSequenceName = true;
+            options.showSequenceSymbol = true;
+            options.showTaxonomy = true;
+            options.showTaxonomyCode = false;
+            options.showTaxonomyCommonName = true;
+            options.showTaxonomyRank = false;
+            options.showTaxonomyScientificName = true;
+            options.showTaxonomySynonyms = false;
+
+            var settings = {};
+            settings.border = '1px solid #909090';
+            settings.controls0Top = 10;
+            settings.controls1Top = 10;
+            settings.controlsBackgroundColor = '#e0e0e0';
+            settings.controlsFont = 'Arial';
+            settings.controlsFontColor = '#505050';
+            settings.controlsFontSize = 8;
+            settings.displayHeight = 700;
+            settings.displayWidth = 1100;
+            settings.enableDownloads = true;
+            settings.enableBranchVisualizations = false;
+            settings.enableCollapseByBranchLenghts = true;
+            settings.enableCollapseByFeature = true;
+            settings.enableNodeVisualizations = false;
+            settings.nhExportWriteConfidences = true;
+            settings.reCenterAfterCollapse = false;
+            settings.rootOffset = 140;
+
+            var decorator = 'ird:';
+
+            var nodeVisualizations = {};
+
+            nodeVisualizations['Host'] = {
+                label: 'Host',
+                description: 'the host of the virus',
+                field: null,
+                cladeRef: decorator + 'Host',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+
+            nodeVisualizations['Country'] = {
+                label: 'Country',
+                description: 'the country of the virus',
+                field: null,
+                cladeRef: decorator + 'Country',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20c',
+                sizes: null
+            };
+
+            nodeVisualizations['USAState'] = {
+                label: 'USA State',
+                description: 'the state the virus is from',
+                field: null,
+                cladeRef: decorator + 'USAState',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20c',
+                sizes: null
+            };
+
+            nodeVisualizations['Year'] = {
+                label: 'Year',
+                description: 'the year of the virus',
+                field: null,
+                cladeRef: decorator + 'Year',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                colorsAlt: ['#FF0000', '#000000', '#00FF00'],
+                sizes: [10, 40]
+            };
+
+            nodeVisualizations['Region'] = {
+                label: 'Region',
+                description: 'the region of change',
+                field: null,
+                cladeRef: decorator + 'Region',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+
+
+            nodeVisualizations['Flu Season'] = {
+                label: 'Flu Season',
+                description: 'the flu season',
+                field: null,
+                cladeRef: decorator + 'FluSeason',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+
+            nodeVisualizations['H5 Clade'] = {
+                label: 'H5 Clade',
+                description: 'The H5 clade',
+                field: null,
+                cladeRef: decorator + 'H5Clade',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+            nodeVisualizations['US Swine H1 Clade'] = {
+                label: 'US Swine H1 Clade',
+                description: 'The US Swine H1 clade',
+                field: null,
+                cladeRef: decorator + 'H1Clade',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+            nodeVisualizations['Global Swine H1 Clade'] = {
+                label: 'Glo Swine H1 Clade',
+                description: 'The Global Swine H1 clade',
+                field: null,
+                cladeRef: decorator + 'GlobalH1Clade',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+
+            nodeVisualizations['Virus Type'] = {
+                label: 'Virus Type',
+                description: 'the type of virus',
+                field: null,
+                cladeRef: decorator + 'VirusType',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category10',
+                sizes: null
+            };
+
+            nodeVisualizations['Subtype/Genotype'] = {
+                label: 'Subtype/Genotype',
+                description: 'the subtype or genotype',
+                field: null,
+                cladeRef: decorator + 'ViprType',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20c',
+                sizes: null
+            };
+
+            nodeVisualizations['Genotype'] = {
+                label: 'Genotype',
+                description: 'the vipr genotype',
+                field: null,
+                cladeRef: decorator + 'ViprGenotype',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20b',
+                sizes: null
+            };
+
+            nodeVisualizations['HA & NA Subtype'] = {
+                label: 'HA & NA Subtype',
+                description: 'Both the HA & NA subtypes',
+                field: null,
+                cladeRef: decorator + 'Subtype',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+
+            nodeVisualizations['A/HA Subtype'] = {
+                label: 'A/HA Subtype',
+                description: 'the HA subtype',
+                field: null,
+                cladeRef: decorator + 'HA',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+
+            nodeVisualizations['A/NA Subtype'] = {
+                label: 'A/NA Subtype',
+                description: 'the NA subtype',
+                field: null,
+                cladeRef: decorator + 'NA',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+            
+            nodeVisualizations['A/avg_exon Subtype'] = {
+                label: 'A/avg_exon Subtype',
+                description: 'the avg_exon subtype',
+                field: null,
+                cladeRef: 'avg_exon',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+            
+            nodeVisualizations['A/avg_gene Subtype'] = {
+                label: 'A/avg_gene Subtype',
+                description: 'the avg_gene subtype',
+                field: null,
+                cladeRef: 'avg_gene',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+            
+            
+			nodeVisualizations['A/avg_CDS Subtype'] = {
+                label: 'A/avg_CDS Subtype',
+                description: 'the avg_CDS subtype',
+                field: null,
+                cladeRef: 'avg_CDS',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+
+			
+			nodeVisualizations['A/see ncbi: Subtype'] = {
+                label: 'A/see ncbi: Subtype',
+                description: 'the see ncbi: subtype',
+                field: null,
+                cladeRef: 'see ncbi:',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
+			
+nodeVisualizations['A/avg_mRNA Subtype'] = {
+    label: 'A/avg_mRNA Subtype',
+    description: 'the avg_mRNA subtype',
+    field: null,
+    cladeRef: 'avg_mRNA',
+    regex: false,
+    shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+    colors: 'category20',
+    sizes: null
+};
+
+			
+
+
+            var loc = 'NCBIPhylo_minidom.xml';
+
+            jQuery.get(loc,
+                    function (data) {
+                        var tree = null;
+                        try {
+                            if (loc.substr(-3, 3) === 'xml') {
+                                tree = archaeopteryx.parsePhyloXML(data);
+                            }
+                            else {
+                                tree = archaeopteryx.parseNewHampshire(data);
+                            }
+                        }
+                        catch (e) {
+                            alert("error while parsing tree: " + e);
+                        }
+                        if (tree) {
+                            try {
+                                archaeopteryx.launch('#phylogram1', tree, options, settings, nodeVisualizations);
+                            }
+                            catch (e) {
+                                alert("error while launching archaeopteryx: " + e);
+                            }
+                        }
+                    },
+                    "text")
+                    .fail(function () {
+                        alert("error: failed to read tree(s) from \"" + loc + "\"");
+                    });
+        }
+    </script>
+
+
+</head>
+
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.bar:hover {
+  fill: orangered ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+    
+ .stats
+    {
+        font-family:    Arial, Helvetica, sans-serif;
+        font-size:      14px;
+        color:blue;
+/*        background-color:lightblue;*/
+    }
+    
+</style>
+
+<body onload="load()">
+
+<div>
+    <h2> <font color="blue"> Tree of life:  Summary Statistics </font> </h2>
+    <p>
+        Data is based on ncbi GFF files (<a href="https://www.ncbi.nlm.nih.gov/" target="_blank">ncbi</a>)
+    </p>
+    <p>
+        Boa for Genomics  <a href="http://genomics.dd:8083/"
+                            target="_blank">documentation</a>
+        <br>
+        <br>
+    </p>
+    <p>
+    <div id='phylogram1'></div>
+    <div id='controls0' class='ui-widget-content'></div>
+    <div id='controls1' class='ui-widget-content'></div>
+    <div id='controls2' class='visuals'  style="position: absolute; left: 700px; top: 400px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
+<!--
+        <svg id='svg1' width="960" height="500">
+          <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+        </svg>
+-->
+
+    </div>
+    
+    <div id='controls3' class='stats'   style="position: absolute; left: 750px; top: 120px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
+    </div>
+    
+    <div id='controls4' class='stats2'   style="position: absolute; left: 700px; top: 600px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
+    </div>
+
+    
+    </p>
+    
+    <div id="controls4" >  </div>
+         
+</div>
+
+<p>
+    return to <a href="http://genomics.dd:8083/"> Boa for Genomics </a>
+</p>
+
+</body>
