@@ -1,0 +1,11 @@
+{
+    "preview": "./index.html",
+    "terminals": [{
+        "name": "",
+        "command": ""
+    }],
+    "files": ["index.html"],
+    "ui": {
+        "bottom": false
+    }
+}
