@@ -1726,31 +1726,31 @@ if (!phyloXml) {
                     mRNA_no=0,
                     CDS_no=0;
                 var title = n.name ? 'Node Data: ' + n.name : 'Node Data';
-                var text = '';
+                var text = '<table class="container table-responsive table-striped table-hover">';
                 if (n.name) {
-                    text += 'Name: ' + n.name + '<br>';
+                    text += '<tr><th>' +'Name: ' +'</th>' + '<td>'+n.name +'</td> </tr>';
                 }
                 if (n.branch_length) {
-                    text += 'Distance to Parent: ' + n.branch_length + '<br>';
+                    text += '<tr><th>' +'Distance to Parent: ' +'</th><td>'+ n.branch_length + '</td></tr>';
                 }
                 var i = 0;
                 if (n.confidences) {
                     for (i = 0; i < n.confidences.length; ++i) {
                         var c = n.confidences[i];
                         if (c.type) {
-                            text += 'Confidence [' + c.type + ']: ' + c.value + '<br>';
+                            text += '<tr><th>' +'Confidence [' + c.type + ']: ' + '</th><td>'+ c.value + '</td></tr>';
                         }
                         else {
-                            text += 'Confidence: ' + c.value + '<br>';
+                            text += '<tr><th>' +'Confidence: ' + '</th><td>'+ c.value + '</td></tr>';
                         }
                         if (c.stddev) {
-                            text += '- stdev: ' + c.stddev + '<br>';
+                            text += '<tr><th>' +'- stdev: ' + '</th><td>'+ c.stddev + '</td></tr>';
                         }
                     }
                 }
                 if (n.taxonomies) {
                     for (i = 0; i < n.taxonomies.length; ++i) {
-                        text += 'Taxonomy<br>';
+                        text += '<tr><th>' + 'Taxonomy </th><td></td> </tr>';
                         var t = n.taxonomies[i];
                         if (t.id) {
                             if (t.id.provider) {
@@ -1764,7 +1764,7 @@ if (!phyloXml) {
                             text += '- Code: ' + t.code + '<br>';
                         }
                         if (t.scientific_name) {
-                            text += '- Scientific name: ' + t.scientific_name + '<br>';
+                            text += '<tr><th>' + '- Scientific name: ' + '</th><td>'+ t.scientific_name + '</td></tr>';
                         }
                         if (t.common_name) {
                             text += '- Common name: ' + t.common_name + '<br>';
@@ -1844,14 +1844,14 @@ if (!phyloXml) {
                         var property = n.properties[i];
                         if (property.ref && property.value) {
                             if (property.unit) {
-                                text += property.ref + ': ' + property.value + property.unit + '<br>';
+                                text +='<tr><th>' + property.ref + '</th><td> ' + property.value + property.unit + '</td></tr>';
                             }
                             else {
                                 if (property.ref=='see ncbi:'){
-                                    ncbi_link = '<a href=' + property.value +' target="_blank" >' + 'See NCBI' + '</a>'  + '<br>'
+                                    ncbi_link = ' <tr class="table-info"> <th> See NCBI </th> <td><a href=' + property.value +' target="_blank" >' + ' NCBI' + '</a>'  + '</td></tr>'
                                 }else{
                                 
-                                    text += property.ref + ': ' + property.value + '<br>';
+                                    text += '<tr><th>' + property.ref + '</th><td>' + property.value + '</td></tr>';
                                 }
                                 
                             }
@@ -1887,9 +1887,9 @@ if (!phyloXml) {
                     }
                 }
                 if (n.children || n._children) {
-                    text += 'Number of GFFs: ' + forester.calcSumOfAllExternalDescendants(n) + '<br>';
+                    text += '<tr><th>' + 'Number of GFFs: ' + '</th><td>' + forester.calcSumOfAllExternalDescendants(n) + '</td></tr>';
                 }
-                text += 'Depth: ' + forester.calcDepth(n) + '<br>';
+                text += '<tr><th>' + 'Depth: ' + '</th><td>' + forester.calcDepth(n) + '</td></tr>';
             
                 text +=ncbi_link;
 
@@ -5331,7 +5331,7 @@ if (!phyloXml) {
         function makeDisplayControl() {
             var h = "";
 
-            h = h.concat('<fieldset><legend>Display Data</legend>');
+            h = h.concat('<fieldset><p style="font-size:9px" >Display Data</p>');
             h = h.concat('<div class="' + DISPLAY_DATA_CONTROLGROUP + '">');
             if (_basicTreeProperties.nodeNames) {
                 h = h.concat(makeCheckboxButton('Node Name', NODE_NAME_CB, 'to show/hide node names (node names usually are the untyped labels found in New Hampshire/Newick formatted trees)'));
@@ -5375,7 +5375,7 @@ if (!phyloXml) {
         function makeZoomControl() {
             var h = "";
             h = h.concat('<fieldset>');
-            h = h.concat('<legend>Zoom</legend>');
+            h = h.concat('<p>Zoom</p>');
             h = h.concat(makeButton('Y+', ZOOM_IN_Y, 'zoom in vertically (Alt+Up or Shift+mousewheel)'));
             h = h.concat('<br>');
             h = h.concat(makeButton('X-', ZOOM_OUT_X, 'zoom out horizontally (Alt+Left or Shift+Alt+mousewheel)'));
@@ -5390,7 +5390,7 @@ if (!phyloXml) {
         function makeControlButtons() {
             var h = "";
             h = h.concat('<fieldset>');
-            h = h.concat('<legend>Tools</legend>');
+            h = h.concat('<p>Tools </p>');
             h = h.concat('<div>');
             h = h.concat(makeButton('O', ORDER_BUTTON, 'order all (Alt+O)'));
             h = h.concat(makeButton('R', RETURN_TO_SUPERTREE_BUTTON, 'return to the super-tree (if in sub-tree) (Alt+R)'));
@@ -5438,14 +5438,14 @@ if (!phyloXml) {
         function makeAutoCollapse() {
             var h = "";
             h = h.concat('<fieldset>');
-            h = h.concat('<legend>Collapse Depth</legend>');
+            h = h.concat('<p style="font-size:8px">Collapse Depth</p>');
             h = h.concat(makeButton('-', DECR_DEPTH_COLLAPSE_LEVEL, 'to decrease the depth threshold (wraps around) (Alt+A)'));
             h = h.concat(makeTextInput(DEPTH_COLLAPSE_LABEL, 'the current depth threshold'));
             h = h.concat(makeButton('+', INCR_DEPTH_COLLAPSE_LEVEL, 'to increase the depth threshold (wraps around) (Alt+S)'));
             h = h.concat('</fieldset>');
             if (_settings.enableCollapseByBranchLenghts && _basicTreeProperties.branchLengths) {
                 h = h.concat('<fieldset>');
-                h = h.concat('<legend>Collapse Length</legend>');
+                h = h.concat('<p style="font-size:8px" >Collapse Length</p>');
                 h = h.concat(makeButton('-', DECR_BL_COLLAPSE_LEVEL, 'to decrease the maximal subtree branch length threshold (wraps around)'));
                 h = h.concat(makeTextInput(BL_COLLAPSE_LABEL, 'the current maximal subtree branch length threshold'));
                 h = h.concat(makeButton('+', INCR_BL_COLLAPSE_LEVEL, 'to increase the maximal subtree branch length threshold (wraps around)'));
@@ -5455,7 +5455,7 @@ if (!phyloXml) {
 
             if (_settings.enableCollapseByFeature) {
                 h = h.concat('<fieldset>');
-                h = h.concat('<legend>Collapse Feature</legend>');
+                h = h.concat('<p style="font-size:8px" >Collapse Feature</p>');
                 h = h.concat('<select name="' + COLLAPSE_BY_FEATURE_SELECT + '" id="' + COLLAPSE_BY_FEATURE_SELECT + '">');
                 h = h.concat('<option value="' + OFF_FEATURE + '">' + OFF_FEATURE + '</option>');
                 if (_basicTreeProperties.taxonomies) {
@@ -5480,7 +5480,7 @@ if (!phyloXml) {
                 " TS:taxonomy scientific name, SN:sequence name, GN:gene name, SS:sequence symbol, MS:molecular sequence, ...)";
             var h = "";
             h = h.concat('<fieldset>');
-            h = h.concat('<legend>Search</legend>');
+            h = h.concat('<p>Search</p>');
             h = h.concat(makeTextInput(SEARCH_FIELD_0, tooltip));
             h = h.concat(makeButton('R', RESET_SEARCH_A_BTN, RESET_SEARCH_A_BTN_TOOLTIP));
             h = h.concat('<br>');
@@ -5512,7 +5512,7 @@ if (!phyloXml) {
             var h = "";
             h = h.concat('<form action="#">');
             h = h.concat('<fieldset>');
-            h = h.concat('<legend>Visualizations</legend>');
+            h = h.concat('<p>Visualizations</p>');
             h = h.concat(makeSelectMenu('Label Color:', '<br>', LABEL_COLOR_SELECT_MENU, 'colorize the node label according to a property'));
             h = h.concat('<br>');
             h = h.concat(makeSelectMenu('Node Fill Color:', '<br>', NODE_FILL_COLOR_SELECT_MENU, 'colorize the node fill according to a property'));
@@ -5532,7 +5532,7 @@ if (!phyloXml) {
             var mouseTip = ' (alternatively, place legend with mouse using shift+left-mouse-button click, or alt+left-mouse-button click)';
             var h = "";
             h = h.concat('<fieldset>');
-            h = h.concat('<legend>Vis Legend</legend>');
+            h = h.concat('<p>Vis Legend</p>');
             h = h.concat(makeButton('Show', LEGENDS_SHOW_BTN, 'to show/hide legend(s)'));
             h = h.concat(makeButton('Dir', LEGENDS_HORIZ_VERT_BTN, 'to toggle between vertical and horizontal alignment of (multiple) legends'));
             h = h.concat('<br>');

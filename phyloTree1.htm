@@ -490,33 +490,127 @@ body {
         <br>
         <br>
     </p>
-    <p>
-    <div class="container" id='phylogram1'></div>
+    
+    <div  id='phylogram1'></div>
     <div id='controls0' class='uii-widget-content' ></div>
-    <div class="container" id='controls1' class='ui-widget-content'></div>
-    
-    
-    <div id='controls3' class='stats' style="position: absolute; left: 750px; top: 120px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
-    </div>
-    
-    <div class="container"  id='controls2' class='visuals'  style="position: absolute; left: 700px; top: 400px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
-<!--
-        <svg id='svg1' width="960" height="500">
-          <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
-        </svg>
--->
+    <div  id='controls1' class='ui-widget-content'></div>
+ 
+<div id="summarystats" role="tablist" aria-multiselectable="true"  style="height:150px; width:350px;position: absolute; left: 750px; top: 100px; text-align: left; padding: 0.1em; opacity: 0.85;" >
+    <div class="card">
+        <div class="card-header" role="tab" id="summary"> 
+              <h5 class="mb-0">
+                  <a data-toggle="collapse" data-parent="#summarystats" 
+                     href="#block-controls3" aria-expanded="true" 
+                     aria-controls="controls3">Summary Statistics</a>
+              </h5>
+        </div><!-- card header -->
 
-    </div>
-    
-    <div id='controls4' class='stats2'   style="position: absolute; left: 700px; top: 600px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
+        <div class="collapse show " id="block-controls3" role="tabpanel" aria-labelledby="summary">
+            <div id='controls3' class="card-block" >
+                <p> test </p>
+            </div>
+        </div>
     </div>
 
+    <div class="card">
+        <div class="card-header" role="tab" id="chart1"> 
+              <h5 class="mb-0">
+                  <a data-toggle="collapse" data-parent="#summarystats" 
+                     href="#block-controls2" aria-expanded="true" 
+                     aria-controls="controls2">Chart</a>
+              </h5>
+        </div><!-- card header -->
+
+        <div class="collapse  " id="block-controls2" role="tabpanel" aria-labelledby="summary">
+            <div id='controls2' class="card-block"  >
+                <p> chart 1 </p>
+            </div>
+        </div>
+    </div>
     
-    </p>
+    <div class="card">
+        <div class="card-header" role="tab" id="assembly"> 
+              <h5 class="mb-0">
+                  <a data-toggle="collapse" data-parent="#summarystats" 
+                     href="#block-controls4" aria-expanded="true" 
+                     aria-controls="controls2">Bar chart: Feature leangth</a>
+              </h5>
+        </div><!-- card header -->
+
+        <div class="collapse  " id="block-controls4" role="tabpanel" aria-labelledby="summary">
+            <div id='controls4' class="card-block"  >
+                <p> bar chart:average of feature length</p>
+            </div>
+        </div>
+    </div>
     
-    <div id="controls4" >  </div>
+    <div class="card">
+        <div class="card-header" role="tab" id="assembly"> 
+              <h5 class="mb-0">
+                  <a data-toggle="collapse" data-parent="#summarystats" 
+                     href="#block-controls5" aria-expanded="true" 
+                     aria-controls="controls5">Distribution</a>
+              </h5>
+        </div><!-- card header -->
+
+        <div class="collapse  " id="block-controls5" role="tabpanel" aria-labelledby="assembly">
+            <div id='controls5' class="card-block"  >
+                <p> Distribution chart </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header" role="tab" id="assembly"> 
+              <h5 class="mb-0">
+                  <a data-toggle="collapse" data-parent="#summarystats" 
+                     href="#block-controls5" aria-expanded="true" 
+                     aria-controls="controls5">Assembly program</a>
+              </h5>
+        </div><!-- card header -->
+
+        <div class="collapse  " id="block-controls5" role="tabpanel" aria-labelledby="assembly">
+            <div id='controls5' class="card-block"  >
+                <p> Assembly program</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+</div> <!-- card  -->
          
 </div>
-</div>
+    
+<hr class="featurette-divider">
+    
+<footer>
+  <div class="content container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+          <div >
+            <a href="http://www.iastate.edu">
+              <img src="images/isu-stacked.svg" alt="Iowa State University" class="isu-logo">
+            </a>
+          </div>
+          
+      </div>
+       
+      <div class="col-sm-3">
+        <p> </p>    
+      </div><!-- col-sm-6 -->
+        
+      <div class="col-sm-6">
+        <p>Call us toll-free at <span class="phone">888-555-1212</span></p>
+        <p>All contents &copy; 2017 <a href="http://www.iastate.edu">www.iastate.edu</a>. All rights reserved.</p>    
+      </div><!-- col-sm-6 -->
+      
+    </div><!-- row -->
+  </div><!-- content container -->
+</footer>
+    
+    
+</div> <!-- container -->
 
 </body>
