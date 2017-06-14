@@ -4,37 +4,50 @@
     <title> Tree of life  </title>
 
     <!-- For MS IE/Edge compatibility:-->
-    <meta http-equiv="X-UA-Compatible" content="IE=100">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=100">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
+    <!-- Bootstrap template--->
+<!--
+    <script src="js/jquery.slim.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+-->
+    
     <!-- D3.js, jQuery, and jQuery UI:-->
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
     <!-- SAX XML parser:-->
-    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/sax.js"></script>
+    <script src="js/sax.js"></script>
 
     <!--    tooltip D3-->
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
     <!-- The following five libraries are needed for download/export of images and files:-->
-    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/rgbcolor.js"></script>
-    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/Blob.js"></script>
-    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/canvas-toBlob.js"></script>
-    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/canvg.js"></script>
-    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/dependencies/FileSaver.js"></script>
+    <script src="js/rgbcolor.js"></script>
+    <script src="js/Blob.js"></script>
+    <script src="js/canvas-toBlob.js"></script>
+    <script src="js/canvg.js"></script>
+    <script src="js/FileSaver.js"></script>
 
     <!-- Archaeopteryx.js requires forester.js and phyloxml_parser.js:-->
-    <script src="http://localhost/js/phyloxml_0_912.js"></script>
-    <script src="https://dl.dropboxusercontent.com/u/14456265/archaeopteryx-js/forester_1_01.js"></script>
-    <script src="http://localhost/js/archaeopteryx_1_01.js"></script>
+    <script src="js/phyloxml_0_912.js"></script>
+    <script src="js/forester.js"></script>
+    <script src="js/archaeopteryx_1_01.js"></script>
 
     <!-- CSS for jQuery UI: -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 
 
     <!-- CSS for this page's HTML: -->
-    <link rel="stylesheet" href="http://www.phyloxml.org/css/forester.css">
+    <link rel="stylesheet" href="css/forester.css">
 
     <script>
 
@@ -323,21 +336,21 @@
                 sizes: null
             };
 			
-nodeVisualizations['A/avg_mRNA Subtype'] = {
-    label: 'A/avg_mRNA Subtype',
-    description: 'the avg_mRNA subtype',
-    field: null,
-    cladeRef: 'avg_mRNA',
-    regex: false,
-    shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-    colors: 'category20',
-    sizes: null
-};
+            nodeVisualizations['A/avg_mRNA Subtype'] = {
+                label: 'A/avg_mRNA Subtype',
+                description: 'the avg_mRNA subtype',
+                field: null,
+                cladeRef: 'avg_mRNA',
+                regex: false,
+                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+                colors: 'category20',
+                sizes: null
+            };
 
 			
 
 
-            var loc = 'NCBIPhylo_minidom.xml';
+            var loc = 'data/NCBIPhylo_minidom.xml';
 
             jQuery.get(loc,
                     function (data) {
@@ -437,8 +450,38 @@ body {
 </style>
 
 <body onload="load()">
+    
+<div class="container">
 
-<div>
+<!-- class for colors     style="background-color: #C4226F" -->
+<nav class="navbar bg-primary navbar-inverse navbar-toggleable-sm" >
+   <div class="container">
+      <a class="navbar-brand" href="#"> 
+          <img src="images/wisdompetlogo.svg" style="width:80px;" alt="Logo">
+          Boa for Genomics
+       </a>
+      <div class="navbar-nav">
+          <a  class="nav-item nav-link active " href="#">Home</a>
+          <a  class="nav-item nav-link" href="#">Tree of life</a>
+          <a class="nav-item nav-link"  href="#">Services</a>
+          <a  class="nav-item nav-link" href="#">Staff</a>
+          <div class="dropdown">
+              <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                 aria-haspopup="true" aria-expanded="false" id="BoaNav"
+                 >About</a>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#"> PLSE lab</a>
+                  <a class="dropdown-item" href="#"> GIF lab</a>
+                  <a class="dropdown-item" href="#"> Computer Science Department</a>
+              </div>
+              
+          </div>
+      </div>
+   </div> <!-- container -->
+</nav>
+
+    
+<div class="container">
     <h2> <font color="blue"> Tree of life:  Summary Statistics </font> </h2>
     <p>
         Data is based on ncbi GFF files (<a href="https://www.ncbi.nlm.nih.gov/" target="_blank">ncbi</a>)
@@ -450,19 +493,21 @@ body {
         <br>
     </p>
     <p>
-    <div id='phylogram1'></div>
-    <div id='controls0' class='ui-widget-content'></div>
-    <div id='controls1' class='ui-widget-content'></div>
-    <div id='controls2' class='visuals'  style="position: absolute; left: 700px; top: 400px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
+    <div class="container" id='phylogram1'></div>
+    <div id='controls0' class='uii-widget-content' ></div>
+    <div class="container" id='controls1' class='ui-widget-content'></div>
+    
+    
+    <div id='controls3' class='stats' style="position: absolute; left: 750px; top: 120px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
+    </div>
+    
+    <div class="container"  id='controls2' class='visuals'  style="position: absolute; left: 700px; top: 400px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
 <!--
         <svg id='svg1' width="960" height="500">
           <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
         </svg>
 -->
 
-    </div>
-    
-    <div id='controls3' class='stats'   style="position: absolute; left: 750px; top: 120px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
     </div>
     
     <div id='controls4' class='stats2'   style="position: absolute; left: 700px; top: 600px; text-align: left; padding: 0.1em; opacity: 0.85;   " >
@@ -474,9 +519,6 @@ body {
     <div id="controls4" >  </div>
          
 </div>
-
-<p>
-    return to <a href="http://genomics.dd:8083/"> Boa for Genomics </a>
-</p>
+</div>
 
 </body>

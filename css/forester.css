@@ -1,0 +1,66 @@
+h1 {
+    color: #ff0000;
+    font-weight: bold;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+h2 {
+    color: #ff0000;
+    font-weight: bold;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+h3 {
+    color: #909090;
+    font-weight: bold;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+h4 {
+    color: #909090;
+    font-weight: bold;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+p {
+    color: #101010;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+a:link {
+    color: #8b008b;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #8b008b;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8b008b;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 10px;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #8b008b;
+    font-family: "Verdana", "Arial", sans-serif;
+    font-size: 10px;
+    text-decoration: underline;
+}
