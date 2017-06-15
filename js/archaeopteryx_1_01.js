@@ -1763,8 +1763,9 @@ if (!phyloXml) {
                         if (t.code) {
                             text += '- Code: ' + t.code + '<br>';
                         }
+                        // FIXME this is sci name not tax id
                         if (t.scientific_name) {
-                            text += '<tr><th>' + '- Scientific name: ' + '</th><td>'+ t.scientific_name + '</td></tr>';
+                            text += '<tr><th>' + 'Taxonomy ID ' + '</th><td>'+ t.scientific_name + '</td></tr>';
                         }
                         if (t.common_name) {
                             text += '- Common name: ' + t.common_name + '<br>';
