@@ -1713,9 +1713,11 @@ if (!phyloXml) {
         function displayNodeData2(n) {
                 // @Hamid
 //                console.log(n)
+            
                 $(this).attr('stroke','green');
                 console.log($(this));
 
+                var tax_id;
                 var ncbi_link;
                 var avg_exon=0,
                     avg_gene=0,
@@ -1766,6 +1768,7 @@ if (!phyloXml) {
                         // FIXME this is sci name not tax id
                         if (t.scientific_name) {
                             text += '<tr><th>' + 'Taxonomy ID ' + '</th><td>'+ t.scientific_name + '</td></tr>';
+                            tax_id=t.scientific_name;
                         }
                         if (t.common_name) {
                             text += '- Common name: ' + t.common_name + '<br>';
@@ -2105,10 +2108,92 @@ if (!phyloXml) {
                 dialog.dialog('option', 'modal', true);
                 dialog.dialog('option', 'title', title);
 
-                update();
-            }
+                makeplot(tax_id);
+            
 
+                update();
+            
+            
+                
+            }
+  
+  
         
+        function makeplot(tax_id) {
+            Plotly.d3.csv("data/data1.csv", function(data){ processData(data, tax_id) } );
+
+        };
+
+
+        function processData(allRows, tax_id) {
+
+            console.log(allRows);
+            var exon = [], 
+                gene = [], 
+                mRNA = [], 
+                CDS = [], 
+                standard_deviation = [];
+
+            for (var i=0; i<allRows.length; i++) {
+                var row = allRows[i];
+                if (row['parentTaxid']==tax_id){
+                    exon.push( row['exon'] );
+                    gene.push( row['gene'] );
+                    mRNA.push( row['mRNA'] );
+                    CDS.push( row['CDS'] );
+                }
+
+            }
+            console.log( 'X',exon, 'Y',gene );
+
+            makePlotly( exon, gene, mRNA, CDS);
+
+        }
+
+
+        function makePlotly( exon, gene, mRNA, CDS ){
+
+            var Exon_No = {
+              y: exon,
+              boxpoints: 'all',
+              name: 'Exon_No',    
+              type: 'box'
+            };
+
+            var Gene_No = {
+              y: gene,
+              boxpoints: 'all', 
+              name: 'Gene_No',    
+              type: 'box'
+            };
+
+            var mRNA_No = {
+              y: mRNA,
+              boxpoints: 'all',
+              name: 'mRNA_No',    
+              type: 'box'
+            };
+
+            var CDS_No = {
+              y: CDS,
+              boxpoints: 'all',   
+              name: 'CDS_No',
+              type: 'box'
+            };
+
+            var data = [Exon_No, Gene_No,mRNA_No, CDS_No];
+
+            Plotly.newPlot('controls5', data);
+
+
+        };
+
+
+
+
+
+
+      
         nodeEnter.append('text')
             .attr('class', "extlabel")
             .attr('text-anchor', function (d) {
