@@ -1701,7 +1701,7 @@ if (!phyloXml) {
 //            d3.select(this).style('stroke','green')
 //                           .style('border-radius','4px')                    
 //            ;
-              this.setAttribute({ "fill":"green" });
+//              this.setAttribute({ "fill":"green" });
 //             d3.select(this)
 //               .attr("fill","red");
 
