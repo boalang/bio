@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/design.css">
+
 
     <!-- Bootstrap template--->
     <script src="js/jquery.slim.min.js"></script>
@@ -21,6 +23,8 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <!-- SAX XML parser:-->
     <script src="js/sax.js"></script>
@@ -452,25 +456,25 @@ body {
 <div class="container">
 
 <!-- class for colors     style="background-color: #C4226F" -->
-<nav class="navbar bg-primary navbar-inverse navbar-toggleable-sm" >
+<nav class="navbar brand-bg-color navbar-inverse navbar-toggleable-sm" >
    <div class="container">
-      <a class="navbar-brand" href="http://127.0.0.1:50199/index.html"> 
-          <img src="images/wisdompetlogo.svg" style="width:80px;" alt="Logo">
+      <a class="navbar-brand" href="index.html"> 
+          <img src="images/dna1.png" style="width:80px;" alt="Logo">
           Boa for Genomics
        </a>
       <div class="navbar-nav">
-          <a  class="nav-item nav-link active " href="#">Home</a>
+          <a  class="nav-item nav-link " href="index.html">Home</a>
           <a  class="nav-item nav-link" href="#">Tree of life</a>
-          <a class="nav-item nav-link"  href="#">Services</a>
-          <a  class="nav-item nav-link" href="#">Staff</a>
+          <a class="nav-item nav-link"  href="help.html">Help</a>
+<!--          <a  class="nav-item nav-link" href="#">Staff</a>-->
           <div class="dropdown">
               <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" href="#"
                  aria-haspopup="true" aria-expanded="false" id="BoaNav"
                  >About</a>
               <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#"> PLSE lab</a>
-                  <a class="dropdown-item" href="#"> GIF lab</a>
-                  <a class="dropdown-item" href="#"> Computer Science Department</a>
+                  <a class="dropdown-item" href="http://design.cs.iastate.edu/" target="_blank"> PLSE lab</a>
+                  <a class="dropdown-item" href="http://gif.biotech.iastate.edu/" target="_blank"> GIF lab</a>
+                  <a class="dropdown-item" href="http://www.cs.iastate.edu/" target="_blank"> Computer Science Department</a>
               </div>
               
           </div>
@@ -480,7 +484,7 @@ body {
 
     
 <div class="container">
-    <h2> <font color="blue"> Tree of life:  Summary Statistics </font> </h2>
+    <h2> <font color="black"> Tree of life:  Summary Statistics </font> </h2>
     <p>
         Data is based on ncbi GFF files (<a href="https://www.ncbi.nlm.nih.gov/" target="_blank">ncbi</a>)
     </p>
@@ -495,7 +499,7 @@ body {
     <div id='controls0' class='uii-widget-content' ></div>
     <div  id='controls1' class='ui-widget-content'></div>
  
-<div id="summarystats" role="tablist" aria-multiselectable="true"  style="height:150px; width:350px;position: absolute; left: 750px; top: 100px; text-align: left; padding: 0.1em; opacity: 0.85;" >
+<div id="summarystats" role="tablist" aria-multiselectable="true"   >
     <div class="card">
         <div class="card-header" role="tab" id="summary"> 
               <h5 class="mb-0">
@@ -507,7 +511,7 @@ body {
 
         <div class="collapse " id="block-controls3" role="tabpanel" aria-labelledby="summary">
             <div id='controls3' class="card-block" >
-                <p> test </p>
+                <p> summary statistics </p>
             </div>
         </div>
     </div>
@@ -517,7 +521,7 @@ body {
               <h5 class="mb-0">
                   <a data-toggle="collapse" data-parent="#summarystats" 
                      href="#block-controls2" aria-expanded="true" 
-                     aria-controls="controls2">Chart</a>
+                     aria-controls="controls2">Bar Chart: features size</a>
               </h5>
         </div><!-- card header -->
 
@@ -533,7 +537,7 @@ body {
               <h5 class="mb-0">
                   <a data-toggle="collapse" data-parent="#summarystats" 
                      href="#block-controls4" aria-expanded="true" 
-                     aria-controls="controls2">Bar chart: Feature leangth</a>
+                     aria-controls="controls4">Bar chart: Feature leangth</a>
               </h5>
         </div><!-- card header -->
 
@@ -553,8 +557,8 @@ body {
               </h5>
         </div><!-- card header -->
 
-        <div class="collapse  " id="block-controls5" role="tabpanel" aria-labelledby="assembly">
-            <div id='controls5' class="card-block"  >
+        <div class="collapse  " id="block-controls5" role="tabpanel" aria-labelledby="summary">
+            <div id='controls5' class="card-block" >
                 <p> Distribution chart </p>
             </div>
         </div>
@@ -564,16 +568,18 @@ body {
         <div class="card-header" role="tab" id="assembly"> 
               <h5 class="mb-0">
                   <a data-toggle="collapse" data-parent="#summarystats" 
-                     href="#block-controls5" aria-expanded="true" 
-                     aria-controls="controls5">Assembly program</a>
+                     href="#block-controls6" aria-expanded="true" 
+                     aria-controls="controls6">Assembly program</a>
               </h5>
         </div><!-- card header -->
 
-        <div class="collapse  " id="block-controls5" role="tabpanel" aria-labelledby="assembly">
-            <div id='controls5' class="card-block"  >
-                <p> Assembly program</p>
+        <div class="collapse  " id="block-controls6" role="tabpanel" aria-labelledby="assembly">
+            <div id='controls6' class="card-block"  >
+                <p> Assembly method: allpaths v. R47093</p>
+                <p> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2336810/" target="_blank">NCBI Publication </a>  </p>
             </div>
-        </div>
+        </div> <!--  card block -->
+       
     </div>
     
     

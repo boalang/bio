@@ -1,0 +1,10 @@
+body {
+  font-family: Helvetica, Arial, sans-serif; }
+
+
+.brand-bg-color {
+  background-color: #c00;
+  padding-top: 0.5rem; }
+
+.nav-bg-color {
+  background-color: rgba(230, 230, 230, 0.95); }

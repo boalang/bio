@@ -2109,6 +2109,7 @@ if (!phyloXml) {
                 dialog.dialog('option', 'title', title);
 
                 makeplot(tax_id);
+                makeAssemblyplot(tax_id);
             
 
                 update();
@@ -2121,6 +2122,12 @@ if (!phyloXml) {
         
         function makeplot(tax_id) {
             Plotly.d3.csv("data/data1.csv", function(data){ processData(data, tax_id) } );
+
+        };
+        
+
+        function makeAssemblyplot(tax_id) {
+            Plotly.d3.csv("data/nodeAssembler.csv", function(data){ processAssemblyData(data, tax_id) } );
 
         };
 
@@ -2151,11 +2158,42 @@ if (!phyloXml) {
         }
 
 
+        function processAssemblyData(allRows,tax_id) {
+
+            console.log(allRows);
+            var assemblers = [], 
+                counts = [], 
+                standard_deviation = [];
+
+            for (var i=0; i<allRows.length; i++) {
+                var row = allRows[i];
+                console.log(row)
+                if (row['parentTaxid']==tax_id){
+
+                    if (row['assembler'].length==0){
+                        row['assembler']='N/A';
+                    }
+                    if(assemblers.indexOf(row['assembler'])==-1){
+                        assemblers.push(row['assembler']);               
+                        counts[assemblers.indexOf(row['assembler'])]=1;
+
+                    }else{
+                    counts[assemblers.indexOf(row['assembler'])]++;
+                    }
+
+                }
+
+            }
+
+            makeAssemblyPlotly( assemblers, counts);
+
+        }
+
         function makePlotly( exon, gene, mRNA, CDS ){
 
             var Exon_No = {
               y: exon,
-              boxpoints: 'all',
+              boxpoints: 'outliers',
               name: 'Exon_No',    
               type: 'box'
             };
@@ -2189,7 +2227,27 @@ if (!phyloXml) {
         };
 
 
+        function makeAssemblyPlotly(assemblers, counts){
+	
+           console.log(assemblers)
+           console.log(counts);
 
+            var data = [{
+                values: counts,
+                labels: assemblers,
+                type: 'pie',
+
+
+            }];
+           var layout = {
+              height: 380,
+              width: 480
+            };
+
+
+           Plotly.newPlot('controls6', data, layout);
+
+        };
 
 
 

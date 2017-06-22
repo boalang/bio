@@ -25,10 +25,15 @@ function makeplot() {
 
 };
 
-	
+
+function makeAssemblyplot() {
+ 	Plotly.d3.csv("data/nodeAssembler.csv", function(data){ processAssemblyData(data) } );
+
+};
+
+
 function processData(allRows) {
 
-	console.log(allRows);
 	var exon = [], 
         gene = [], 
         mRNA = [], 
@@ -45,21 +50,51 @@ function processData(allRows) {
         }
 		
 	}
-	console.log( 'X',exon, 'Y',gene );
 
     makePlotly( exon, gene, mRNA, CDS);
 
 }
 
+function processAssemblyData(allRows) {
+
+	console.log(allRows);
+	var assemblers = [], 
+        counts = [], 
+        standard_deviation = [];
+
+	for (var i=0; i<allRows.length; i++) {
+		var row = allRows[i];
+        console.log(row)
+        if (row['parentTaxid']=='715989'){
+            
+            if (row['assembler'].length==0){
+                row['assembler']='N/A';
+            }
+            if(assemblers.indexOf(row['assembler'])==-1){
+                assemblers.push(row['assembler']);               
+                counts[assemblers.indexOf(row['assembler'])]=1;
+
+            }else{
+            counts[assemblers.indexOf(row['assembler'])]++;
+            }
+		    
+        }
+		
+	}
+
+    makeAssemblyPlotly( assemblers, counts);
+
+}
 
 function makePlotly( exon, gene, mRNA, CDS ){
 	
     var Exon_No = {
       y: exon,
-      boxpoints: 'all',
+      boxpoints: 'outliers',
       name: 'Exon_No',    
       type: 'box'
     };
+    
 
     var Gene_No = {
       y: gene,
@@ -70,7 +105,7 @@ function makePlotly( exon, gene, mRNA, CDS ){
     
     var mRNA_No = {
       y: mRNA,
-      boxpoints: 'all',
+      boxpoints: 'outliers',
       name: 'mRNA_No',    
       type: 'box'
     };
@@ -81,15 +116,92 @@ function makePlotly( exon, gene, mRNA, CDS ){
       name: 'CDS_No',
       type: 'box'
     };
+    
+    var layout = { 
+        hovermode:'closest',
+        title:'Hover on Points'
+     };
+
 
     var data = [Exon_No, Gene_No,mRNA_No, CDS_No];
 
-    Plotly.newPlot('myDiv', data);
+    Plotly.newPlot('myDiv', data, layout);
 
+    
+    var myPlot = document.getElementById('myDiv'),
+    hoverInfo = document.getElementById('hoverinfo');
+    
+   myPlot.on('plotly_hover', function(data){
+    var infotext = data.points.map(function(d){
+      console.log("hover")    
+      return (d.data.name+': x= '+d.x+', y= '+d.y.toPrecision(3));
+    });
+  
+    hoverInfo.innerHTML = infotext.join('<br/>');
+    })
+     .on('plotly_unhover', function(data){
+        hoverInfo.innerHTML = '';
+    });
+
+    
 
 };
 
+function makeAssemblyPlotly(assemblers, counts){
+	
+   console.log(assemblers)
+   console.log(counts);
+    
+   
+    var data = [{
+        values: counts,
+        labels: assemblers,
+        type: 'pie',
+    
+        
+    }];
+   var layout = {
+      height: 380,
+      width: 480
+    };
+
+   
+   Plotly.newPlot('myDiv3', data, layout);
+    
+   
+    
+    
+    
+
+};
+            
 makeplot();
+makeAssemblyplot()
+
+var trace1 = {
+  x: ["1", "2", "3", "4"],
+  y: [10, 11, 12, 13],
+  text:['e1', 'e2', 'e3','e4'],    
+    
+  mode: 'markers',
+  marker: {
+    color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+    opacity: [1, 0.8, 0.6, 0.4],
+    size: [40, 60, 80, 90]
+  }
+};
+
+var data = [trace1];
+
+var layout = {
+  title: 'Marker Size and Color',
+  showlegend: false,
+  height: 400,
+  width: 480
+};
+
+Plotly.newPlot('myDiv2', data, layout);
+
 
 
 
