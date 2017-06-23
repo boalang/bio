@@ -64,3 +64,7 @@ a:active {
     font-size: 10px;
     text-decoration: underline;
 }
+.selectednode{
+    color:red;
+    fill:blue;
+}
