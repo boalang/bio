@@ -1663,7 +1663,7 @@ if (!phyloXml) {
             .data(nodes, function (d) {
                 return d.id || (d.id = ++_i);
             });
-
+        
         var nodeEnter = node.enter().append("g")
             .attr('class', "node")
             .attr('transform', function () {
@@ -1671,10 +1671,10 @@ if (!phyloXml) {
             })
             .style('cursor', 'default')
             .on('click', _treeFn.clickEvent)
-//            .on('mouseover', function(){
-//                window.alert("mouseover!!");
-//            })
-//        
+            .on('mouseover', function(){
+                //@Hamid fixme mouseouver tooltip
+            })
+        
             ;
 
         
@@ -1696,6 +1696,12 @@ if (!phyloXml) {
                 return 0;
             })
             .on('mouseover', function(d){
+              console.log(d);
+            
+//              document.getElementById(d.id).style.color = "#ff0000";
+              _foundNodes0=d;
+              update();
+
               displayNodeData2(d);
 //             $(this).style('fill','green');
 //            d3.select(this).style('stroke','green')
@@ -1712,9 +1718,10 @@ if (!phyloXml) {
 
         function displayNodeData2(n) {
                 // @Hamid
-//                console.log(n)
+               console.log(n)
             
                 $(this).attr('stroke','green');
+                $(this).attr('fill', 'green');
                 console.log($(this));
 
                 var tax_id;
@@ -2134,7 +2141,6 @@ if (!phyloXml) {
 
         function processData(allRows, tax_id) {
 
-            console.log(allRows);
             var exon = [], 
                 gene = [], 
                 mRNA = [], 
@@ -2151,7 +2157,6 @@ if (!phyloXml) {
                 }
 
             }
-            console.log( 'X',exon, 'Y',gene );
 
             makePlotly( exon, gene, mRNA, CDS);
 
@@ -2160,14 +2165,12 @@ if (!phyloXml) {
 
         function processAssemblyData(allRows,tax_id) {
 
-            console.log(allRows);
             var assemblers = [], 
                 counts = [], 
                 standard_deviation = [];
 
             for (var i=0; i<allRows.length; i++) {
                 var row = allRows[i];
-                console.log(row)
                 if (row['parentTaxid']==tax_id){
 
                     if (row['assembler'].length==0){
@@ -2229,8 +2232,8 @@ if (!phyloXml) {
 
         function makeAssemblyPlotly(assemblers, counts){
 	
-           console.log(assemblers)
-           console.log(counts);
+//           console.log(assemblers)
+//           console.log(counts);
 
             var data = [{
                 values: counts,
@@ -2365,9 +2368,11 @@ if (!phyloXml) {
                 return makeNodeStrokeColor(d);
             })
             .style('stroke-width', _options.branchWidthDefault)
+            //@Hamid change node color 
             .style('fill', function (d) {
                 return ( _options.showNodeVisualizations || _options.showNodeEvents) ? makeNodeFillColor(d) : _options.backgroundColorDefault;
-            });
+            })
+            ;
 
 
         var start = _options.phylogram ? (-1) : (-10);
@@ -3007,6 +3012,7 @@ if (!phyloXml) {
     }
 
 
+    //@Hamid change color of the searched node
     function getFoundColor(phynode) {
         if (!_options.searchNegateResult) {
             if (_foundNodes0 && _foundNodes1 && _foundNodes0.has(phynode) && _foundNodes1.has(phynode)) {
@@ -3628,8 +3634,9 @@ if (!phyloXml) {
 
 
     function getClickEventListenerNode(tree) {
-
         function nodeClick() {
+            console.log((d3.select(this)));
+            
 
             if (_showColorPicker === true) {
                 removeColorPicker();
@@ -3975,6 +3982,11 @@ if (!phyloXml) {
 
             removeTooltips();
 
+            // @Hamid 
+            // create tooltip on selected node
+
+            //d3.select(this.parentNode).attr('fill','green');
+            
             d3.select(this).append('rect')
                 .attr('class', 'tooltipElem')
                 .attr('x', 0)
@@ -3984,7 +3996,7 @@ if (!phyloXml) {
                 .attr('rx', 10)
                 .attr('ry', 10)
                 .style('fill-opacity', 0.9)
-                .style('fill', NODE_TOOLTIP_BACKGROUND_COLOR);
+                .style('fill', 'NODE_TOOLTIP_BACKGROUND_COLOR');
 
             var rightPad = 10;
             var topPad = 20;
@@ -4224,6 +4236,7 @@ if (!phyloXml) {
         if (( attrClass !== 'nodeCircleOptions')) {
             removeTooltips();
         }
+        
         if (attrClass === OVERLAY) {
             if (_showColorPicker === true) {
                 removeColorPicker();
