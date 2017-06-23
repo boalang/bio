@@ -297,6 +297,7 @@ if (!phyloXml) {
     var _colorPickerData = null;
     var _usedColorCategories = new Set();
     var _colorsForColorPicker = null;
+    var selected_node=null;
 
 
     function branchLengthScaling(nodes, width) {
@@ -1671,9 +1672,9 @@ if (!phyloXml) {
             })
             .style('cursor', 'default')
             .on('click', _treeFn.clickEvent)
-            .on('mouseover', function(){
-                //@Hamid fixme mouseouver tooltip
-            })
+//            .on('mouseover', function(){
+//                //@Hamid fixme mouseouver tooltip
+//            })
         
             ;
 
@@ -1695,14 +1696,28 @@ if (!phyloXml) {
                 }
                 return 0;
             })
+            .on('mouseout', function(){
+//             d3.select(this)
+//               .style('opacity',0);
+        })
             .on('mouseover', function(d){
               console.log(d);
+              
             
 //              document.getElementById(d.id).style.color = "#ff0000";
-              _foundNodes0=d;
-              update();
 
               displayNodeData2(d);
+            if (selected_node!=null){
+            d3.select(selected_node)
+               .style('opacity', 0);    
+            }
+            selected_node=this;
+            d3.select(this)
+                 // @Hamid FIXME why it doesn't work?????
+                .attr('fill', 'blue')
+                .style('opacity',1);
+//              d3.select('.nodeCircleOptions').attr('fill','green');
+//
 //             $(this).style('fill','green');
 //            d3.select(this).style('stroke','green')
 //                           .style('border-radius','4px')                    
@@ -1719,9 +1734,12 @@ if (!phyloXml) {
         function displayNodeData2(n) {
                 // @Hamid
                console.log(n)
+//               node_selected=true;
             
-                $(this).attr('stroke','green');
-                $(this).attr('fill', 'green');
+//                $(this).attr('stroke','green');
+//                $(this).attr('fill', 'green');
+//                d3.select('.nodeCircleOptions').attr('fill','green');
+               d3.select(this).attr('class', 'selectednode');
                 console.log($(this));
 
                 var tax_id;
@@ -2370,6 +2388,9 @@ if (!phyloXml) {
             .style('stroke-width', _options.branchWidthDefault)
             //@Hamid change node color 
             .style('fill', function (d) {
+//                if (node_selected==true){
+//                    return('green');
+//                }
                 return ( _options.showNodeVisualizations || _options.showNodeEvents) ? makeNodeFillColor(d) : _options.backgroundColorDefault;
             })
             ;
@@ -2428,6 +2449,7 @@ if (!phyloXml) {
                     .attr('d', function () {
                         return 'M' + start + ',' + (-l) + 'L' + xlength + ',' + (-yl) + 'L' + xlength + ',' + (yl) + 'L' + start + ',' + l + 'L' + start + ',' + (-l);
                     })
+                    //@Hamid FIXME change the collapsed colore here
                     .style('stroke', collapsedColor)
                     .style('fill', collapsedColor);
 
@@ -2603,6 +2625,7 @@ if (!phyloXml) {
     }
 
 
+    //@Hamid : node color 
     var makeNodeFillColor = function (phynode) {
         var foundColor = getFoundColor(phynode);
         if (foundColor !== null) {
