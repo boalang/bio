@@ -1,24 +1,7 @@
-//
-//var datacsv;
-//d3.csv("/data/data1.csv", function(csv) {
-//  csv.forEach(function(d) {
-//    d.taxid = +d.taxid;
-//    d["parentTaxid"] = +d["parentTaxid"];
-//  });
-//
-//  var newdata=csv.filter(function(d) { 
-//      return d.close < 400 
-//  });  
-//
-//  csv = csv.filter(function(row) {
-//        if(row['parentTaxid'] == '715989')
-//            return row['exon'];
-//    })    
-//    
-//  console.log(csv);
-//  datacsv=csv;
-//});
 
+
+var taxlist=[];
+var selectedtax=[];
 
 function makeplot() {
  	Plotly.d3.csv("data/data1.csv", function(data){ processData(data) } );
@@ -40,48 +23,70 @@ function processData(allRows) {
         CDS = [], 
         standard_deviation = [];
 
-	for (var i=0; i<allRows.length; i++) {
-		var row = allRows[i];
-        if (row['parentTaxid']=='715989'){
-            exon.push( row['exon'] );
-		    gene.push( row['gene'] );
-            mRNA.push( row['mRNA'] );
-            CDS.push( row['CDS'] );
-        }
-		
+    for(var j=0; j<selectedtax.length; j++){
+
+        for (var i=0; i<allRows.length; i++) {
+            var row = allRows[i];
+
+                if (row['parentTaxid']==taxlist[j]){
+                    exon.push( row['exon'] );
+                    gene.push( row['gene'] );
+                    mRNA.push( row['mRNA'] );
+                    CDS.push( row['CDS'] );
+                }
+            }
 	}
 
     makePlotly( exon, gene, mRNA, CDS);
 
+    console.log(taxlist);
 }
 
+function initialize(){
+  
+    Plotly.d3.csv("data/data1.csv", function(data){
+        for (var i=0; i<data.length; i++) {
+            var row = data[i];
+
+            if (!taxlist.includes(data['parentTaxid'])){
+                taxlist.push(row['parentTaxid']);
+            }
+        }
+        fillList();
+         } );
+
+    
+
+}
 function processAssemblyData(allRows) {
 
-	console.log(allRows);
+//	console.log(allRows);
 	var assemblers = [], 
         counts = [], 
         standard_deviation = [];
 
-	for (var i=0; i<allRows.length; i++) {
-		var row = allRows[i];
-        console.log(row)
-        if (row['parentTaxid']=='715989'){
-            
-            if (row['assembler'].length==0){
-                row['assembler']='N/A';
-            }
-            if(assemblers.indexOf(row['assembler'])==-1){
-                assemblers.push(row['assembler']);               
-                counts[assemblers.indexOf(row['assembler'])]=1;
+    for(var j=0; j<selectedtax.length; j++){
 
-            }else{
-            counts[assemblers.indexOf(row['assembler'])]++;
+        for (var i=0; i<allRows.length; i++) {
+            var row = allRows[i];
+    //        console.log(row)
+            if (row['parentTaxid']==taxlist[j]){
+
+                if (row['assembler'].length==0){
+                    row['assembler']='N/A';
+                }
+                if(assemblers.indexOf(row['assembler'])==-1){
+                    assemblers.push(row['assembler']);               
+                    counts[assemblers.indexOf(row['assembler'])]=1;
+
+                }else{
+                counts[assemblers.indexOf(row['assembler'])]++;
+                }
+
             }
-		    
+
         }
-		
-	}
-
+    }
     makeAssemblyPlotly( assemblers, counts);
 
 }
@@ -133,7 +138,7 @@ function makePlotly( exon, gene, mRNA, CDS ){
     
    myPlot.on('plotly_hover', function(data){
     var infotext = data.points.map(function(d){
-      console.log("hover")    
+//      console.log("hover")    
       return (d.data.name+': x= '+d.x+', y= '+d.y.toPrecision(3));
     });
   
@@ -149,8 +154,8 @@ function makePlotly( exon, gene, mRNA, CDS ){
 
 function makeAssemblyPlotly(assemblers, counts){
 	
-   console.log(assemblers)
-   console.log(counts);
+//   console.log(assemblers)
+//   console.log(counts);
     
    
     var data = [{
@@ -175,8 +180,7 @@ function makeAssemblyPlotly(assemblers, counts){
 
 };
             
-makeplot();
-makeAssemblyplot()
+
 
 var trace1 = {
   x: ["1", "2", "3", "4"],
@@ -203,6 +207,47 @@ var layout = {
 Plotly.newPlot('myDiv2', data, layout);
 
 
+function fillList(){
 
+            console.log("run!");
+        var data=[];
+        for (var i=0; i<taxlist.length; i++){
+            data.push({id: taxlist[i], text: taxlist[i]});
+        }
 
+        $(".js-example-data-array").select2({
+          data: data
+        })
 
+        $(".js-example-data-array-selected").select2({
+          data: data
+        })
+
+        $(".js-example-data-array-selected").on('select2:select', function(event){
+            var value = $(event.currentTarget).find("option:selected").val() + "&#10;";
+            console.log(value);
+            if (document.getElementById("texlist").value==null){
+                document.getElementById("texlist").innerHTML=value;
+            }else{
+                document.getElementById("texlist").innerHTML +=value 
+            }
+        })
+          
+}
+
+  function showSum(){
+                var lines=document.getElementById("texlist").value;
+                selectedtax=lines.split("\n");
+                makeplot();
+                makeAssemblyplot();
+                for (var i=0; i<lines.length; i++){
+                    console.log(lines[i]);
+                    
+//                    if (lines[i] !=""){
+//                        makeplot(lines[i]);
+//                        makeAssemblyplot(lines[i])
+//                    }
+                }
+            }
+
+initialize()

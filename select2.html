@@ -1,0 +1,71 @@
+<head>
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<style>
+    .js-example-data-array{
+        width: 300px;
+    }
+    
+    .js-example-data-array-selected{
+        width: 300px;
+    }
+</style>
+    
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        var arrID=[0,1,2,3,4],
+            arrText=['zero','one', 'two','three','four'];
+        
+//        var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+
+        var data=[];
+        for (var i=0; i<arrID.length; i++){
+            data.push({id: arrID[i], text: arrText[i]});
+        }
+        
+        $(".js-example-data-array").select2({
+          data: data
+        })
+
+        $(".js-example-data-array-selected").select2({
+          data: data
+        })
+        
+        $(".js-example-data-array-selected").on('select2:select', function(event){
+            var value = $(event.currentTarget).find("option:selected").val() + "&#10;";
+            console.log(value);
+            if (document.getElementById("texlist").value==null){
+                document.getElementById("texlist").innerHTML=value;
+            }else{
+                document.getElementById("texlist").innerHTML +=value 
+            }
+        })
+    });
+
+    function showSum(){
+        var lines=document.getElementById("texlist").value;
+        lines=lines.split("\n");
+        for (var i=0; i<lines.length; i++){
+            console.log(lines[i]);
+        }
+    }
+</script>
+</head>
+<body>
+    <select class="js-example-data-array"></select>
+
+    <select class="js-example-data-array-selected">
+<!--      <option value="2" selected="selected">duplicate</option>-->
+    </select>
+    <br>
+    <br>
+    <textarea id="texlist" name="Text1" cols="40" rows="5"></textarea>
+    <button type="button" onclick="showSum()"> Show summary </button>
+</body>

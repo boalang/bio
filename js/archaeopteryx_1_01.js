@@ -1700,7 +1700,7 @@ if (!phyloXml) {
 //             d3.select(this)
 //               .style('opacity',0);
         })
-            .on('mouseover', function(d){
+            .on('click', function(d){
               console.log(d);
               
             
