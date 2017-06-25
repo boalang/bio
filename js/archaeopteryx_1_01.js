@@ -2450,7 +2450,7 @@ if (!phyloXml) {
                         return 'M' + start + ',' + (-l) + 'L' + xlength + ',' + (-yl) + 'L' + xlength + ',' + (yl) + 'L' + start + ',' + l + 'L' + start + ',' + (-l);
                     })
                     //@Hamid FIXME change the collapsed colore here
-                    .style('stroke', collapsedColor)
+                    .style('stroke', 'green')
                     .style('fill', collapsedColor);
 
                 d3.select(this).select('.collapsedText').attr('font-size', function (d) {
