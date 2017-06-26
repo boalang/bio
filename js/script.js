@@ -48,7 +48,7 @@ function initialize(){
         for (var i=0; i<data.length; i++) {
             var row = data[i];
 
-            if (!taxlist.includes(data['parentTaxid'])){
+            if (!taxlist.includes(row['parentTaxid'])){
                 taxlist.push(row['parentTaxid']);
             }
         }
@@ -70,17 +70,18 @@ function processAssemblyData(allRows) {
         for (var i=0; i<allRows.length; i++) {
             var row = allRows[i];
     //        console.log(row)
+            var assembler=row['assembler'].toLowerCase();
             if (row['parentTaxid']==taxlist[j]){
 
-                if (row['assembler'].length==0){
-                    row['assembler']='N/A';
+                if (assembler.length==0){
+                    assembler='N/A';
                 }
-                if(assemblers.indexOf(row['assembler'])==-1){
-                    assemblers.push(row['assembler']);               
-                    counts[assemblers.indexOf(row['assembler'])]=1;
+                if(assemblers.indexOf(assembler)==-1){
+                    assemblers.push(assembler);               
+                    counts[assemblers.indexOf(assembler)]=1;
 
                 }else{
-                counts[assemblers.indexOf(row['assembler'])]++;
+                counts[assemblers.indexOf(assembler)]++;
                 }
 
             }
@@ -91,7 +92,7 @@ function processAssemblyData(allRows) {
 
 }
 
-function makePlotly( exon, gene, mRNA, CDS ){
+function makePlotly(exon, gene, mRNA, CDS ){
 	
     var Exon_No = {
       y: exon,
@@ -171,10 +172,36 @@ function makeAssemblyPlotly(assemblers, counts){
     };
 
    
-   Plotly.newPlot('myDiv3', data, layout);
+   Plotly.newPlot('myDiv2', data, layout);
     
    
     
+
+//    var trace1 = {
+//      x: counts,
+//      y: assemblers,
+//      text:['e1', 'e2', 'e3','e4'],    
+//
+//      mode: 'markers',
+//      marker: {
+//        color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+//        opacity: [1, 0.8, 0.6, 0.4],
+//        size: [40, 60, 80, 90]
+//      }
+//    };
+//
+//    var data = [trace1];
+//
+//    var layout = {
+//      title: 'Assembler programs',
+//      showlegend: false,
+//      height: 400,
+//      width: 480
+//    };
+//
+//    Plotly.newPlot('myDiv3', data, layout);
+
+
     
     
 
@@ -182,48 +209,24 @@ function makeAssemblyPlotly(assemblers, counts){
             
 
 
-var trace1 = {
-  x: ["1", "2", "3", "4"],
-  y: [10, 11, 12, 13],
-  text:['e1', 'e2', 'e3','e4'],    
-    
-  mode: 'markers',
-  marker: {
-    color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
-    opacity: [1, 0.8, 0.6, 0.4],
-    size: [40, 60, 80, 90]
-  }
-};
-
-var data = [trace1];
-
-var layout = {
-  title: 'Marker Size and Color',
-  showlegend: false,
-  height: 400,
-  width: 480
-};
-
-Plotly.newPlot('myDiv2', data, layout);
-
-
 function fillList(){
 
-            console.log("run!");
+        console.log("run!");
         var data=[];
         for (var i=0; i<taxlist.length; i++){
             data.push({id: taxlist[i], text: taxlist[i]});
         }
 
-        $(".js-example-data-array").select2({
-          data: data
+        $(".taxonomylist").select2({
+          data: data,
+          placeholder: "Select a taxonomy ID",
+          allowClear: true,
+          maximumSelectionLength: 4
+    
+            
         })
 
-        $(".js-example-data-array-selected").select2({
-          data: data
-        })
-
-        $(".js-example-data-array-selected").on('select2:select', function(event){
+        $(".taxonomylist").on('select2:select', function(event){
             var value = $(event.currentTarget).find("option:selected").val() + "&#10;";
             console.log(value);
             if (document.getElementById("texlist").value==null){
@@ -250,4 +253,12 @@ function fillList(){
                 }
             }
 
+function loadsample(){
+     document.getElementById("texlist").innerHTML="";
+     document.getElementById("texlist").innerHTML +='4783' + "&#10;";
+     document.getElementById("texlist").innerHTML +='695850' + "&#10;";
+     document.getElementById("texlist").innerHTML +='352914' + "&#10;";
+     document.getElementById("texlist").innerHTML +='222544' + "&#10;";
+    
+}
 initialize()

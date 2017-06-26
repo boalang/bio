@@ -104,6 +104,7 @@
             options.showTaxonomyScientificName = true;
             options.showTaxonomySynonyms = false;
 
+            //These settings control which data is being shown.
             var settings = {};
             settings.border = '1px solid #909090';
             settings.controls0Top = 10;
@@ -118,7 +119,7 @@
             settings.enableBranchVisualizations = false;
             settings.enableCollapseByBranchLenghts = true;
             settings.enableCollapseByFeature = true;
-            settings.enableNodeVisualizations = true;
+            settings.enableNodeVisualizations = false;
             settings.nhExportWriteConfidences = true;
             settings.reCenterAfterCollapse = false;
             settings.rootOffset = 140;
@@ -482,8 +483,6 @@ body {
    </div> <!-- container -->
 </nav>
 
-    
-<div class="container">
     <h2> <font color="black"> Tree of life:  Summary Statistics </font> </h2>
     <p>
         Data is based on ncbi GFF files (<a href="https://www.ncbi.nlm.nih.gov/" target="_blank">ncbi</a>)
@@ -495,12 +494,17 @@ body {
         <br>
     </p>
     
-    <div  id='phylogram1'></div>
-    <div id='controls0' class='uii-widget-content' ></div>
-    <div  id='controls1' class='ui-widget-content'></div>
+  
+<div class="container">
+    
  
-<div id="summarystats" role="tablist" aria-multiselectable="true"   >
-    <div class="card">
+<!--<div class="row">-->
+  <div  id='phylogram1'></div>
+  <div id='controls0' class='uii-widget-content' ></div>
+ <div  id='controls1' class='ui-widget-content'></div>
+        
+<div id="summarystats" style="position:absolute;top:20px ;left:750px"  role="tablist" aria-multiselectable="true"   >
+    <div class="card" >
         <div class="card-header" role="tab" id="summary"> 
               <h5 class="mb-0">
                   <a data-toggle="collapse" data-parent="#summarystats" 
@@ -586,6 +590,9 @@ body {
     
     
 </div> <!-- card  -->
+    
+    
+<!--</div>  Row     -->
          
 </div>
     
