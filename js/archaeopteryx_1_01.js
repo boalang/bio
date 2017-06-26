@@ -2221,21 +2221,21 @@ if (!phyloXml) {
 
             var Gene_No = {
               y: gene,
-              boxpoints: 'all', 
+              boxpoints: 'outliers', 
               name: 'Gene_No',    
               type: 'box'
             };
 
             var mRNA_No = {
               y: mRNA,
-              boxpoints: 'all',
+              boxpoints: 'outliers',
               name: 'mRNA_No',    
               type: 'box'
             };
 
             var CDS_No = {
               y: CDS,
-              boxpoints: 'all',   
+              boxpoints: 'outliers',   
               name: 'CDS_No',
               type: 'box'
             };
@@ -2262,7 +2262,17 @@ if (!phyloXml) {
             }];
            var layout = {
               height: 380,
-              width: 480
+              width: 480,
+//              autosize: false,
+//              width: 400,
+//              height: 400,
+//              margin: {
+//                l: 50,
+//                r: 50,
+//                b: 100,
+//                t: 100,
+//                pad: 4
+//              }
             };
 
 

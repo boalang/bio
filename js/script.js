@@ -125,7 +125,7 @@ function makePlotly(exon, gene, mRNA, CDS ){
     
     var layout = { 
         hovermode:'closest',
-        title:'Hover on Points'
+        title:'Gene Features based on occurance of each feature in genome'
      };
 
 
@@ -168,7 +168,9 @@ function makeAssemblyPlotly(assemblers, counts){
     }];
    var layout = {
       height: 380,
-      width: 480
+      width: 480,
+      title:'assembler programs'
+
     };
 
    
