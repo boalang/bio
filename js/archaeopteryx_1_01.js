@@ -1696,8 +1696,11 @@ if (!phyloXml) {
                 }
                 return 0;
             })
-            .on('mouseover',function(){
-                
+            .on('mouseover',function(d){
+                console.log(d.name);
+                d3.select(this).attr('data-toggle','popover')
+                               .attr('title',d.name)
+                               .attr('data-content','d.name');
             })
             .on('mouseout', function(){
 //             d3.select(this)

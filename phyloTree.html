@@ -14,9 +14,10 @@
 
 
     <!-- Bootstrap template--->
-    <script src="js/jquery.slim.min.js"></script>
+<!--    <script src="js/jquery.slim.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
     
     <!-- D3.js, jQuery, and jQuery UI:-->
     <script src="js/d3.v3.min.js"></script>
@@ -52,8 +53,17 @@
 
     <script>
 
+         
+    
+    
         function load() {
+//            var $j = jQuery.noConflict();
+//	        $j('[data-toggle="popover"]').popover();
 
+//            $('[data-toggle="popover"]').popover();
+                $( document ).tooltip();
+
+            
             var options = {};
             options.alignPhylogram = true;
             options.backgroundColorDefault = '#ffffff';
@@ -473,7 +483,7 @@ body {
                  aria-haspopup="true" aria-expanded="false" id="BoaNav"
                  >About</a>
               <div class="dropdown-menu">
-                  <a class="dropdown-item" href="http://design.cs.iastate.edu/" target="_blank"> PLSE lab</a>
+                  <a class="dropdown-item" href="http://design.cs.iastate.edu/" target="_blank"> Laboratory for Software Design</a>
                   <a class="dropdown-item" href="http://gif.biotech.iastate.edu/" target="_blank"> GIF lab</a>
                   <a class="dropdown-item" href="http://www.cs.iastate.edu/" target="_blank"> Computer Science Department</a>
               </div>
@@ -624,5 +634,7 @@ body {
     
     
 </div> <!-- container -->
+
+    
 
 </body>
