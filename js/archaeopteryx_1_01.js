@@ -1696,24 +1696,22 @@ if (!phyloXml) {
                 }
                 return 0;
             })
+            .on('mouseover',function(){
+                
+            })
             .on('mouseout', function(){
 //             d3.select(this)
 //               .style('opacity',0);
-        })
-            .on('click', function(d){
-              console.log(d);
-              
-            
-//              document.getElementById(d.id).style.color = "#ff0000";
-
+            })
+            .on('click', function(d){              
               displayNodeData2(d);
-            if (selected_node!=null){
-            d3.select(selected_node)
-               .style('opacity', 0);    
-            }
-            selected_node=this;
-            d3.select(this)
-                 // @Hamid FIXME why it doesn't work?????
+                if (selected_node!=null){
+                d3.select(selected_node)
+                   .style('opacity', 0);    
+                }
+                selected_node=this;
+                d3.select(this)
+                 // @Hamid selected node will be blue
                 .attr('fill', 'blue')
                 .style('opacity',1);
 //              d3.select('.nodeCircleOptions').attr('fill','green');
@@ -1740,7 +1738,6 @@ if (!phyloXml) {
 //                $(this).attr('fill', 'green');
 //                d3.select('.nodeCircleOptions').attr('fill','green');
                d3.select(this).attr('class', 'selectednode');
-                console.log($(this));
 
                 var tax_id;
                 var ncbi_link;
@@ -1927,7 +1924,8 @@ if (!phyloXml) {
                     nodeData.outerHTML = '';
                 }
 
-//                $("<div id='" + NODE_DATA + "'>" + text + "</div>").dialog();
+                // @Hamid 
+                //$("<div id='" + NODE_DATA + "'>" + text + "</div>").dialog();
                 $("#controls3").html(text);
                 
                 var statData=[
@@ -4057,15 +4055,7 @@ if (!phyloXml) {
                 })
                 .on('click', function (d) {
                     displayNodeData2(d);
-                })
-//                .on('mouseover', function (d) {
-//                    d3.select(this)
-//                      .style('opacity',.5)
-//                    ;
-//                    console.log(d);
-//                })
-                
-                ;
+                });
 
             d3.select(this).append('text')
                 .attr('class', 'tooltipElem tooltipElemText')
