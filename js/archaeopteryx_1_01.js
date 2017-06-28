@@ -1671,7 +1671,7 @@ if (!phyloXml) {
                 return "translate(" + source.y0 + "," + source.x0 + ")";
             })
             .style('cursor', 'default')
-            .on('click', _treeFn.clickEvent)
+            .on('contextmenu', _treeFn.clickEvent)
 //            .on('mouseover', function(){
 //                //@Hamid fixme mouseouver tooltip
 //            })
@@ -1696,8 +1696,7 @@ if (!phyloXml) {
                 }
                 return 0;
             })
-            .on('mouseover',function(d){
-                console.log(d.name);
+            .on('mouseover',function(d){ // @Hamid toolip
                 d3.select(this).attr('data-toggle','popover')
                                .attr('title',d.name)
                                .attr('data-content','d.name');
@@ -1706,8 +1705,11 @@ if (!phyloXml) {
 //             d3.select(this)
 //               .style('opacity',0);
             })
+            .on("contextmenu", function (d, i) {//@Hamid react on right-clicking
+                    d3.event.preventDefault();
+                })
             .on('click', function(d){              
-              displayNodeData2(d);
+                displayNodeData2(d);
                 if (selected_node!=null){
                 d3.select(selected_node)
                    .style('opacity', 0);    
@@ -1717,30 +1719,11 @@ if (!phyloXml) {
                  // @Hamid selected node will be blue
                 .attr('fill', 'blue')
                 .style('opacity',1);
-//              d3.select('.nodeCircleOptions').attr('fill','green');
-//
-//             $(this).style('fill','green');
-//            d3.select(this).style('stroke','green')
-//                           .style('border-radius','4px')                    
-//            ;
-//              this.setAttribute({ "fill":"green" });
-//             d3.select(this)
-//               .attr("fill","red");
-
-            //FIXME 
-//            console.log($(this));
-            })
-        ;
+            });
 
         function displayNodeData2(n) {
-                // @Hamid
-               console.log(n)
-//               node_selected=true;
-            
-//                $(this).attr('stroke','green');
-//                $(this).attr('fill', 'green');
-//                d3.select('.nodeCircleOptions').attr('fill','green');
-               d3.select(this).attr('class', 'selectednode');
+               
+               //d3.select(this).attr('class', 'selectednode');
 
                 var tax_id;
                 var ncbi_link;
@@ -1757,9 +1740,10 @@ if (!phyloXml) {
                 if (n.name) {
                     text += '<tr><th>' +'Name: ' +'</th>' + '<td>'+n.name +'</td> </tr>';
                 }
-                if (n.branch_length) {
-                    text += '<tr><th>' +'Distance to Parent: ' +'</th><td>'+ n.branch_length + '</td></tr>';
-                }
+                //@Hamid FIXME
+                //if (n.branch_length) {
+                //    text += '<tr><th>' +'Distance to Parent: ' +'</th><td>'+ n.branch_length + '</td></tr>';
+                //}
                 var i = 0;
                 if (n.confidences) {
                     for (i = 0; i < n.confidences.length; ++i) {
@@ -1880,7 +1864,7 @@ if (!phyloXml) {
                                     ncbi_link = ' <tr class="table-info"> <th> See NCBI </th> <td><a href=' + property.value +' target="_blank" >' + ' NCBI' + '</a>'  + '</td></tr>'
                                 }else{
                                 
-                                    text += '<tr><th>' + property.ref + '</th><td>' + property.value + '</td></tr>';
+//                                    text += '<tr><th>' + property.ref + '</th><td>' + property.value + '</td></tr>';
                                 }
                                 
                             }
@@ -2251,9 +2235,6 @@ if (!phyloXml) {
 
         function makeAssemblyPlotly(assemblers, counts){
 	
-//           console.log(assemblers)
-//           console.log(counts);
-
             var data = [{
                 values: counts,
                 labels: assemblers,
@@ -2460,9 +2441,11 @@ if (!phyloXml) {
                     .attr('d', function () {
                         return 'M' + start + ',' + (-l) + 'L' + xlength + ',' + (-yl) + 'L' + xlength + ',' + (yl) + 'L' + start + ',' + l + 'L' + start + ',' + (-l);
                     })
-                    //@Hamid FIXME change the collapsed colore here
+                    //@Hamid  change the collapsed colore here
                     .style('stroke', 'green')
-                    .style('fill', collapsedColor);
+                    .style('fill', collapsedColor)
+                
+                ;
 
                 d3.select(this).select('.collapsedText').attr('font-size', function (d) {
                     return _options.externalNodeFontSize + 'px';
@@ -4056,9 +4039,9 @@ if (!phyloXml) {
                         return 'Display Summary Statistics';
                     }
                 })
-                .on('click', function (d) {
-                    displayNodeData2(d);
-                });
+//                .on('click', function (d) {
+//                    displayNodeData2(d);
+//                });
 
             d3.select(this).append('text')
                 .attr('class', 'tooltipElem tooltipElemText')

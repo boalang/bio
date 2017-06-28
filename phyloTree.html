@@ -518,25 +518,27 @@ body {
     <div class="card" >
         <div class="card-header" role="tab" id="summary"> 
               <h5 class="mb-0">
-                  <a data-toggle="collapse" data-parent="#summarystats" 
+<!--                data-parent="#summarystats"-->
+                  <a data-toggle="collapse"  
                      href="#block-controls3" aria-expanded="true" 
-                     aria-controls="controls3">Summary Statistics</a>
+                     aria-controls="controls3">Summary Statistics
+                  </a>
               </h5>
         </div><!-- card header -->
 
-        <div class="collapse " id="block-controls3" role="tabpanel" aria-labelledby="summary">
+        <div class="collapse show " id="block-controls3" role="tabpanel" aria-labelledby="summary">
             <div id='controls3' class="card-block" >
                 <p> summary statistics </p>
             </div>
-        </div>
-    </div>
+        </div> <!-- collapse-->
+    </div> <!-- card -->
 
     <div class="card">
         <div class="card-header" role="tab" id="chart1"> 
               <h5 class="mb-0">
-                  <a data-toggle="collapse" data-parent="#summarystats" 
+                  <a data-toggle="collapse" 
                      href="#block-controls2" aria-expanded="true" 
-                     aria-controls="controls2">Bar Chart: features size</a>
+                     aria-controls="controls2">Bar Chart: Features Size</a>
               </h5>
         </div><!-- card header -->
 
@@ -550,9 +552,9 @@ body {
     <div class="card">
         <div class="card-header" role="tab" id="assembly"> 
               <h5 class="mb-0">
-                  <a data-toggle="collapse" data-parent="#summarystats" 
+                  <a data-toggle="collapse"  
                      href="#block-controls4" aria-expanded="true" 
-                     aria-controls="controls4">Bar chart: Feature leangth</a>
+                     aria-controls="controls4">Bar chart: Feature length</a>
               </h5>
         </div><!-- card header -->
 
@@ -566,15 +568,14 @@ body {
     <div class="card">
         <div class="card-header" role="tab" id="assembly"> 
               <h5 class="mb-0">
-                  <a data-toggle="collapse" data-parent="#summarystats" 
-                     href="#block-controls5" aria-expanded="true" 
+                  <a data-toggle="collapse"  
+                     href="#block-controls5" aria-expanded="false" 
                      aria-controls="controls5">Distribution</a>
               </h5>
         </div><!-- card header -->
 
         <div class="collapse " id="block-controls5" role="tabpanel" aria-labelledby="summary">
             <div id='controls5' class="card-block" >
-                <p> Distribution chart </p>
             </div>
         </div>
     </div>
@@ -582,7 +583,7 @@ body {
     <div class="card">
         <div class="card-header" role="tab" id="assembly"> 
               <h5 class="mb-0">
-                  <a data-toggle="collapse" data-parent="#summarystats" 
+                  <a data-toggle="collapse" 
                      href="#block-controls6" aria-expanded="true" 
                      aria-controls="controls6">Assembly program</a>
               </h5>
@@ -604,13 +605,15 @@ body {
 <!--</div>  Row     -->
          
 </div>
+ 
     
 <hr class="featurette-divider">
+
     
 <footer>
   <div class="content container-fluid">
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-3">
           <div >
             <a href="http://www.iastate.edu">
               <img src="images/isu-stacked.svg" alt="Iowa State University" class="isu-logo">
@@ -618,19 +621,28 @@ body {
           </div>
           
       </div>
-       
-      <div class="col-sm-3">
-        <p> </p>    
-      </div><!-- col-sm-6 -->
-        
-      <div class="col-sm-6">
-        <p>Call us toll-free at <span class="phone">888-555-1212</span></p>
-        <p>All contents &copy; 2017 <a href="http://www.iastate.edu">www.iastate.edu</a>. All rights reserved.</p>    
+      
+      <div class="col-sm-4">
+          <p>
+              <b>&nbsp;&nbsp;&nbsp;Laboratory for Software Design</b>
+            </p>
+            <p>&nbsp;&nbsp;&nbsp;115-2 Atanasoff Hall</p>
+            <p>&nbsp;&nbsp;&nbsp;Ames, IA, 50011-1040, USA</p>
+            <p>&nbsp;&nbsp;&nbsp;Phone: (515) 294-6168</p>
+            <p>&nbsp;&nbsp;&nbsp;E-Mail: hridesh@iastate.edu</p>
       </div><!-- col-sm-6 -->
       
+        <div class="col-sm-4">
+            <p>
+                Copyright © 2017 Iowa State University of Science and Technology <a href="http://www.iastate.edu">www.iastate.edu</a>. All rights reserved.
+            </p>    
+    
+      </div><!-- col-sm-6 -->
+        
     </div><!-- row -->
   </div><!-- content container -->
 </footer>
+    
     
     
 </div> <!-- container -->
