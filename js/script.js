@@ -256,7 +256,7 @@ function fillList(){
             }
 
 function loadsample(){
-     document.getElementById("texlist").val="";
+     document.getElementById("texlist").innerHTML="";
      document.getElementById("texlist").innerHTML +='4783' + "&#10;";
      document.getElementById("texlist").innerHTML +='695850' + "&#10;";
      document.getElementById("texlist").innerHTML +='352914' + "&#10;";
