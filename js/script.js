@@ -43,6 +43,8 @@ function processData(allRows) {
 }
 
 function initialize(){
+    
+    clearList();
   
     Plotly.d3.csv("data/data1.csv", function(data){
         for (var i=0; i<data.length; i++) {
@@ -231,7 +233,7 @@ function fillList(){
         $(".taxonomylist").on('select2:select', function(event){
             var value = $(event.currentTarget).find("option:selected").val() + "&#10;";
             console.log(value);
-            if (document.getElementById("texlist").value==null){
+            if (document.getElementById("texlist").value==''){
                 document.getElementById("texlist").innerHTML=value;
             }else{
                 document.getElementById("texlist").innerHTML +=value 
@@ -241,6 +243,9 @@ function fillList(){
 }
 
   function showSum(){
+                if (document.getElementById("texlist").innerHTML==""){
+                    return;
+                }
                 var lines=document.getElementById("texlist").value;
                 selectedtax=lines.split("\n");
                 makeplot();
@@ -262,5 +267,10 @@ function loadsample(){
      document.getElementById("texlist").innerHTML +='352914' + "&#10;";
      document.getElementById("texlist").innerHTML +='222544' + "&#10;";
     
+}
+
+function clearList(){
+         document.getElementById("texlist").innerHTML="";
+
 }
 initialize()

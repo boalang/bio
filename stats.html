@@ -14,11 +14,7 @@
     
    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <style>
     .taxonomylist{
         width: 300px;
@@ -44,7 +40,7 @@
         <body>
         <div class="container">
                 
-         <nav class="navbar brand-bg-color  navbar-inverse navbar-toggleable-sm" >
+        <nav class="navbar brand-bg-color navbar-inverse navbar-toggleable-sm" >
            <div class="container">
               <a class="navbar-brand" href="index.html"> 
                   <img src="images/dna1.png" style="width:80px;" alt="Logo">
@@ -56,8 +52,9 @@
                   <a  class="nav-item nav-link" href="stats.html">summary statistics</a>
                   <a class="nav-item nav-link"  href="help.html">Help</a>
         <!--          <a  class="nav-item nav-link" href="#">Staff</a>-->
+                  
                   <div class="dropdown">
-                      <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"
+                      <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" 
                          aria-haspopup="true" aria-expanded="false" id="BoaNav"
                          >About
                       </a>
@@ -68,13 +65,9 @@
                       </div>
 
                   </div>
-                  
               </div>
-               
-               
-               
            </div> <!-- container -->
-        </nav>   
+        </nav>
 
         <hr class="featurette-divider">
     
@@ -84,7 +77,7 @@
 
                 <p>We provide summary statistics based on the <a href="https://www.ncbi.nlm.nih.gov/guide/taxonomy/" target="_blank">NCBI Taxonomy</a> </p>
 
-                <p>Summary statistics within the clades. You can select as many nodes as you want. </p>
+                <p> This form provides Summary statistics within the clades. You can select as many nodes as you want. </p>
 
         </section>
 
@@ -104,6 +97,7 @@
                 <br>
                 <button type="button" onclick="showSum()"> Show summary </button>
                 <button type="button" onclick="loadsample()"> Load Sample </button>
+                <button type="button" onclick="clearList()"> Clear List </button>
 
 
                 <!-- Plotly box chart -->
