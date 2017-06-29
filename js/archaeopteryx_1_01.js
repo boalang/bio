@@ -1699,7 +1699,8 @@ if (!phyloXml) {
             .on('mouseover',function(d){ // @Hamid toolip
                 d3.select(this).attr('data-toggle','popover')
                                .attr('title',d.name)
-                               .attr('data-content','d.name');
+                               .attr('data-content','d.name')
+                               .style('font-size','14px');
             })
             .on('mouseout', function(){
 //             d3.select(this)
@@ -1736,7 +1737,7 @@ if (!phyloXml) {
                     mRNA_no=0,
                     CDS_no=0;
                 var title = n.name ? 'Node Data: ' + n.name : 'Node Data';
-                var text = '<table class="container table-responsive table-striped table-hover">';
+                var text = '<table class="container table-responsive table-striped table-hover" style="font-size:13px">';
                 if (n.name) {
                     text += '<tr><th>' +'Name: ' +'</th>' + '<td>'+n.name +'</td> </tr>';
                 }

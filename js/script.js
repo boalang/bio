@@ -215,7 +215,6 @@ function makeAssemblyPlotly(assemblers, counts){
 
 function fillList(){
 
-        console.log("run!");
         var data=[];
         for (var i=0; i<taxlist.length; i++){
             data.push({id: taxlist[i], text: taxlist[i]});
