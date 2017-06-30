@@ -22,13 +22,32 @@
     width:100%;
     height:100%;
     }
+    
+    
+    .navbar  .nav-item
+    {
+      font-size: medium;
+    }
+
+#boa4genomics
+    {
+      font-size: large;
+    }
+    
+         .navbar{
+/*            line-height: 150px;*/
+            height: 70px;
+/*            padding-top: 0;*/
+        }
+    
+    
 </style>
 <!-- class for colors     style="background-color: #C4226F" 
 navbar bg-primary navbar-inverse navbar-toggleable-sm
 -->
 <nav class="navbar brand-bg-color  navbar-inverse navbar-toggleable-sm" >
    <div class="container">
-      <a class="navbar-brand" href="index.html"> 
+      <a class="navbar-brand" id="boa4genomics" href="index.html"> 
           <img src="images/dna1.png" style="width:80px;" alt="Logo">
           Boa for Genomics
        </a>
@@ -103,7 +122,7 @@ navbar bg-primary navbar-inverse navbar-toggleable-sm
 
 <p>We utilize <a href="http://www.phyloxml.org/" target="_blank">PhyloXML</a> to visualize the phylogenetic&nbsp;tree and annotate the tree.&nbsp;</p>
 
-<p>The phyloxml file has extended to provide summary statistics for each clade. Please see this example: <a href="http://localhost/NCBIPhylo_minidom.xml" target="_blank">protozoa and fungi</a></p>
+<p>The phyloxml file has extended to provide summary statistics for each clade. Please see this example: <a href="data/NCBIPhylo_minidom.xml" target="_blank">protozoa and fungi</a></p>
 
 <p>&nbsp;</p>
 
@@ -117,14 +136,15 @@ navbar bg-primary navbar-inverse navbar-toggleable-sm
 
 <hr class="featurette-divider">
 
-    
+
 <footer>
   <div class="content container-fluid">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-3 ">
           <div >
             <a href="http://www.iastate.edu">
-              <img src="images/isu-stacked.svg" alt="Iowa State University" class="isu-logo">
+              <img src="images/isu-stacked.svg" width="170" 
+                alt="Iowa State University" class="isu-logo">
             </a>
           </div>
           
@@ -140,7 +160,7 @@ navbar bg-primary navbar-inverse navbar-toggleable-sm
             <p>&nbsp;&nbsp;&nbsp;E-Mail: hridesh@iastate.edu</p>
       </div><!-- col-sm-6 -->
       
-        <div class="col-sm-4">
+      <div class="col-sm-4">
             <p>
                 Copyright © 2017 Iowa State University of Science and Technology <a href="http://www.iastate.edu">www.iastate.edu</a>. All rights reserved.
             </p>    
@@ -154,9 +174,11 @@ navbar bg-primary navbar-inverse navbar-toggleable-sm
     
 </div><!-- content container -->
 
+<!--
 <script src="js/jquery.slim.min.js"></script>
 <script src="js/tether.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+-->
  
 
     

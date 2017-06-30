@@ -28,7 +28,7 @@ function processData(allRows) {
         for (var i=0; i<allRows.length; i++) {
             var row = allRows[i];
 
-                if (row['parentTaxid']==taxlist[j]){
+                if (row['parentTaxid']==selectedtax[j]){
                     exon.push( row['exon'] );
                     gene.push( row['gene'] );
                     mRNA.push( row['mRNA'] );
@@ -73,10 +73,10 @@ function processAssemblyData(allRows) {
             var row = allRows[i];
     //        console.log(row)
             var assembler=row['assembler'].toLowerCase();
-            if (row['parentTaxid']==taxlist[j]){
+            if (row['parentTaxid']==selectedtax[j]){
 
                 if (assembler.length==0){
-                    assembler='N/A';
+                    assembler='unknown';
                 }
                 if(assemblers.indexOf(assembler)==-1){
                     assemblers.push(assembler);               

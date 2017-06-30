@@ -2166,7 +2166,7 @@ if (!phyloXml) {
 
         }
 
-
+        
         function processAssemblyData(allRows,tax_id) {
 
             var assemblers = [], 
@@ -2175,17 +2175,18 @@ if (!phyloXml) {
 
             for (var i=0; i<allRows.length; i++) {
                 var row = allRows[i];
+                var assembler=row['assembler'].toLowerCase();
                 if (row['parentTaxid']==tax_id){
 
-                    if (row['assembler'].length==0){
-                        row['assembler']='N/A';
+                    if (assembler.length==0){
+                        assembler='unknown';
                     }
-                    if(assemblers.indexOf(row['assembler'])==-1){
-                        assemblers.push(row['assembler']);               
-                        counts[assemblers.indexOf(row['assembler'])]=1;
+                    if(assemblers.indexOf(assembler)==-1){
+                        assemblers.push(assembler);               
+                        counts[assemblers.indexOf(assembler)]=1;
 
                     }else{
-                    counts[assemblers.indexOf(row['assembler'])]++;
+                    counts[assemblers.indexOf(assembler)]++;
                     }
 
                 }

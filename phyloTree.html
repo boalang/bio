@@ -2,11 +2,10 @@
 <meta charset="utf-8">
 <head>
     <title> Tree of life  </title>
-
+  
     <!-- For MS IE/Edge compatibility:-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=100">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -120,7 +119,7 @@
             options.showSequenceGeneSymbol = true;
             options.showSequenceName = true;
             options.showSequenceSymbol = true;
-            options.showTaxonomy = true;
+            options.showTaxonomy = false;
             options.showTaxonomyCode = false;
             options.showTaxonomyCommonName = true;
             options.showTaxonomyRank = false;
@@ -408,10 +407,8 @@
         }
     </script>
 
-
-</head>
-
-<style>
+    
+    <style>
 
 body {
   font: 10px sans-serif;
@@ -519,9 +516,28 @@ body {
     top: auto;
   }
 */
+
+.navbar  .nav-item
+    {
+      font-size: medium;
+    }
+
+#boa4genomics
+    {
+      font-size: large;
+    }
     
-    
+ .navbar{
+/*            line-height: 150px;*/
+            height: 70px;
+/*            padding-top: 0;*/
+        }
+        
 </style>
+
+</head>
+
+
 
 <body onload="load()">
     
@@ -530,20 +546,21 @@ body {
 <!-- class for colors     style="background-color: #C4226F" -->
 <nav class="navbar brand-bg-color navbar-inverse navbar-toggleable-sm" >
    <div class="container">
-      <a class="navbar-brand" href="index.html"> 
-          <img src="images/dna1.png" style="width:80px;" alt="Logo">
+      <a class="navbar-brand" id="boa4genomics" href="index.html"> 
+          <img src="images/dna1.png" style="width:80px; " alt="Logo">
           Boa for Genomics
        </a>
       <div class="navbar-nav">
-          <a  class="nav-item nav-link " href="index.html">Home</a>
-          <a  class="nav-item nav-link" href="#">Tree of life</a>
+          <a  class="nav-item nav-link  " href="#">Home</a>
+          <a  class="nav-item nav-link" href="phyloTree.html">Tree of life</a>
           <a  class="nav-item nav-link" href="stats.html">summary statistics</a>
           <a class="nav-item nav-link"  href="help.html">Help</a>
 <!--          <a  class="nav-item nav-link" href="#">Staff</a>-->
           <div class="dropdown">
-              <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+              <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" 
                  aria-haspopup="true" aria-expanded="false" id="BoaNav"
-                 >About</a>
+                 >About
+              </a>
               <div class="dropdown-menu">
                   <a class="dropdown-item" href="http://design.cs.iastate.edu/" target="_blank"> Laboratory for Software Design</a>
                   <a class="dropdown-item" href="http://gif.biotech.iastate.edu/" target="_blank"> GIF lab</a>
@@ -554,6 +571,7 @@ body {
       </div>
    </div> <!-- container -->
 </nav>
+   
 
     <h2> <font color="black"> Tree of life:  Summary Statistics </font> </h2>
     <p>
@@ -671,14 +689,14 @@ body {
     
 <hr class="featurette-divider">
 
-    
-<footer>
+ <footer>
   <div class="content container-fluid">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-3 ">
           <div >
             <a href="http://www.iastate.edu">
-              <img src="images/isu-stacked.svg" alt="Iowa State University" class="isu-logo">
+              <img src="images/isu-stacked.svg" width="170" 
+                alt="Iowa State University" class="isu-logo">
             </a>
           </div>
           
@@ -694,7 +712,7 @@ body {
             <p>&nbsp;&nbsp;&nbsp;E-Mail: hridesh@iastate.edu</p>
       </div><!-- col-sm-6 -->
       
-        <div class="col-sm-4">
+      <div class="col-sm-4">
             <p>
                 Copyright © 2017 Iowa State University of Science and Technology <a href="http://www.iastate.edu">www.iastate.edu</a>. All rights reserved.
             </p>    
