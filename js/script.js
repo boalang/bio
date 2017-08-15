@@ -1,16 +1,24 @@
 
+var jsonfile;
+d3.json("data_8_17/tol_8_17.json", function(data){
+    jsonfile=data;
+
+});
+
+
+
 
 var taxlist=[];
 var selectedtax=[];
 
 function makeplot() {
- 	Plotly.d3.csv("data/data1.csv", function(data){ processData(data) } );
+ 	Plotly.d3.csv("data_4_17/data1.csv", function(data){ processData(data) } );
 
 };
 
 
 function makeAssemblyplot() {
- 	Plotly.d3.csv("data/nodeAssembler.csv", function(data){ processAssemblyData(data) } );
+ 	Plotly.d3.csv("data_4_17/nodeAssembler.csv", function(data){ processAssemblyData(data) } );
 
 };
 
@@ -46,7 +54,7 @@ function initialize(){
     
     clearList();
   
-    Plotly.d3.csv("data/data1.csv", function(data){
+    Plotly.d3.csv("data_4_17/data1.csv", function(data){
         for (var i=0; i<data.length; i++) {
             var row = data[i];
 
@@ -57,7 +65,6 @@ function initialize(){
         fillList();
          } );
 
-    
 
 }
 function processAssemblyData(allRows) {
@@ -266,10 +273,15 @@ function loadsample(){
      document.getElementById("texlist").innerHTML +='352914' + "&#10;";
      document.getElementById("texlist").innerHTML +='222544' + "&#10;";
     
+    console.log(jsonfile);
+//    var root1=jsonQ(jsonfile);
+//    console.log(root1.value())
+
+    
 }
 
 function clearList(){
-         document.getElementById("texlist").innerHTML="";
+//         document.getElementById("texlist").value="";
 
 }
 initialize()

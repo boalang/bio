@@ -1,732 +1,143 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html lang="en">
 <head>
-    <title> Tree of life  </title>
-  
-    <!-- For MS IE/Edge compatibility:-->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/design.css">
-
-
-    <!-- Bootstrap template--->
-<!--    <script src="js/jquery.slim.min.js"></script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    
-    <!-- D3.js, jQuery, and jQuery UI:-->
-    <script src="js/d3.v3.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-    <!-- SAX XML parser:-->
-    <script src="js/sax.js"></script>
-
-    <!--    tooltip D3-->
-    <script src="js/d3.tip.v0.6.3.js"></script>
-
-    <!-- The following five libraries are needed for download/export of images and files:-->
-    <script src="js/rgbcolor.js"></script>
-    <script src="js/Blob.js"></script>
-    <script src="js/canvas-toBlob.js"></script>
-    <script src="js/canvg.js"></script>
-    <script src="js/FileSaver.js"></script>
-
-    <!-- Archaeopteryx.js requires forester.js and phyloxml_parser.js:-->
-    <script src="js/phyloxml_0_912.js"></script>
-    <script src="js/forester_1_01.js"></script>
-    <script src="js/archaeopteryx_1_01.js"></script>
-
-    <!-- CSS for jQuery UI: -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-
-
-    <!-- CSS for this page's HTML: -->
-    <link rel="stylesheet" href="css/forester.css">
-
-    <script>
-
-         
-    
-    
-        function load() {
-//            var $j = jQuery.noConflict();
-//	        $j('[data-toggle="popover"]').popover();
-
-//            $('[data-toggle="popover"]').popover();
-                $( document ).tooltip({
-      position: {
-        my: "center bottom-20",
-        at: "center top",
-        using: function( position, feedback ) {
-          $( this ).css( position );
-          $( "<div>" )
-            .addClass( "arrow" )
-            .addClass( feedback.vertical )
-            .addClass( feedback.horizontal )
-            .appendTo( this );
-        }
-      }
-    }
-                );
-
-            
-            var options = {};
-            options.alignPhylogram = true;
-            options.backgroundColorDefault = '#ffffff';
-            options.branchColorDefault = '#909090';
-            options.branchDataFontSize = 14;
-            options.branchWidthDefault = 2;
-            options.collapasedLabelLength = 7;
-            options.defaultFont = 'Arial';
-            options.dynahide = true;
-            options.externalNodeFontSize = 14;
-            options.found0and1ColorDefault = '#0000ff';
-            options.found0ColorDefault = '#00ff00';
-            options.found1ColorDefault = '#ff0000';
-            options.internalNodeFontSize = 14;
-            options.labelColorDefault = '#202020';
-            options.minBranchLengthValueToShow = 0.01;
-            options.minConfidenceValueToShow = 0.5;
-            options.nameForNhDownload = 'archaeopteryx-js.nh';
-            options.nameForPhyloXmlDownload = 'archaeopteryx-js.xml';
-            options.nameForPngDownload = 'archaeopteryx-js.png';
-            options.nameForSvgDownload = 'archaeopteryx-js.svg';
-            options.nodeSizeDefault = 3;
-            options.phylogram = true;
-            options.searchIsCaseSensitive = false;
-            options.searchIsPartial = true;
-            options.searchUsesRegex = false;
-            options.showBranchEvents = false;
-            options.showBranchLengthValues = false;
-            options.showConfidenceValues = false;
-            options.showDisributions = false;
-            options.showExternalLabels = true;
-            options.showExternalNodes = false;
-            options.showInternalLabels = false;
-            options.showInternalNodes = true;
-            options.showNodeEvents = true;
-            options.showNodeName = true;
-            options.showNodeVisualizations = true;
-            options.showSequence = false;
-            options.showSequenceAccession = true;
-            options.showSequenceGeneSymbol = true;
-            options.showSequenceName = true;
-            options.showSequenceSymbol = true;
-            options.showTaxonomy = false;
-            options.showTaxonomyCode = false;
-            options.showTaxonomyCommonName = true;
-            options.showTaxonomyRank = false;
-            options.showTaxonomyScientificName = true;
-            options.showTaxonomySynonyms = false;
-
-            //These settings control which data is being shown.
-            var settings = {};
-            settings.border = '1px solid #909090';
-            settings.controls0Top = 10;
-            settings.controls1Top = 10;
-            settings.controlsBackgroundColor = '#e0e0e0';
-            settings.controlsFont = 'Arial';
-            settings.controlsFontColor = '#505050';
-            settings.controlsFontSize = 8;
-            settings.displayHeight = 700;
-            settings.displayWidth = 1100;
-            settings.enableDownloads = true;
-            settings.enableBranchVisualizations = false;
-            settings.enableCollapseByBranchLenghts = true;
-            settings.enableCollapseByFeature = true;
-            settings.enableNodeVisualizations = false;
-            settings.nhExportWriteConfidences = true;
-            settings.reCenterAfterCollapse = false;
-            settings.rootOffset = 140;
-
-            var decorator = 'ird:';
-
-            var nodeVisualizations = {};
-
-            nodeVisualizations['Host'] = {
-                label: 'Host',
-                description: 'the host of the virus',
-                field: null,
-                cladeRef: decorator + 'Host',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-            nodeVisualizations['Country'] = {
-                label: 'Country',
-                description: 'the country of the virus',
-                field: null,
-                cladeRef: decorator + 'Country',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20c',
-                sizes: null
-            };
-
-            nodeVisualizations['USAState'] = {
-                label: 'USA State',
-                description: 'the state the virus is from',
-                field: null,
-                cladeRef: decorator + 'USAState',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20c',
-                sizes: null
-            };
-
-            nodeVisualizations['Year'] = {
-                label: 'Year',
-                description: 'the year of the virus',
-                field: null,
-                cladeRef: decorator + 'Year',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                colorsAlt: ['#FF0000', '#000000', '#00FF00'],
-                sizes: [10, 40]
-            };
-
-            nodeVisualizations['Region'] = {
-                label: 'Region',
-                description: 'the region of change',
-                field: null,
-                cladeRef: decorator + 'Region',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-
-            nodeVisualizations['Flu Season'] = {
-                label: 'Flu Season',
-                description: 'the flu season',
-                field: null,
-                cladeRef: decorator + 'FluSeason',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-            nodeVisualizations['H5 Clade'] = {
-                label: 'H5 Clade',
-                description: 'The H5 clade',
-                field: null,
-                cladeRef: decorator + 'H5Clade',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-            nodeVisualizations['US Swine H1 Clade'] = {
-                label: 'US Swine H1 Clade',
-                description: 'The US Swine H1 clade',
-                field: null,
-                cladeRef: decorator + 'H1Clade',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-            nodeVisualizations['Global Swine H1 Clade'] = {
-                label: 'Glo Swine H1 Clade',
-                description: 'The Global Swine H1 clade',
-                field: null,
-                cladeRef: decorator + 'GlobalH1Clade',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-            nodeVisualizations['Virus Type'] = {
-                label: 'Virus Type',
-                description: 'the type of virus',
-                field: null,
-                cladeRef: decorator + 'VirusType',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category10',
-                sizes: null
-            };
-
-            nodeVisualizations['Subtype/Genotype'] = {
-                label: 'Subtype/Genotype',
-                description: 'the subtype or genotype',
-                field: null,
-                cladeRef: decorator + 'ViprType',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20c',
-                sizes: null
-            };
-
-            nodeVisualizations['Genotype'] = {
-                label: 'Genotype',
-                description: 'the vipr genotype',
-                field: null,
-                cladeRef: decorator + 'ViprGenotype',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20b',
-                sizes: null
-            };
-
-            nodeVisualizations['HA & NA Subtype'] = {
-                label: 'HA & NA Subtype',
-                description: 'Both the HA & NA subtypes',
-                field: null,
-                cladeRef: decorator + 'Subtype',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-            nodeVisualizations['A/HA Subtype'] = {
-                label: 'A/HA Subtype',
-                description: 'the HA subtype',
-                field: null,
-                cladeRef: decorator + 'HA',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-            nodeVisualizations['A/NA Subtype'] = {
-                label: 'A/NA Subtype',
-                description: 'the NA subtype',
-                field: null,
-                cladeRef: decorator + 'NA',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-            
-            nodeVisualizations['A/avg_exon Subtype'] = {
-                label: 'A/avg_exon Subtype',
-                description: 'the avg_exon subtype',
-                field: null,
-                cladeRef: 'avg_exon',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-            
-            nodeVisualizations['A/avg_gene Subtype'] = {
-                label: 'A/avg_gene Subtype',
-                description: 'the avg_gene subtype',
-                field: null,
-                cladeRef: 'avg_gene',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-            
-            
-			nodeVisualizations['A/avg_CDS Subtype'] = {
-                label: 'A/avg_CDS Subtype',
-                description: 'the avg_CDS subtype',
-                field: null,
-                cladeRef: 'avg_CDS',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-			
-			nodeVisualizations['A/see ncbi: Subtype'] = {
-                label: 'A/see ncbi: Subtype',
-                description: 'the see ncbi: subtype',
-                field: null,
-                cladeRef: 'see ncbi:',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-			
-            nodeVisualizations['A/avg_mRNA Subtype'] = {
-                label: 'A/avg_mRNA Subtype',
-                description: 'the avg_mRNA subtype',
-                field: null,
-                cladeRef: 'avg_mRNA',
-                regex: false,
-                shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-                colors: 'category20',
-                sizes: null
-            };
-
-			
-
-
-            var loc = 'data/NCBIPhylo_minidom.xml';
-
-            jQuery.get(loc,
-                    function (data) {
-                        var tree = null;
-                        try {
-                            if (loc.substr(-3, 3) === 'xml') {
-                                tree = archaeopteryx.parsePhyloXML(data);
-                            }
-                            else {
-                                tree = archaeopteryx.parseNewHampshire(data);
-                            }
-                        }
-                        catch (e) {
-                            alert("error while parsing tree: " + e);
-                        }
-                        if (tree) {
-                            try {
-                                archaeopteryx.launch('#phylogram1', tree, options, settings, nodeVisualizations);
-                            }
-                            catch (e) {
-                                alert("error while launching archaeopteryx: " + e);
-                            }
-                        }
-                    },
-                    "text")
-                    .fail(function () {
-                        alert("error: failed to read tree(s) from \"" + loc + "\"");
-                    });
-        }
-    </script>
-
-    
-    <style>
-
-body {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.bar {
-  fill: orange;
-}
-
-.bar:hover {
-  fill: orangered ;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-    
- .stats
-    {
-        font-family:    Arial, Helvetica, sans-serif;
-        font-size:      14px;
-        color:blue;
-/*        background-color:lightblue;*/
-    }
-    
-    
-    .ui-tooltip, .arrow:after {
-    background: black;
-    border: 2px solid white;
-  }
-  .ui-tooltip {
-    padding: 10px 20px;
-    color: white;
-    border-radius: 20px;
-    font: bold 14px "Helvetica Neue", Sans-Serif;
-    box-shadow: 0 0 7px black;
-  }
-/*
-  .arrow {
-    width: 70px;
-    height: 16px;
-    overflow: hidden;
-    position: absolute;
-    left: 50%;
-    margin-left: -35px;
-    bottom: -16px;
-  }
-  .arrow.top {
-    top: -16px;
-    bottom: auto;
-  }
-  .arrow.left {
-    left: 20%;
-  }
-  .arrow:after {
-    content: "";
-    position: absolute;
-    left: 20px;
-    top: -20px;
-    width: 25px;
-    height: 25px;
-    box-shadow: 6px 5px 9px -9px black;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  .arrow.top:after {
-    bottom: -20px;
-    top: auto;
-  }
-*/
-
-.navbar  .nav-item
-    {
-      font-size: medium;
-    }
-
-#boa4genomics
-    {
-      font-size: large;
-    }
-    
- .navbar{
-/*            line-height: 150px;*/
-            height: 70px;
-/*            padding-top: 0;*/
-        }
-        
-</style>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/design.css" >
+  <title>Boa for Genomics </title>
 </head>
-
-
-
-<body onload="load()">
+<body>
     
 <div class="container">
 
-<!-- class for colors     style="background-color: #C4226F" -->
-<nav class="navbar brand-bg-color navbar-inverse navbar-toggleable-sm" >
-   <div class="container">
-      <a class="navbar-brand" id="boa4genomics" href="index.html"> 
-          <img src="images/dna1.png" style="width:80px; " alt="Logo">
-          Boa for Genomics
-       </a>
-      <div class="navbar-nav">
-          <a  class="nav-item nav-link  " href="#">Home</a>
-          <a  class="nav-item nav-link" href="phyloTree.html">Tree of life</a>
-          <a  class="nav-item nav-link" href="stats.html">summary statistics</a>
-          <a class="nav-item nav-link"  href="help.html">Help</a>
-<!--          <a  class="nav-item nav-link" href="#">Staff</a>-->
-          <div class="dropdown">
-              <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" 
-                 aria-haspopup="true" aria-expanded="false" id="BoaNav"
-                 >About
-              </a>
-              <div class="dropdown-menu">
-                  <a class="dropdown-item" href="http://design.cs.iastate.edu/" target="_blank"> Laboratory for Software Design</a>
-                  <a class="dropdown-item" href="http://gif.biotech.iastate.edu/" target="_blank"> GIF lab</a>
-                  <a class="dropdown-item" href="http://www.cs.iastate.edu/" target="_blank"> Computer Science Department</a>
+     <nav class="navbar brand-bg-color navbar-inverse navbar-toggleable-sm" >
+           <div class="container">
+              <a class="navbar-brand" href="index.html"> 
+                  <img src="images/dna1.png" id="boa4genomics" style="width:80px;" alt="Logo">
+                  Boa for Genomics
+               </a>
+              <div class="navbar-nav">
+                  <a  class="nav-item nav-link  " href="#">Home</a>
+                  <a  class="nav-item nav-link" href="phyloTree.html">Tree of life</a>
+                  <a  class="nav-item nav-link" href="stats.html">summary statistics</a>
+                  <a class="nav-item nav-link"  href="help.html">Help</a>
+                  
+                  <div class="dropdown">
+                      <a  class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" 
+                         aria-haspopup="true" aria-expanded="false" id="BoaNav"
+                         >About
+                      </a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="http://design.cs.iastate.edu/" target="_blank"> Laboratory for Software Design</a>
+                          <a class="dropdown-item" href="http://gif.biotech.iastate.edu/" target="_blank"> GIF lab</a>
+                          <a class="dropdown-item" href="http://www.cs.iastate.edu/" target="_blank"> Computer Science Department</a>
+                      </div>
+
+                  </div>
               </div>
-              
-          </div>
+           </div> <!-- container -->
+        </nav>
+    
+    <section class="content" id="mission">
+      <h1> Tree of life </h1>
+      <p class="lead"> Summary statistics within the tree of life.</p>
+
+    </section>
+
+
+        <div id="tree-container" style="height:1000px ; overflow: auto;" ></div>
+
+
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Node Property</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#featureNo" role="tab" data-toggle="tab">Feature Number</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#featureSize" role="tab" data-toggle="tab">Feature Length</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#assembler" role="tab" data-toggle="tab"> Assembler Statistics</a>
+      </li>
+<!--
+      <li class="nav-item">
+        <a class="nav-link" href="#leaves" role="tab" data-toggle="tab"> List of species</a>
+      </li>
+-->
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade active" id="profile"> Node Property
+          <div id="node_property"></div>
       </div>
-   </div> <!-- container -->
-</nav>
-   
-
-    <h2> <font color="black"> Tree of life:  Summary Statistics </font> </h2>
-    <p>
-        Data is based on ncbi GFF files (<a href="https://www.ncbi.nlm.nih.gov/" target="_blank">ncbi</a>)
-    </p>
-    <p>
-        Boa for Genomics  <a href="index.html"
-                            >documentation</a>
-        <br>
-        <br>
-    </p>
-    
-  
-<div class="container">
-    
- 
-<!--<div class="row">-->
-  <div  id='phylogram1'></div>
-  <div id='controls0' class='uii-widget-content' ></div>
- <div  id='controls1' class='ui-widget-content'></div>
-  
-<!--    style="position:absolute;top:20px ;left:750px"-->
-<div id="summarystats"   role="tablist" aria-multiselectable="true"   >
-    <div class="card" >
-        <div class="card-header" role="tab" id="summary"> 
-              <h5 class="mb-0">
-<!--                data-parent="#summarystats"-->
-                  <a data-toggle="collapse"  
-                     href="#block-controls3" aria-expanded="true" 
-                     aria-controls="controls3">Summary Statistics
-                  </a>
-              </h5>
-        </div><!-- card header -->
-
-        <div class="collapse show " id="block-controls3" role="tabpanel" aria-labelledby="summary">
-            <div id='controls3' class="card-block" >
-                <p> summary statistics </p>
-            </div>
-        </div> <!-- collapse-->
-    </div> <!-- card -->
-
-    <div class="card">
-        <div class="card-header" role="tab" id="chart1"> 
-              <h5 class="mb-0">
-                  <a data-toggle="collapse" 
-                     href="#block-controls2" aria-expanded="true" 
-                     aria-controls="controls2">Bar Chart: Features Size</a>
-              </h5>
-        </div><!-- card header -->
-
-        <div class="collapse  " id="block-controls2" role="tabpanel" aria-labelledby="summary">
-            <div id='controls2' class="card-block"  >
-                <p> chart 1 </p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header" role="tab" id="assembly"> 
-              <h5 class="mb-0">
-                  <a data-toggle="collapse"  
-                     href="#block-controls4" aria-expanded="true" 
-                     aria-controls="controls4">Bar chart: Feature length</a>
-              </h5>
-        </div><!-- card header -->
-
-        <div class="collapse  " id="block-controls4" role="tabpanel" aria-labelledby="summary">
-            <div id='controls4' class="card-block"  >
-                <p> bar chart:average of feature length</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header" role="tab" id="assembly"> 
-              <h5 class="mb-0">
-                  <a data-toggle="collapse"  
-                     href="#block-controls5" aria-expanded="false" 
-                     aria-controls="controls5">Distribution</a>
-              </h5>
-        </div><!-- card header -->
-
-        <div class="collapse " id="block-controls5" role="tabpanel" aria-labelledby="summary">
-            <div id='controls5' class="card-block" >
-            </div>
-        </div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header" role="tab" id="assembly"> 
-              <h5 class="mb-0">
-                  <a data-toggle="collapse" 
-                     href="#block-controls6" aria-expanded="true" 
-                     aria-controls="controls6">Assembly program</a>
-              </h5>
-        </div><!-- card header -->
-
-        <div class="collapse  " id="block-controls6" role="tabpanel" aria-labelledby="assembly">
-            <div id='controls6' style="height:100%;width:100%;"  class="card-block"  >
-            </div>
-        </div> <!--  card block -->
-       
-    </div>
-    
-    
-    
-    
-</div> <!-- card  -->
-    
-    
-<!--</div>  Row     -->
-         
-</div>
- 
-    
-<hr class="featurette-divider">
-
- <footer>
-  <div class="content container-fluid">
-    <div class="row">
-      <div class="col-sm-3 ">
-          <div >
-            <a href="http://www.iastate.edu">
-              <img src="images/isu-stacked.svg" width="170" 
-                alt="Iowa State University" class="isu-logo">
-            </a>
-          </div>
-          
+      <div role="tabpanel" class="tab-pane fade" id="featureNo">Distribution based on feature number
+          <div id='feature_no' ></div>
       </div>
-      
-      <div class="col-sm-4">
-          <p>
-              <b>&nbsp;&nbsp;&nbsp;Laboratory for Software Design</b>
-            </p>
-            <p>&nbsp;&nbsp;&nbsp;115-2 Atanasoff Hall</p>
-            <p>&nbsp;&nbsp;&nbsp;Ames, IA, 50011-1040, USA</p>
-            <p>&nbsp;&nbsp;&nbsp;Phone: (515) 294-6168</p>
-            <p>&nbsp;&nbsp;&nbsp;E-Mail: hridesh@iastate.edu</p>
-      </div><!-- col-sm-6 -->
-      
-      <div class="col-sm-4">
-            <p>
-                Copyright © 2017 Iowa State University of Science and Technology <a href="http://www.iastate.edu">www.iastate.edu</a>. All rights reserved.
-            </p>    
-    
-      </div><!-- col-sm-6 -->
+      <div role="tabpanel" class="tab-pane fade" id="featureSize">Distribution based on feature size
+          <div id='feature_size' ></div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="assembler"  style="min-height:594px"> Assembler programs statistics
+          <div id="assembler_programs" style="height:100%;width:100%" ></div>
+      </div>
+
+     <div role="tabpanel" class="tab-pane fade" id="leaves"> List of GFF files
+          <div id='gff_list' ></div>
+      </div>
         
-    </div><!-- row -->
-  </div><!-- content container -->
-</footer>
+    </div>
     
-    
-    
-</div> <!-- container -->
+    <hr class="featurette-divider">
 
     
+        
+    <footer>
+      <div class="content container-fluid">
+        <div class="row">
+          <div class="col-sm-3">
+              <div >
+                <a href="http://www.iastate.edu">
+                  <img src="images/isu-stacked.svg" width="170"  alt="Iowa State University" class="isu-logo">
+                </a>
+              </div>
 
+          </div>
+
+          <div class="col-sm-4">
+              <p>
+                  <b>&nbsp;&nbsp;&nbsp;Laboratory for Software Design</b>
+                </p>
+                <p>&nbsp;&nbsp;&nbsp;115-2 Atanasoff Hall</p>
+                <p>&nbsp;&nbsp;&nbsp;Ames, IA, 50011-1040, USA</p>
+                <p>&nbsp;&nbsp;&nbsp;Phone: (515) 294-6168</p>
+                <p>&nbsp;&nbsp;&nbsp;E-Mail: hridesh@iastate.edu</p>
+          </div><!-- col-sm-6 -->
+
+            <div class="col-sm-4">
+                <p>
+                    Copyright © 2017 Iowa State University of Science and Technology <a href="http://www.iastate.edu">www.iastate.edu</a>. All rights reserved.
+                </p>    
+
+          </div><!-- col-sm-6 -->
+
+        </div><!-- row -->
+      </div><!-- content container -->
+    </footer>
+    
+    
+</div><!-- content container -->
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="//d3js.org/d3.v3.min.js"></script>
+<script src="js/jquery.slim.min.js"></script>
+<script src="js/tether.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/collapsetree.js"></script>
 </body>
+</html>

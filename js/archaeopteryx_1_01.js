@@ -299,6 +299,24 @@ if (!phyloXml) {
     var _colorsForColorPicker = null;
     var selected_node=null;
 
+    function incrDepthCollapseLevel1() {
+        _rank_collapse_level = -1;
+        _branch_length_collapse_level = -1;
+        resetCollapseByFeature();
+        if (( _root && _treeData  ) && ( _external_nodes > 2 )) {
+            var max = forester.calcMaxDepth(_root);
+            if (_depth_collapse_level >= max) {
+                _depth_collapse_level = 1;
+            }
+            else {
+                unCollapseAll(_root);
+                ++_depth_collapse_level;
+            }
+            forester.collapseToDepth(_root, _depth_collapse_level);
+        }
+        update(null, 0);
+    }
+
 
     function branchLengthScaling(nodes, width) {
 
@@ -3621,6 +3639,12 @@ if (!phyloXml) {
         update(null, 0);
 
         centerNode(_root, _settings.rootOffset);
+        
+        //@Hamid collapse the tree once it loads 
+        for (var i=0; i<4; i++){
+             incrDepthCollapseLevel();
+        }
+       
     };
 
     archaeopteryx.parsePhyloXML = function (data) {
@@ -5768,6 +5792,7 @@ if (!phyloXml) {
         setCheckboxValue(BRANCH_VIS_CB, _options.showBranchVisualizations);
         initializeVisualizationMenu();
         initializeSearchOptions();
+        
     }
 
 
