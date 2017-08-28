@@ -55,7 +55,7 @@ var svg = d3.select("#tree-container")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data_8_17/tol_8_17.json", function(error, flare) {
+d3.json("data_9_17/tol_09_17.json", function(error, flare) {
   if (error) throw error;
 
   root = flare;
@@ -220,12 +220,12 @@ function processFeatureData2(d) {
         
               
             for (var i=0; i<d.leaves.length; i++) {
-                    exon.push( d.leaves[i][1]);
-                    gene.push(d.leaves[i][3]  );
+                    gene.push( d.leaves[i][1]);
+                    exon.push(d.leaves[i][3]  );
                     mRNA.push( d.leaves[i][5] );
                     CDS.push( d.leaves[i][7] );
-                    exon_length.push(d.leaves[i][2] );
-                    gene_length.push(d.leaves[i][4]);
+                    gene_length.push(d.leaves[i][2] );
+                    exon_length.push(d.leaves[i][4]);
                     mRNA_length.push(d.leaves[i][6]);
                     CDS_length.push(d.leaves[i][8] );
                
