@@ -55,7 +55,7 @@ var svg = d3.select("#tree-container")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data_9_2017/tol_09_17.json", function(error, flare) {
+d3.json("data_09_2017/tol_09_17.json", function(error, flare) {
   if (error) throw error;
 
   root = flare;
