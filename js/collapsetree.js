@@ -55,7 +55,7 @@ var svg = d3.select("#tree-container")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("https://www.dropbox.com/s/mh96lacpf1r74r8/tol_09_17.json", function(error, flare) {
+d3.json("data_9_17/tol_09_17.json", function(error, flare) {
   if (error) throw error;
 
   root = flare;
@@ -219,25 +219,35 @@ function processFeatureData2(d) {
 
         
               
-            for (var i=0; i<d.leaves.length; i++) {
-                    gene.push( d.leaves[i][0]);
-                    exon.push(d.leaves[i][2]  );
-                    mRNA.push( d.leaves[i][4] );
-                    CDS.push( d.leaves[i][6] );
-                    gene_length.push(d.leaves[i][1] );
-                    exon_length.push(d.leaves[i][3]);
-                    mRNA_length.push(d.leaves[i][5]);
-                    CDS_length.push(d.leaves[i][7] );
-               
+//            for (var i=0; i<d.leaves.length; i++) {
+//                    gene.push( d.leaves[i][0]);
+//                    exon.push(d.leaves[i][2]  );
+//                    mRNA.push( d.leaves[i][4] );
+//                    CDS.push( d.leaves[i][6] );
+//                    gene_length.push(d.leaves[i][1] );
+//                    exon_length.push(d.leaves[i][3]);
+//                    mRNA_length.push(d.leaves[i][5]);
+//                    CDS_length.push(d.leaves[i][7] );
+//              
+//            }
 
+      for (var i=0; i<d.leaves.length; i++) {
+                    stats=d.leaves[i].toString().split(",");
+                    gene.push( stats[0]);
+                    exon.push(stats[2] );
+                    mRNA.push( stats[4] );
+                    CDS.push( stats[6] );
+                    gene_length.push(stats[1] );
+                    exon_length.push(stats[3]);
+                    mRNA_length.push(stats[5]);
+                    CDS_length.push(stats[7] );
+              
             }
 
             makeNoPlotly( exon, gene, mRNA, CDS);
             makeSizePlotly( exon_length, gene_length, mRNA_length, CDS_length);
 
-       
-      
-
+     
         //show assembler data
         
             var assemblers = [], 
@@ -246,11 +256,9 @@ function processFeatureData2(d) {
             
             for (var i=0; i<d.assemblers.length; i++) {
                
-               var row = assembler_data[i];
                var assembler=String(d.assemblers[i]).toLowerCase();
-                
-                   
-                if (assembler.length==0  || assembler.localeCompare("nan") ){
+                                   
+                if (assembler.length==0  || assembler==="nan" ){
                     assembler='unknown';
                 }
                 if(assemblers.indexOf(assembler)==-1){
@@ -260,14 +268,11 @@ function processFeatureData2(d) {
                 }else{
                 counts[assemblers.indexOf(assembler)]++;
                 }
-                   
                
-
             }
 
             makeAssemblyPlotly( assemblers, counts);
 
-      
     }
 
 
