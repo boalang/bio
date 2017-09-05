@@ -1,15 +1,21 @@
 var taxlist=[];
 var selectedtax=[];
 var jsonfile;
+var assembler_jsonfile;
+
 var tax_key="";
 var filtered_list=[];
 
 
-d3.json("/data_9_17/nodes_stats.txt", function(data){
+d3.json("data_9_17/nodes_stats.json", function(data){
     jsonfile=data;
 
 });
 
+d3.json("data_9_17/nodes_assembly_stats.json", function(data){
+    assembler_jsonfile=data;
+
+});
 
 
 //var jsonData=$.getJSON('/data/nodes_stats.txt', function(data) {      
@@ -23,6 +29,7 @@ function makeplot() {
  	//Plotly.d3.csv("data_4_17/data1.csv", function(data){ processData(data) } );
     
     process_json_data();
+    process_assembly_json_data();
 };
 
 
@@ -112,7 +119,7 @@ function process_json_data() {
             
         }
         
-        //parse assemblr data
+        //parse assembler data
         
         var assemblers = [], 
                 counts = [], 
@@ -134,17 +141,74 @@ function process_json_data() {
                 counts[assemblers.indexOf(assembler)]++;
                 }
                
-            }
-
-            makeAssemblyPlotly( assemblers, counts);
-        //
+            } //End of parsing assembler data
        
     }
     
     makeNoPlotly( exon, gene, mRNA, CDS);
     makeSizePlotly( exon_length, gene_length, mRNA_length, CDS_length);
+    makeAssemblyPlotly( assemblers, counts);
 
-}
+
+}//End of process_json_data()
+
+
+function process_assembly_json_data() {
+
+	var total_length = [], 
+        total_gap_length = [], 
+        scaffold_count = [], 
+        scaffold_N50 = [],
+        contig_count = [], 
+        contig_N50 = [], 
+        standard_deviation = [];
+        
+    filtered_list=[];
+    
+    for(var j=0; j<selectedtax.length; j++){
+
+         var returned_item = assembler_jsonfile.nodes.filter(function (item) {
+         var returnData=[];
+         if (item.taxid==selectedtax[j]){
+            //console.log(item);
+            var el={taxid: item.taxid, leaves:item.leaves};
+            returnData.push(el);
+            return returnData;
+     }
+      });// end of returned_item
+        
+    filtered_list.push(returned_item)    
+        
+	}// end of filter list
+
+    for(var i=0; i<filtered_list.length; i++){
+        if (filtered_list[0].length==0){
+            break;
+        }
+        var leaves=filtered_list[i][0].leaves;
+        for (var j=0; j<leaves.length;j++){
+            var row=String(leaves[j]);
+            var data_row=row.split(',');
+            
+            total_length.push( data_row[2] );
+            total_gap_length.push( data_row[3] );
+            scaffold_count.push( data_row[4] );
+            scaffold_N50.push( data_row[5] );
+            contig_count.push( data_row[6] );
+            contig_N50.push( data_row[7] );
+            
+            
+        }
+        
+        
+       
+    }
+    
+    makeAssemblyStatsPlotly( total_length, total_gap_length, scaffold_count, scaffold_N50, contig_count, contig_N50 );
+
+
+}//End of process_json_data()
+
 
 
 function processAssemblyData(allRows) {
@@ -189,33 +253,41 @@ function makeNoPlotly( exon, gene, mRNA, CDS ){
           y: exon,
           boxpoints: 'outliers',
           name: 'Exon_No',    
-          type: 'box'
+          type: 'box',
+            boxmean: 'sd'
         };
 
         var Gene_No = {
           y: gene,
           boxpoints: 'outliers', 
           name: 'Gene_No',    
-          type: 'box'
+          type: 'box',
+            boxmean: 'sd'
         };
 
         var mRNA_No = {
           y: mRNA,
           boxpoints: 'outliers',
           name: 'mRNA_No',    
-          type: 'box'
+          type: 'box',
+            boxmean: 'sd'
         };
 
         var CDS_No = {
           y: CDS,
           boxpoints: 'outliers',   
           name: 'CDS_No',
-          type: 'box'
+          type: 'box',
+            boxmean: 'sd'
+        };
+
+        var layout = {
+              title: ' Genome Feature Number statistics'
         };
 
         var data = [Exon_No, Gene_No,mRNA_No, CDS_No];
 
-        Plotly.newPlot('feature_no', data);
+        Plotly.newPlot('feature_no', data,layout);
 
 
     };
@@ -227,33 +299,42 @@ function makeNoPlotly( exon, gene, mRNA, CDS ){
               y: exon,
               boxpoints: 'outliers',
               name: 'Exon_Length',    
-              type: 'box'
+              type: 'box',
+              boxmean: 'sd'
             };
 
             var Gene_length = {
               y: gene,
               boxpoints: 'outliers', 
               name: 'Gene_Length',    
-              type: 'box'
+              type: 'box',
+              boxmean: 'sd'
             };
 
             var mRNA_length = {
               y: mRNA,
               boxpoints: 'outliers',
               name: 'mRNA_Length',    
-              type: 'box'
+              type: 'box',
+              boxmean: 'sd'
+
             };
 
             var CDS_length = {
               y: CDS,
               boxpoints: 'outliers',   
               name: 'CDS_Length',
-              type: 'box'
+              type: 'box',
+              boxmean: 'sd'
             };
 
+            var layout = {
+              title: 'Genome Feature Size statistics'
+            };
+     
             var data = [Exon_length, Gene_length,mRNA_length, CDS_length];
 
-            Plotly.newPlot('feature_size', data);
+            Plotly.newPlot('feature_size', data,layout);
 
         };
 
@@ -263,30 +344,90 @@ function makeAssemblyPlotly(assemblers, counts){
 	
 //   console.log(assemblers)
 //   console.log(counts);
-    
    
     var data = [{
         values: counts,
         labels: assemblers,
         type: 'pie',
-    
         
     }];
    var layout = {
 //      height: 380,
 //      width: 480,
-      title:'assembler programs'
+      title:'Assembler Programs'
 
     };
 
-   
    Plotly.newPlot('assemblers_div', data, layout);
     
-   
-    
-
 };
-            
+ 
+
+ function makeAssemblyStatsPlotly( total_length, total_gap_length, scaffold_count, scaffold_N50, contig_count, contig_N50 ){
+
+            var total_length_box = {
+              y: total_length,
+              boxpoints: 'outliers',
+              name: 'total_length',    
+              type: 'box',
+              boxmean: 'sd'    
+            };
+
+            var total_gap_length_box = {
+              y: total_gap_length,
+              boxpoints: 'outliers', 
+              name: 'total_gap_length',    
+              type: 'box',
+              boxmean: 'sd'
+            };
+
+            var scaffold_count_box = {
+              y: scaffold_count,
+              boxpoints: 'outliers',
+              name: 'scaffold_count',    
+              type: 'box',
+              boxmean: 'sd'
+            };
+
+            var scaffold_N50_box = {
+              y: scaffold_N50,
+              boxpoints: 'outliers',   
+              name: 'scaffold_N50',
+              type: 'box',
+                boxmean: 'sd'
+            };
+
+            var contig_count_box = {
+              y: contig_count,
+              boxpoints: 'outliers',   
+              name: 'contig_count',
+              type: 'box',
+                boxmean: 'sd'
+            };
+     
+            var contig_N50_box = {
+              y: contig_N50,
+              boxpoints: 'outliers',   
+              name: 'contig_N50',
+              type: 'box',
+                boxmean: 'sd'
+            };
+     
+     
+            var layout = {
+              title: 'Asssembly statistics'
+            };
+     
+            var data = [total_length_box, total_gap_length_box, scaffold_count_box, scaffold_N50_box, contig_count_box, contig_N50_box];
+
+            // remove total length and total gap-length
+            //var data = [scaffold_count_box, scaffold_N50_box, contig_count_box, contig_N50_box];
+     
+            Plotly.newPlot('assemblyStats_div', data,layout);
+
+        };
+
+
 
 function fillList(){
 
