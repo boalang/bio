@@ -23,7 +23,7 @@
      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
-    <script src="js/jquery.slim.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
@@ -86,14 +86,15 @@
     
             
               
+<!--
                 <select class="taxonomylist js-states form-control ">
                      <option value="2" selected="selected"></option>
                 </select>
+-->
 
                 <br>
                 <br>
-                <textarea id="texlist" name="textarea-name"  cols="70" rows="5">
-                </textarea>
+                <textarea id="texlist" name="textarea-name"  cols="70" rows="5"></textarea>
 
                 <br>
                 <button type="button" onclick="showSum()"> Show summary </button>
@@ -102,10 +103,11 @@
 
 
                 <!-- Plotly box chart -->
-                <div id="myDiv"></div>
+                <div id="feature_no"></div>
+                <div id='feature_size' ></div>
 
-                <div id="myDiv2" style="width: 480px; height: 400px;"></div>
-                <div id="myDiv3"></div>
+
+                <div id="assemblers_div" ></div>
                 <div id="hoverinfo" style="margin-left:80px;"></div>    
 
             

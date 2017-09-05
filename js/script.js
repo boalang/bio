@@ -1,19 +1,28 @@
-
+var taxlist=[];
+var selectedtax=[];
 var jsonfile;
-d3.json("data_8_17/tol_8_17.json", function(data){
+var tax_key="";
+var filtered_list=[];
+
+
+d3.json("/data_9_17/nodes_stats.txt", function(data){
     jsonfile=data;
 
 });
 
 
 
+//var jsonData=$.getJSON('/data/nodes_stats.txt', function(data) {      
+//    return(data);
+//});
 
-var taxlist=[];
-var selectedtax=[];
+
+
 
 function makeplot() {
- 	Plotly.d3.csv("data_4_17/data1.csv", function(data){ processData(data) } );
-
+ 	//Plotly.d3.csv("data_4_17/data1.csv", function(data){ processData(data) } );
+    
+    process_json_data();
 };
 
 
@@ -50,23 +59,94 @@ function processData(allRows) {
     console.log(taxlist);
 }
 
-function initialize(){
+function process_json_data() {
+
+	var exon = [], 
+        gene = [], 
+        mRNA = [], 
+        CDS = [],
+        exon_length = [], 
+        gene_length = [], 
+        mRNA_length = [], 
+        CDS_length = [], 
+        standard_deviation = [];
+        
     
-    clearList();
-  
-    Plotly.d3.csv("data_4_17/data1.csv", function(data){
-        for (var i=0; i<data.length; i++) {
-            var row = data[i];
+    filtered_list=[];
+    
+    for(var j=0; j<selectedtax.length; j++){
 
-            if (!taxlist.includes(row['parentTaxid'])){
-                taxlist.push(row['parentTaxid']);
-            }
+         var returned_item = jsonfile.nodes.filter(function (item) {
+         var returnData=[];
+         if (item.taxid==selectedtax[j]){
+            //console.log(item);
+            var el={taxid: item.taxid, leaves:item.leaves};
+            returnData.push(el);
+
+            return returnData;
+     }
+      });// end of returned_item
+        
+    filtered_list.push(returned_item)    
+        
+        
+	}// end of filter list
+
+    for(var i=0; i<filtered_list.length; i++){
+        if (filtered_list[0].length==0){
+            break;
         }
-        fillList();
-         } );
+        var leaves=filtered_list[i][0].leaves;
+        for (var j=0; j<leaves.length;j++){
+            var row=String(leaves[j]);
+            var data_row=row.split(',');
+            
+            gene.push( data_row[0] );
+            gene_length.push( data_row[1] );
+            exon.push( data_row[2] );
+            exon_length.push( data_row[3] );
+            mRNA.push( data_row[4] );
+            mRNA_length.push( data_row[5] );
+            CDS.push( data_row[6] );
+            CDS_length.push( data_row[7] );
+            
+        }
+        
+        //parse assemblr data
+        
+        var assemblers = [], 
+                counts = [], 
+                standard_deviation = [];
+            
+        var filtered_assemlers=filtered_list[i][0].assemblers;
+        for (var i=0; i<filtered_assemlers.length; i++) {
+               
+               var assembler=String(filtered_assemlers[i]).toLowerCase();
+                                   
+                if (assembler.length==0  || assembler==="nan" ){
+                    assembler='unknown';
+                }
+                if(assemblers.indexOf(assembler)==-1){
+                    assemblers.push(assembler);               
+                    counts[assemblers.indexOf(assembler)]=1;
 
+                }else{
+                counts[assemblers.indexOf(assembler)]++;
+                }
+               
+            }
+
+            makeAssemblyPlotly( assemblers, counts);
+        //
+       
+    }
+    
+    makeNoPlotly( exon, gene, mRNA, CDS);
+    makeSizePlotly( exon_length, gene_length, mRNA_length, CDS_length);
 
 }
+
+
 function processAssemblyData(allRows) {
 
 //	console.log(allRows);
@@ -101,66 +181,83 @@ function processAssemblyData(allRows) {
 
 }
 
-function makePlotly(exon, gene, mRNA, CDS ){
-	
-    var Exon_No = {
-      y: exon,
-      boxpoints: 'outliers',
-      name: 'Exon_No',    
-      type: 'box'
+
+
+function makeNoPlotly( exon, gene, mRNA, CDS ){
+
+        var Exon_No = {
+          y: exon,
+          boxpoints: 'outliers',
+          name: 'Exon_No',    
+          type: 'box'
+        };
+
+        var Gene_No = {
+          y: gene,
+          boxpoints: 'outliers', 
+          name: 'Gene_No',    
+          type: 'box'
+        };
+
+        var mRNA_No = {
+          y: mRNA,
+          boxpoints: 'outliers',
+          name: 'mRNA_No',    
+          type: 'box'
+        };
+
+        var CDS_No = {
+          y: CDS,
+          boxpoints: 'outliers',   
+          name: 'CDS_No',
+          type: 'box'
+        };
+
+        var data = [Exon_No, Gene_No,mRNA_No, CDS_No];
+
+        Plotly.newPlot('feature_no', data);
+
+
     };
-    
-
-    var Gene_No = {
-      y: gene,
-      boxpoints: 'all', 
-      name: 'Gene_No',    
-      type: 'box'
-    };
-    
-    var mRNA_No = {
-      y: mRNA,
-      boxpoints: 'outliers',
-      name: 'mRNA_No',    
-      type: 'box'
-    };
-    
-    var CDS_No = {
-      y: CDS,
-      boxpoints: 'all',   
-      name: 'CDS_No',
-      type: 'box'
-    };
-    
-    var layout = { 
-        hovermode:'closest',
-        title:'Gene Features based on occurance of each feature in genome'
-     };
 
 
-    var data = [Exon_No, Gene_No,mRNA_No, CDS_No];
+ function makeSizePlotly( exon, gene, mRNA, CDS ){
 
-    Plotly.newPlot('myDiv', data, layout);
+            var Exon_length = {
+              y: exon,
+              boxpoints: 'outliers',
+              name: 'Exon_Length',    
+              type: 'box'
+            };
 
-    
-    var myPlot = document.getElementById('myDiv'),
-    hoverInfo = document.getElementById('hoverinfo');
-    
-   myPlot.on('plotly_hover', function(data){
-    var infotext = data.points.map(function(d){
-//      console.log("hover")    
-      return (d.data.name+': x= '+d.x+', y= '+d.y.toPrecision(3));
-    });
-  
-    hoverInfo.innerHTML = infotext.join('<br/>');
-    })
-     .on('plotly_unhover', function(data){
-        hoverInfo.innerHTML = '';
-    });
+            var Gene_length = {
+              y: gene,
+              boxpoints: 'outliers', 
+              name: 'Gene_Length',    
+              type: 'box'
+            };
 
-    
+            var mRNA_length = {
+              y: mRNA,
+              boxpoints: 'outliers',
+              name: 'mRNA_Length',    
+              type: 'box'
+            };
 
-};
+            var CDS_length = {
+              y: CDS,
+              boxpoints: 'outliers',   
+              name: 'CDS_Length',
+              type: 'box'
+            };
+
+            var data = [Exon_length, Gene_length,mRNA_length, CDS_length];
+
+            Plotly.newPlot('feature_size', data);
+
+        };
+
+
 
 function makeAssemblyPlotly(assemblers, counts){
 	
@@ -176,49 +273,20 @@ function makeAssemblyPlotly(assemblers, counts){
         
     }];
    var layout = {
-      height: 380,
-      width: 480,
+//      height: 380,
+//      width: 480,
       title:'assembler programs'
 
     };
 
    
-   Plotly.newPlot('myDiv2', data, layout);
+   Plotly.newPlot('assemblers_div', data, layout);
     
    
     
 
-//    var trace1 = {
-//      x: counts,
-//      y: assemblers,
-//      text:['e1', 'e2', 'e3','e4'],    
-//
-//      mode: 'markers',
-//      marker: {
-//        color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
-//        opacity: [1, 0.8, 0.6, 0.4],
-//        size: [40, 60, 80, 90]
-//      }
-//    };
-//
-//    var data = [trace1];
-//
-//    var layout = {
-//      title: 'Assembler programs',
-//      showlegend: false,
-//      height: 400,
-//      width: 480
-//    };
-//
-//    Plotly.newPlot('myDiv3', data, layout);
-
-
-    
-    
-
 };
             
-
 
 function fillList(){
 
@@ -236,52 +304,69 @@ function fillList(){
             
         })
 
+//        $("#yourdropdownid option:selected").text();
+
         $(".taxonomylist").on('select2:select', function(event){
             var value = $(event.currentTarget).find("option:selected").val() + "&#10;";
-            console.log(value);
-            if (document.getElementById("texlist").value==''){
+            var txtData=document.getElementById("texlist").value.trim();
+            if (txtData=="" ||
+                txtData.length==0){
+                //document.getElementById("texlist").value="";
                 document.getElementById("texlist").innerHTML=value;
             }else{
-                document.getElementById("texlist").innerHTML +=value 
+                document.getElementById("texlist").innerHTML +=value; 
+                
             }
         })
           
 }
 
   function showSum(){
-                if (document.getElementById("texlist").innerHTML==""){
-                    return;
-                }
+//                if (document.getElementById("texlist").innerHTML==""){
+//                    return;
+//                }
                 var lines=document.getElementById("texlist").value;
                 selectedtax=lines.split("\n");
                 makeplot();
-                makeAssemblyplot();
-                for (var i=0; i<lines.length; i++){
-                    console.log(lines[i]);
-                    
-//                    if (lines[i] !=""){
-//                        makeplot(lines[i]);
-//                        makeAssemblyplot(lines[i])
-//                    }
-                }
             }
 
 function loadsample(){
-     document.getElementById("texlist").innerHTML="";
-     document.getElementById("texlist").innerHTML +='4783' + "&#10;";
-     document.getElementById("texlist").innerHTML +='695850' + "&#10;";
-     document.getElementById("texlist").innerHTML +='352914' + "&#10;";
-     document.getElementById("texlist").innerHTML +='222544' + "&#10;";
+     document.getElementById("texlist").value="";
+     document.getElementById("texlist").value +='1760' + "\n";
+     document.getElementById("texlist").value +='695850' + "\n";
+     document.getElementById("texlist").value +='352914' + "\n";
+     document.getElementById("texlist").value +='222544' + "\n";
     
-    console.log(jsonfile);
-//    var root1=jsonQ(jsonfile);
-//    console.log(root1.value())
 
+}
+
+
+function initialize(){
+    
+    clearList();
+
+    Plotly.d3.csv("data_9_17/taxlist.txt", function(data){
+        for (var i=0; i<data.length; i++) {
+            var row = data[i];
+
+            if (!taxlist.includes(row['taxid'])){
+                taxlist.push(row['taxid']);
+            }
+        }
+        fillList();
+         } );
     
 }
 
 function clearList(){
-//         document.getElementById("texlist").value="";
+             document.getElementById("texlist").value="";
 
+
+    element = document.getElementById('texlist');
+    if (element != null) {
+         document.getElementById("texlist").innerHTML="";
+    }
+    
+    
 }
-initialize()
+//initialize()
