@@ -24,7 +24,6 @@ d3.json("data_9_17/nodes_assembly_stats.json", function(data){
 
 
 
-
 function makeplot() {
  	//Plotly.d3.csv("data_4_17/data1.csv", function(data){ processData(data) } );
     
@@ -104,6 +103,20 @@ function process_json_data() {
             break;
         }
         var leaves=filtered_list[i][0].leaves;
+        console.log(leaves.length);
+        
+        //Node proprties: like number of GFFs
+        var text = ' <br>'+'<table class="container table-responsive table-striped table-hover"                   style="font-size:20px">';
+    
+//        text += '<tr><th>' +' Taxanomy ID: ' +'</th>' + '<td>'+d.taxid +'</td> </tr>'; 
+//        text += '<tr><th>' +' Scientific Name: ' +'</th>' + '<td>'+d.name +'</td> </tr>';
+        text += '<tr><th>' +' Number of Species: ' +'</th>' + '<td>'+leaves.length +'</td> </tr>';   
+//        text += ' <tr class="table-info"> <th> See NCBI </th> <td><a href= https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=' + d.taxid +' target="_blank" >' + ' NCBI' + '</a>'  + '</td></tr>'
+        text += '</table>'  
+
+        $("#node_property").html(text);
+
+        //
         for (var j=0; j<leaves.length;j++){
             var row=String(leaves[j]);
             var data_row=row.split(',');
