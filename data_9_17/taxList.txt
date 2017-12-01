@@ -1,4 +1,4 @@
-,
+name,taxid
 cellular organisms,131567
 Bacteria,2
 Terrabacteria group,1783272

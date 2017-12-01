@@ -7,7 +7,7 @@ var tax_key="";
 var filtered_list=[];
 
 
-d3.json("data_9_17/nodes_stats.json", function(data){
+d3.json("data_9_17/nodes_stats.txt", function(data){
     jsonfile=data;
 
 });
@@ -445,12 +445,12 @@ function makeAssemblyPlotly(assemblers, counts){
 function fillList(){
 
         var data=[];
-        for (var i=0; i<taxlist.length; i++){
-            data.push({id: taxlist[i], text: taxlist[i]});
-        }
+//        for (var i=0; i<taxlist.length; i++){
+//            data.push({id: taxlist[i], text: taxlist[i]});
+//        }
 
         $(".taxonomylist").select2({
-          data: data,
+          data: taxlist,
           placeholder: "Select a taxonomy ID",
           allowClear: true,
           maximumSelectionLength: 4
@@ -500,11 +500,13 @@ function initialize(){
     clearList();
 
     Plotly.d3.csv("data_9_17/taxlist.txt", function(data){
-        for (var i=0; i<data.length; i++) {
+        //FIXME: data.length, Remove the species just internal nodes
+        // upfate taxlist file
+        for (var i=0; i<2000; i++) {
             var row = data[i];
 
             if (!taxlist.includes(row['taxid'])){
-                taxlist.push(row['taxid']);
+                taxlist.push({id:row['taxid'], text:row['name']});
             }
         }
         fillList();
@@ -513,7 +515,8 @@ function initialize(){
 }
 
 function clearList(){
-             document.getElementById("texlist").value="";
+    //FIXME
+    //document.getElementById("texlist").value="";
 
 
     element = document.getElementById('texlist');
@@ -523,4 +526,4 @@ function clearList(){
     
     
 }
-//initialize()
+initialize()
