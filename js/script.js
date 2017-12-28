@@ -7,12 +7,12 @@ var tax_key="";
 var filtered_list=[];
 
 
-d3.json("data_9_17/nodes_stats.txt", function(data){
+d3.json("data_12_17/nodes_stats.json", function(data){
     jsonfile=data;
 
 });
 
-d3.json("data_9_17/nodes_assembly_stats.json", function(data){
+d3.json("data_12_17/nodes_assembly_stats.json", function(data){
     assembler_jsonfile=data;
 
 });
@@ -48,7 +48,7 @@ function processData(allRows) {
 
     for(var j=0; j<selectedtax.length; j++){
 
-        for (var i=0; i<allRows.length; i++) {
+        for (var i=0; i<1000; i++) {
             var row = allRows[i];
 
                 if (row['parentTaxid']==selectedtax[j]){
@@ -69,6 +69,7 @@ function process_json_data() {
 
 	var exon = [], 
         gene = [], 
+        exon_per_gene=[],
         mRNA = [], 
         CDS = [],
         exon_length = [], 
@@ -121,14 +122,26 @@ function process_json_data() {
             var row=String(leaves[j]);
             var data_row=row.split(',');
             
-            gene.push( data_row[0] );
-            gene_length.push( data_row[1] );
-            exon.push( data_row[2] );
-            exon_length.push( data_row[3] );
-            mRNA.push( data_row[4] );
-            mRNA_length.push( data_row[5] );
-            CDS.push( data_row[6] );
-            CDS_length.push( data_row[7] );
+            if (data_row[0] >0)
+                gene.push( data_row[0] );
+            if (data_row[1] >0)
+                gene_length.push( data_row[1] );
+            if (data_row[2] >0)
+                exon.push( data_row[2] );
+            if (data_row[3]>0 )
+                exon_length.push( data_row[3] );
+            if (data_row[4] >0)
+                mRNA.push( data_row[4] );
+            if (data_row[5] )
+                mRNA_length.push( data_row[5] );
+            if (data_row[6]>0 )
+                CDS.push( data_row[6] );
+            if (data_row[7] >0)
+                CDS_length.push( data_row[7] );
+            
+            if (data_row[8] >0)
+                exon_per_gene.push( data_row[8] );
+            
             
         }
         
@@ -143,6 +156,7 @@ function process_json_data() {
                
                var assembler=String(filtered_assemlers[i]).toLowerCase();
                                    
+                // FIXME: Cleaning assembly program name 
                 if (assembler.length==0  || assembler==="nan" ){
                     assembler='unknown';
                 }
@@ -158,7 +172,7 @@ function process_json_data() {
        
     }
     
-    makeNoPlotly( exon, gene, mRNA, CDS);
+    makeNoPlotly( exon,exon_per_gene, gene, mRNA, CDS);
     makeSizePlotly( exon_length, gene_length, mRNA_length, CDS_length);
     makeAssemblyPlotly( assemblers, counts);
 
@@ -202,13 +216,19 @@ function process_assembly_json_data() {
         for (var j=0; j<leaves.length;j++){
             var row=String(leaves[j]);
             var data_row=row.split(',');
-            
-            total_length.push( data_row[2] );
-            total_gap_length.push( data_row[3] );
-            scaffold_count.push( data_row[4] );
-            scaffold_N50.push( data_row[5] );
-            contig_count.push( data_row[6] );
-            contig_N50.push( data_row[7] );
+                        
+            if (data_row[2]>0)
+               total_length.push( data_row[2] );
+            if (data_row[3]>0)
+                total_gap_length.push( data_row[3] );
+            if (data_row[4]>0)
+                scaffold_count.push( data_row[4] );
+            if (data_row[5]>0)
+                scaffold_N50.push( data_row[5] );
+            if (data_row[6]>0)
+                contig_count.push( data_row[6] );
+            if (data_row[7]>0)
+                contig_N50.push( data_row[7] );
             
             
         }
@@ -260,7 +280,7 @@ function processAssemblyData(allRows) {
 
 
 
-function makeNoPlotly( exon, gene, mRNA, CDS ){
+function makeNoPlotly( exon,exon_per_gene, gene, mRNA, CDS ){
 
         var Exon_No = {
           y: exon,
@@ -270,6 +290,14 @@ function makeNoPlotly( exon, gene, mRNA, CDS ){
             boxmean: 'sd'
         };
 
+         var Exon_Per_Gene = {
+          y: exon_per_gene,
+          boxpoints: 'outliers',
+          name: 'Exon_Per_Gene',    
+          type: 'box',
+            boxmean: 'sd'
+        };
+    
         var Gene_No = {
           y: gene,
           boxpoints: 'outliers', 
@@ -298,7 +326,7 @@ function makeNoPlotly( exon, gene, mRNA, CDS ){
               title: ' Genome Feature Number statistics'
         };
 
-        var data = [Exon_No, Gene_No,mRNA_No, CDS_No];
+        var data = [Exon_No,Exon_Per_Gene, Gene_No,mRNA_No, CDS_No];
 
         Plotly.newPlot('feature_no', data,layout);
 
@@ -354,10 +382,7 @@ function makeNoPlotly( exon, gene, mRNA, CDS ){
 
 
 function makeAssemblyPlotly(assemblers, counts){
-	
-//   console.log(assemblers)
-//   console.log(counts);
-   
+	   
     var data = [{
         values: counts,
         labels: assemblers,
@@ -499,10 +524,10 @@ function initialize(){
     
     clearList();
 
-    Plotly.d3.csv("data_9_17/taxlist.txt", function(data){
+    Plotly.d3.csv("data_12_17/out_taxids.txt", function(data){
         //FIXME: data.length, Remove the species just internal nodes
         // upfate taxlist file
-        for (var i=0; i<2000; i++) {
+        for (var i=0; i<data.length; i++) {
             var row = data[i];
 
             if (!taxlist.includes(row['taxid'])){
