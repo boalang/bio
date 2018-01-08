@@ -580,7 +580,7 @@ function initialize(){
     
     clearList();
 
-    Plotly.d3.csv("data_12_17/assemblerdata_09_17.csv", function(data){
+    Plotly.d3.csv("data_12_17/cleaned_assemblers_09_17.csv", function(data){
         //FIXME: data.length, Remove the species just internal nodes
         // upfate taxlist file
         

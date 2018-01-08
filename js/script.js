@@ -170,7 +170,7 @@ function process_json_data() {
                     
                     }
             
-                if (['~Velvet','elvet'].indexOf(assembler)>=0){
+                if (['~Velvet','elvet','Velevt','VELVET'].indexOf(assembler)>=0){
                     assembler='Velvet'
                     
                     }
