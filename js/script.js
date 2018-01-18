@@ -142,8 +142,9 @@ function process_json_data() {
             if (data_row[7] >0)
                 CDS_length.push( data_row[7] );
             
-            if (data_row[8] >0)
+            if (data_row[8] >=0)
                 exon_per_gene.push( data_row[8] );
+            
             
             
         }
@@ -179,7 +180,7 @@ function process_json_data() {
                     
                     }
             
-                if (['Allpath-LG','ALLPATHS','AllPaths_LG','Allpaths-LG','AllPathsLG','Alpaths-LG'].indexOf(assembler)>=0){
+                if (['Allpath-LG','ALLPATHS','AllPaths_LG','Allpaths-LG','AllPathsLG','Alpaths-LG','Allpath-lg','AllPathsLG','Allpath-lg'].indexOf(assembler)>=0){
                     assembler='Allpath'
                     
                     }
