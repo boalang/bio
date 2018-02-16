@@ -120,13 +120,25 @@
 
 <p>The dataset from ncbi has been used to provide summary statistics for each node in the phylogenteic tree. Please see this: <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/" target="_blank">ncbi</a></p>
 
-<p>&nbsp;</p>
 
 <h1>&nbsp;</h1>
-
     
 </section>
 
+<section>
+    <p>This is the sample BoaG sctipt top three most used assembler:</p>
+
+    <pre>
+    <code class="language-css">
+    g: Genome = input;
+    counts: output top(3) of string weight int;
+    data :=getAssembler(g.refseq);
+    foreach(i:int;def(data.assembler[i]))
+    counts << data.assembler[i].name weight 1;
+    </code>
+    </pre> 
+</section>
+    
 <section class="content" id="services">
   
 </section>

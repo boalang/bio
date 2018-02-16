@@ -74,7 +74,7 @@ function processData(allRows) {
 
     makePlotly( exon, gene, mRNA, CDS);
 
-    console.log(taxlist);
+    //console.log(taxlist);
 }
 
 function process_json_data() {
@@ -116,7 +116,7 @@ function process_json_data() {
             break;
         }
         var leaves=filtered_list[i][0].leaves;
-        console.log(leaves.length);
+        //console.log(leaves.length);
         
         //Node proprties: like number of GFFs
         var text = ' <br>'+'<table class="container table-responsive table-striped table-hover"                   style="font-size:20px">';
@@ -229,6 +229,32 @@ function process_assembly_json_data() {
         contig_N50 = [], 
         standard_deviation = [];
     
+    
+    ///////////
+    
+    // Get list of tax id with the same assembler and kingdom =X
+    taxlists=[];
+    filtered_taxids=[];
+    
+         var returned_item = assembler_jsonfile.nodes.filter(function (item) {
+         var returnData=[];
+         if (item.taxid=='2'){             
+            taxlists.push(item.leaves);
+     }
+    return returnData;
+
+      });// end of returned_item
+        
+
+    for (var k=0; k< taxlists[0].length; k++){
+         var row1=taxlists[0][k][0];
+         var cell=row1.split(',');
+        
+         filtered_taxids.push(cell[1]);
+    }
+    
+    ///////
+    
      filtered_list=[];    //list of tax id with selected assemlber
 
     
@@ -238,30 +264,32 @@ function process_assembly_json_data() {
          for (var i=0; i<assemblerList.length; i++){
              
              if (assemblerList[i]['id']==selectedtax[j]){
-                 filtered_list.push(assemblerList[i]['text']); 
+                 if (filtered_taxids.indexOf(assemblerList[i]['text'])>0){
+                   filtered_list.push(assemblerList[i]['text']); 
+                 }
              }
          }
                  
 	}// end of filter list
     
+    console.log(filtered_list);
+    
+    
      //Node proprties: like number of GFFs
         var text = ' <br>'+'<table class="container table-responsive table-striped table-hover"                   style="font-size:20px">';
-    
-//        text += '<tr><th>' +' Taxanomy ID: ' +'</th>' + '<td>'+d.taxid +'</td> </tr>'; 
-//        text += '<tr><th>' +' Scientific Name: ' +'</th>' + '<td>'+d.name +'</td> </tr>';
+
         text += '<tr><th>' +' Number of Species: ' +'</th>' + '<td>'+filtered_list.length +'</td> </tr>';   
-//        text += ' <tr class="table-info"> <th> See NCBI </th> <td><a href= https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=' + d.taxid +' target="_blank" >' + ' NCBI' + '</a>'  + '</td></tr>'
         text += '</table>'  
 
         $("#node_property").html(text);
 
-        //
-    
-    
+        
 //     Plotly.d3.csv("data_12_17/assemblystats2_09_17.csv", function(data){
         
         for (var i=0; i<assembler_csv.length; i++) {
             var data_row = assembler_csv[i];
+            
+            //console.log(data_row['taxid']);
             
             if (filtered_list.indexOf(data_row['taxid'])>0){
                 
@@ -286,10 +314,8 @@ function process_assembly_json_data() {
         
 //         } );
     
-    console.log("@@@ total length: ")
     
-    console.log(Array(total_length));
-    
+    //console.log(Array(total_length));
     
     makeAssemblyStatsPlotly( total_length, total_gap_length, scaffold_count, scaffold_N50, contig_count, contig_N50 );
 
@@ -508,15 +534,19 @@ function makeAssemblyPlotly(assemblers, counts){
      
      
             var layout = {
-              title: 'Asssembly statistics'
+              title: 'Assembly statistics'
             };
      
-            var data = [total_length_box, total_gap_length_box, scaffold_count_box, scaffold_N50_box, contig_count_box, contig_N50_box];
+            var data1 = [total_length_box, scaffold_N50_box, contig_N50_box];
+
+            var data2 = [total_gap_length_box, scaffold_count_box, contig_count_box];
 
             // remove total length and total gap-length
             //var data = [scaffold_count_box, scaffold_N50_box, contig_count_box, contig_N50_box];
      
-            Plotly.newPlot('assemblyStats_div', data,layout);
+            Plotly.newPlot('assemblyStats1_div', data1,layout);
+            Plotly.newPlot('assemblyStats2_div', data2,layout);
+
 
         };
 
@@ -536,6 +566,8 @@ function fillList(){
           data: taxlist,
           placeholder: "Select a taxonomy ID",
           allowClear: true,
+          selectOnClose: true,
+
           maximumSelectionLength: 4
     
             
@@ -584,7 +616,7 @@ function initialize(){
         //FIXME: data.length, Remove the species just internal nodes
         // upfate taxlist file
         
-        console.log(data.length)
+        //console.log(data.length)
         for (var i=0; i<data.length; i++) {
             var row = data[i];
             

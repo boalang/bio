@@ -10,6 +10,7 @@ var filtered_list=[];
 
 d3.json("data_12_17/nodes_stats.json", function(data){
     jsonfile=data;
+    console.log(data);
 
 });
 
@@ -89,7 +90,7 @@ function process_json_data() {
          var returned_item = jsonfile.nodes.filter(function (item) {
          var returnData=[];
          if (item.taxid==selectedtax[j]){
-            //console.log(item);
+            console.log(item);
             var el={taxid: item.taxid, leaves:item.leaves};
             returnData.push(el);
 
@@ -107,7 +108,7 @@ function process_json_data() {
             break;
         }
         var leaves=filtered_list[i][0].leaves;
-        console.log(leaves.length);
+        
         
         //Node proprties: like number of GFFs
         var text = ' <br>'+'<table class="container table-responsive table-striped table-hover"                   style="font-size:20px">';
@@ -115,12 +116,10 @@ function process_json_data() {
 //        text += '<tr><th>' +' Taxanomy ID: ' +'</th>' + '<td>'+d.taxid +'</td> </tr>'; 
 //        text += '<tr><th>' +' Scientific Name: ' +'</th>' + '<td>'+d.name +'</td> </tr>';
         text += '<tr><th>' +' Number of Species: ' +'</th>' + '<td>'+leaves.length +'</td> </tr>';   
-//        text += ' <tr class="table-info"> <th> See NCBI </th> <td><a href= https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=' + d.taxid +' target="_blank" >' + ' NCBI' + '</a>'  + '</td></tr>'
         text += '</table>'  
 
         $("#node_property").html(text);
 
-        //
         for (var j=0; j<leaves.length;j++){
             var row=String(leaves[j]);
             var data_row=row.split(',');
@@ -142,7 +141,7 @@ function process_json_data() {
             if (data_row[7] >0)
                 CDS_length.push( data_row[7] );
             
-            if (data_row[8] >=0)
+            if (data_row[8] >0)
                 exon_per_gene.push( data_row[8] );
             
             
@@ -156,6 +155,9 @@ function process_json_data() {
                 standard_deviation = [];
             
         var filtered_assemlers=filtered_list[i][0].assemblers;
+        
+        //console.log(filtered_list);
+        
         for (var i=0; i<filtered_assemlers.length; i++) {
                
                var assembler=String(filtered_assemlers[i]).toLowerCase();
@@ -203,6 +205,9 @@ function process_json_data() {
        
     }
     
+    console.log("exon per gene:")
+    console.log(exon_per_gene);
+    
     makeNoPlotly( exon,exon_per_gene, gene, mRNA, CDS);
     makeSizePlotly( exon_length, gene_length, mRNA_length, CDS_length);
     makeAssemblyPlotly( assemblers, counts);
@@ -228,7 +233,7 @@ function process_assembly_json_data() {
          var returned_item = assembler_jsonfile.nodes.filter(function (item) {
          var returnData=[];
          if (item.taxid==selectedtax[j]){
-            //console.log(item);
+            
             var el={taxid: item.taxid, leaves:item.leaves};
             returnData.push(el);
             return returnData;
@@ -239,6 +244,7 @@ function process_assembly_json_data() {
         
 	}// end of filter list
 
+    
     for(var i=0; i<filtered_list.length; i++){
         if (filtered_list[0].length==0){
             break;
@@ -247,7 +253,8 @@ function process_assembly_json_data() {
         for (var j=0; j<leaves.length;j++){
             var row=String(leaves[j]);
             var data_row=row.split(',');
-                        
+                     
+            
             if (data_row[2]>0)
                total_length.push( data_row[2] );
             if (data_row[3]>0)
@@ -268,12 +275,13 @@ function process_assembly_json_data() {
        
     }
     
+    console.log('total length')
+    console.log(total_length.length);
     
     makeAssemblyStatsPlotly( total_length, total_gap_length, scaffold_count, scaffold_N50, contig_count, contig_N50 );
 
 
 }//End of process_json_data()
-
 
 
 function processAssemblyData(allRows) {
@@ -311,7 +319,6 @@ function processAssemblyData(allRows) {
 }
 
 
-
 function makeNoPlotly( exon,exon_per_gene, gene, mRNA, CDS ){
 
         var Exon_No = {
@@ -319,7 +326,7 @@ function makeNoPlotly( exon,exon_per_gene, gene, mRNA, CDS ){
           boxpoints: 'outliers',
           name: 'Exon_No',    
           type: 'box',
-            boxmean: 'sd'
+          boxmean: 'sd'
         };
 
          var Exon_Per_Gene = {
@@ -327,7 +334,7 @@ function makeNoPlotly( exon,exon_per_gene, gene, mRNA, CDS ){
           boxpoints: 'outliers',
           name: 'Exon_Per_Gene',    
           type: 'box',
-            boxmean: 'sd'
+          boxmean: 'sd'
         };
     
         var Gene_No = {
@@ -359,6 +366,10 @@ function makeNoPlotly( exon,exon_per_gene, gene, mRNA, CDS ){
         };
 
         var data = [Exon_No,Exon_Per_Gene, Gene_No,mRNA_No, CDS_No];
+    
+        //only Exon per gene
+        //var data = [Exon_Per_Gene];
+
 
         Plotly.newPlot('feature_no', data,layout);
 
@@ -438,7 +449,7 @@ function makeAssemblyPlotly(assemblers, counts){
      
             var total_length_box = {
               y: total_length,
-              boxpoints: 'outliers',
+              boxpoints: 'false',
               name: 'total_length',    
               type: 'box',
               boxmean: 'sd'    
@@ -491,6 +502,8 @@ function makeAssemblyPlotly(assemblers, counts){
      
             var data = [total_length_box, total_gap_length_box, scaffold_count_box, scaffold_N50_box, contig_count_box, contig_N50_box];
 
+            var data1 = [total_length_box, total_gap_length_box, scaffold_count_box, scaffold_N50_box, contig_count_box, contig_N50_box];
+     
             // remove total length and total gap-length
             //var data = [scaffold_count_box, scaffold_N50_box, contig_count_box, contig_N50_box];
      
