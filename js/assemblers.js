@@ -238,7 +238,7 @@ function process_assembly_json_data() {
     
          var returned_item = assembler_jsonfile.nodes.filter(function (item) {
          var returnData=[];
-         if (item.taxid=='2'){             
+         if (item.taxid=='6960'){             
             taxlists.push(item.leaves);
      }
     return returnData;
