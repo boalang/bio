@@ -70,6 +70,7 @@
    </div> <!-- container -->
 </nav>
    
+<!--
 <div class="carousel slide" id="featured" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#featured" data-slide-to="0" class="active">
@@ -84,11 +85,9 @@
         <div class="carousel-item">
             <img class="d-block img-fluid"  src="images/gif.png">
         </div>
-<!--
          <div class="carousel-item">
             <img class="d-block img-fluid"  src="images/itol1.png">
         </div>
--->
      </div>
     <a class="carousel-control-prev" href="#featured" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true">
@@ -102,32 +101,50 @@
         </span>
     </a>
     
-</div> <!-- carousel -->
+</div>   
+-->
+    
 <section class="content" id="mission">
 <!--  <h1>Documents </h1>-->
 
-   <h2>Boa</h2>
+    
+<div>
+    &nbsp;
 
-<p> 
+    <h2>Run BoaG queries on a Hadoop cluster</h2>
 
-<p>Boa is a domain-specific language and infrastructure that initially designed to eases mining software repositories.</p>
+    <p>BoaG can be tested on a 3 nodes cluster.</p>
 
-<p>see here: <a href="http://boa.cs.iastate.edu" target="_blank">Boa</a></p>
+    <p>Please see more details on our GitHub reposityory here: <a href="https://github.com/ISUgenomics/BoaISMB/tree/master/Docker/hadoop-cluster-docker" target="_blank">Docker Container</a></p>
+
+</div>
+
+
+<div>
+    &nbsp;
+
+    <h2>Integrate BoaG with jupyter notebook</h2>
+
+    <p>BoaG scripts can be integrated with jupyter notebooks that uses R or Python.</p>
+
+    <p>Please see more details on our GitHub reposityory here: <a href="https://github.com/ISUgenomics/BoaISMB/tree/master/jupyter%20Notebooks" target="_blank">jupyter notebook</a>
+    </p>
+    
+    <p>Please see the jupyter example: <a href="jupyter/prot_size.html" target="_blank">jupyter notebook</a></p>
     
 
-<h2>JSON Support</h2>
-
-<p>We have utilized json to visualize the phylogenetic&nbsp;tree and annotate the tree.&nbsp;</p>
+</div>
     
-    
-<p>The PhyloXML file has extended to provide summary statistics for each clade. </p>
+<div>
+    &nbsp;
 
+    <h2>Run BoaG as a command line</h2>
 
-<h2>Summary statistics</h2>
+    <p>Please see more details on our GitHub reposityory here: <a href="https://github.com/ISUgenomics/BoaISMB/tree/master/jupyter%20Notebooks" target="_blank">Command Line</a>
+    </p>
 
-<p>
-    
-</p>
+</div>
+
 
 <h2>NCBI Gene Annotation file(GFF)</h2>
 
@@ -143,11 +160,11 @@
 
     <pre>
     <code class="language-css">
-    g: Genome = input;
-    counts: output top(3) of string weight int;
-    data :=getAssembler(g.refseq);
-    foreach(i:int;def(data.assembler[i]))
-        counts << data.assembler[i].name weight 1;
+        g: Genome = input;
+        counts: output top(3) of string weight int;
+        data :=getAssembler(g.refseq);
+        foreach(i:int;def(data.assembler[i]))
+            counts << data.assembler[i].name weight 1;
     </code>
     </pre> 
 </section>
