@@ -10,3 +10,6 @@
 * [Instruction on How to run the Boa on a command line ](https://github.com/boalang/bio/tree/master/Command_Line)
 
 ### Run Boa<sub>g</sub> from Docker container
+
+### Boa<sub>g</sub> Compiler source code
+* Boa<sub>g</sub> compiler is written in Java. See the [source code](https://github.com/boalang/bio/tree/master/compiler)
