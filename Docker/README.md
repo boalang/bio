@@ -10,3 +10,8 @@
   * Hadoop version is 2.7.7
   * Hadoop cluster with 3 nodes
   * subset of RefSeq project, i.e., fungi to test boa queries.
+
+## Monitor Hadoop and submitted tasks
+* Go to this url:
+[http://0.0.0.0:8088/cluster](http://0.0.0.0:8088/cluster)
+* to see the HDF go to : [http://0.0.0.0:50070/](http://0.0.0.0:50070/)

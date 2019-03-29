@@ -1,0 +1,11 @@
+# counts over the years for  statistics of all assembly programs
+g: Genome = input;
+AsmStats: output sum [string]  of int;
+ 
+# We need to load Assemblers info from disk
+adata := getAssembler(g.refseq);
+ 
+foreach(k:int; def(adata.assembler[k])){
+     AsmStats [adata.assembler[k].name] <<1;  
+}
+

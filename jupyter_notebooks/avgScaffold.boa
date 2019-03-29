@@ -1,0 +1,10 @@
+
+# assemblers based on tax id
+g: Genome = input;
+counts: output mean[int] of int;
+
+asm :=getAssembler(g.refseq);
+foreach(i:int; def(asm.assembler[i])){
+ if(asm.scaffold_count> 0)
+  	 counts [yearof(asm.assembly_date)]<< asm.scaffold_count;
+}
