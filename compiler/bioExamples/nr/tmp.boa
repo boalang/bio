@@ -1,0 +1,23 @@
+s: Sequence = input;
+counts: output sum[string][string] of int;
+
+is_primary :=false;
+primary_taxID :="";
+
+foreach(i:int; def(s.cluster[i])){
+    if (s.cluster[i].similarity==95){
+        
+      foreach(j:int; def(s.annotation[j])){
+	       if (s.annotation[j].tax_id !="" && s.annotation[j].keyID ==s.seqid){
+		         is_primary = true;
+		         primary_taxID = s.annotation[j].tax_id;
+		         #counts[primary_taxID][s.seqid] << 1;
+		         #break;
+	       }
+      }
+      #if (is_primary==true)     
+      #  counts[primary_taxID][s.seqid] << 1;
+        
+        
+    }
+ }

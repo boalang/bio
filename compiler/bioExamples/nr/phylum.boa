@@ -1,0 +1,34 @@
+# search for Streptococcus
+s: Sequence = input;
+
+phylCount: output sum [string] of int;
+
+taxs := {
+    "Acanthocephala", "Acoelomorpha","Annelida","Arthropoda","Brachiopoda","Bryozoa","Chaetognatha","Chordata",
+    "Cnidaria","Ctenophora","Cycliophora", "Echinodermata","Entoprocta", "Gastrotricha","Gnathostomulida", "Hemichordata","Kinorhyncha",
+    "Loricifera","Micrognathozoa", "Mollusca","Nematoda", "Nematomorpha","Nemertea", "Onychophora","Orthonectida", "Phoronida",
+    "Placozoa", "Platyhelminthes","Porifera", "Priapulida","Rhombozoa", "Rotifera","Sipuncula", "Tardigrada","Xenacoelomorpha",
+    
+    "Anthocerotophyta","Bryophyta", "Charophyta","Chlorophyta", "Cycadophyta","Ginkgophyta", "Glaucophyta","Gnetophyta", "Lycopodiophyta",
+    "Lycophyta", "Magnoliophyta","Marchantiophyta", "Hepatophyta","Pinophyta", "Coniferophyta","Pteridophyta", "Rhodophyta",
+    
+    "Ascomycota", "Basidiomycota","Blastocladiomycota", "Chytridiomycota","Glomeromycota", "Microsporidia","Neocallimastigomycota","Zygomycota",
+    
+    "Amoebozoa", "Bigyra","Cercozoa", "Choanozoa","Ciliophora", "Cryptista","Euglenozoa", "Foraminifera","Haptophyta", "Loukozoa",
+    "Metamonada", "Microsporidia","Myzozoa", "Mycetozoa","Ochrophyta", "Oomycota","Percolozoa", "Radiozoa","Sarcomastigophora", "Sulcozoa",
+    
+    "Acidobacteria", "Actinobacteria","Aquificae", "Armatimonadetes","Bacteroidetes", "Caldiserica","Chlamydiae", "Chlorobi",
+    "Chloroflexi", "Chrysiogenetes","Cyanobacteria", "Deferribacteres","Deinococcus-Thermus", "Dictyoglomi","Elusimicrobia",
+    "Fibrobacteres","Firmicutes", "Fusobacteria","Gemmatimonadetes", "Lentisphaerae","Nitrospira", "Planctomycetes","Proteobacteria",
+     "Spirochaetes","Synergistetes", "Tenericutes","Thermodesulfobacteria", "Thermotogae","Verrucomicrobia",
+     
+     "Crenarchaeota","Euryarchaeota", "Korarchaeota","Nanoarchaeota", "Thaumarchaeota"
+};
+
+for (j := 0; j < len(taxs); j++) {
+	exists(i: int; match(taxs[j], s.annotation[i].tax_name))
+	 	 phylCount [taxs[j]] << 1;
+ }
+
+
+

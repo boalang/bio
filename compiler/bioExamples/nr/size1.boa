@@ -1,0 +1,11 @@
+s: Sequence = input;
+
+countAll : output sum[int][string] of int;
+#minCluster: output minimum [int][string] of string weight int;
+
+foreach(i:int; s.cluster[i]){
+  countAll [s.cluster[i].similarity][s.cluster[i].cid]  <<1;
+  #minCluster [s.cluster[i].similarity] [s.cluster[i].cid] << weight 1;
+  
+}
+

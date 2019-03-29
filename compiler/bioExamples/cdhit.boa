@@ -1,0 +1,8 @@
+# CD-HIT output clusters with sequences
+s: Sequence = input;
+counts: output sum[string][string][int][int] of int;
+
+foreach(i:int; def(s.cluster[i])){
+  if (s.cluster[i].similarity==95)
+	counts [s.cluster[i].cid][s.seqid][s.cluster[i].seq_start][s.cluster[i].seq_stop] <<  1;
+}

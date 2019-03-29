@@ -1,0 +1,10 @@
+_SUCCESS
+.part-r-00000.crc
+._SUCCESS.crc
+*.class
+part-r-00000
+.DS_Store
+*.seq
+data
+index
+generatedsrc/*

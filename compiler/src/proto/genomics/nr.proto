@@ -1,0 +1,32 @@
+package boa.types;
+
+option optimize_for =SPEED;
+
+message Cluster{
+	required string id=1;
+	required int64 similarity=2;	
+	required string seqid=3;	
+	repeated Sequence sequence=4;
+	required int64 length=5;
+	repeated Annotation annotation=6;
+	
+	//optional AssemblerRoot assemblerRoot=4; //FIXME: Add GFF and Assembler data, may need one more level.
+}
+
+message Sequence{
+	required string seqid =1;
+	required int64 length=2; //Number till aa : amino acid
+	required int64 start=3;
+	required int64 stop=4;
+	required int64 rep_start=5;
+	required int64 rep_stop=6;
+	required int64 similarity=7;
+	optional string seq=8; //sequence of members of the clusters
+	optional string taxonomy=9; //FIXME: might be required and might be an array
+	
+}
+
+message Annotation{
+	required string seqid=1;
+	required string defline=2;
+}

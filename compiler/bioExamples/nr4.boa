@@ -1,0 +1,11 @@
+# get dominant annotations representative sequence for each cluster
+s: Sequence = input;
+counts: output top(2) of string weight int;
+
+
+foreach(i:int; def(s.annotation[i])){
+	#foreach(j:int; def(s.cluster[j])){
+	#  if (s.cluster[1].representative )
+		counts << s.seqid + " " + s.annotation[i].taxa weight 1;
+	#}
+}

@@ -1,0 +1,44 @@
+# how many fearure we have
+s: Sequence = input;
+geneCounts: output sum[string] of int;
+exonCounts: output sum[string] of int;
+mRNACounts: output sum[string] of int;
+CDSCounts: output sum[string] of int;
+
+geneMean: output mean[string] of int;
+exonMean: output mean[string] of int;
+mRNAMean: output mean[string] of int;
+CDSMean: output mean[string] of int;
+
+
+foreach(i:int; def(s.feature[i])){
+  if (match("gene",s.feature[i].ftype)){
+  	geneCounts [s.taxid]<< 1;
+  	geneMean[s.taxid]<< s.feature[i].end-s.feature[i].start;  	
+  	
+  	}
+   if (match("exon",s.feature[i].ftype)){
+  	exonCounts [s.taxid]<< 1;
+  	exonMean[s.taxid]<< s.feature[i].end-s.feature[i].start;  	
+  	
+  	}
+  if (match("mRNA",s.feature[i].ftype)){
+  	mRNACounts [s.taxid]<< 1;
+  	mRNAMean[s.taxid]<< s.feature[i].end-s.feature[i].start;  	
+  	
+  	}
+   if (match("CDS",s.feature[i].ftype)){
+  	CDSCounts [s.taxid]<< 1;
+  	CDSMean[s.taxid]<< s.feature[i].end-s.feature[i].start;  	
+  	
+  	}
+}
+# size of each feature based on base pair
+#s: Sequence = input;
+#counts: output mean[string] of int;
+#foreach(i:int; def(s.feature[i])){
+#  if (match("CDS",s.feature[i].ftype))
+#  	counts[s.fileName]<< s.feature[i].end-s.feature[i].start;  	
+#} 
+
+

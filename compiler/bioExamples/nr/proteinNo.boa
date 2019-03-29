@@ -1,0 +1,8 @@
+# Number of proteins for different size
+s: Sequence = input;
+counts: output sum[int] of int;
+
+foreach(i:int; def(s.cluster[i])){
+  if (s.cluster[i].similarity==95)
+	counts [s.cluster[i].length] <<  1;
+}

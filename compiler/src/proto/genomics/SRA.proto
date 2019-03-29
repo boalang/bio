@@ -1,0 +1,10 @@
+package boa.types;
+
+option optimize_for =SPEED;
+
+message Fastq{
+	required string id=1;
+	required string seq=2;
+	required string desc=3;
+	required string quality=4;	
+}

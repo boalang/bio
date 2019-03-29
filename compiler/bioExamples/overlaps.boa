@@ -1,0 +1,9 @@
+s: Sequence = input;
+counts: output sum[string][string][string][int][int] of int;
+
+acc:string= "NZ_JNOT01000001.1";
+
+foreach(i:int; def(s.feature[i])){
+  if (hasoverlap(acc, s.feature[i]))
+  	counts [s.url][s.feature[i].accession][s.feature[i].ftype][s.feature[i].start][s.feature[i].end]<< 1;
+}

@@ -1,0 +1,11 @@
+# return the dominant annotations of each clauster
+c: Cluster = input;
+counts: output sum[string][string] of int;
+ 
+#ann := getDominant(c.seqid );
+cleanStr :=  "PREDICTED:#X[0-9]#";
+ 
+foreach(i:int; def(c.sequence[i])){
+ dom_ann := getDominant(c.sequence[i].seqid, cleanStr);
+ counts[c.id][dom_ann] << 1;
+}; 

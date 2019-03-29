@@ -1,0 +1,9 @@
+# Annotations of all sequences that have hypothetical protein in the function filed
+s: Sequence = input;
+counts : output sum[string][string][string][string] of int;
+
+foreach(i:int; def(s.annotation[i])){	
+ if (match(`hypothetical protein`, s.annotation[i].defline))
+  counts[s.seqid][s.annotation[i].defline][s.annotation[i].tax_id][s.annotation[i].tax_name]<<1;
+}
+

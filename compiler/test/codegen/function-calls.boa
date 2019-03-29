@@ -1,0 +1,6 @@
+# test using function results immediately
+o: output collection of string;
+
+m: map[string] of int;
+m["hi"] = 5;
+o << keys(m)[0];

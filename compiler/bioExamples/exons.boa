@@ -1,0 +1,11 @@
+s: Sequence = input;
+#countsMean: output mean[string] of int;
+countsMin: output minimum(1) of string weight int;
+
+foreach(i:int; def(s.feature[i])){
+  if (match("gene",s.feature[i].ftype)){
+  	#countsMean [s.url]<< s.feature[i].end-s.feature[i].start;
+  	countsMin <<  s.url weight s.feature[i].end-s.feature[i].start;
+  }	
+  	
+} 

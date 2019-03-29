@@ -1,0 +1,8 @@
+# Top used assembler
+
+g: Genome = input;
+counts: output top(5) of string weight int;
+assemblerData :=getAssembler(g.refseq);
+foreach(i:int; def(assemblerData.assembler[i]))
+  	 counts << assemblerData.assembler[i].name weight 1;
+

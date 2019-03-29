@@ -1,0 +1,14 @@
+# Max protein length
+s: Sequence = input;
+MinProtein95: output minimum(10) of string weight int;
+MinProtein90: output minimum(10) of string weight int;
+
+foreach(i:int; def(s.cluster[i])){
+   if (s.cluster[i].similarity==95)
+		MinProtein95  << s.seqid +" _ "+ string(s.cluster[i].similarity) weight s.cluster[i].length ;
+   if (s.cluster[i].similarity==90)
+		MinProtein90  << s.seqid +" _ "+ string(s.cluster[i].similarity) weight s.cluster[i].length ;	
+}
+
+
+

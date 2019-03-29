@@ -1,0 +1,3 @@
+s: Sequence = input;
+counts: output sum[string] of int;
+counts[s.header] << 1;

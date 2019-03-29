@@ -1,0 +1,8 @@
+# Number of proteins per each taxa
+s: Sequence = input;
+counts: output sum[string][string] of int;
+
+#cleanStr :=  "PREDICTED:#X[0-9]#";
+foreach(i:int; def(s.annotation[i])){
+	counts [s.annotation[i].tax_name][s.seqid] <<  1;
+}

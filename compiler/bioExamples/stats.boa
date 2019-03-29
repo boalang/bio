@@ -1,0 +1,16 @@
+# for a given sequence file how many features we have? Lists based on accession codes
+#s: Sequence = input;
+#counts: output sum[string][string] of int;
+
+#foreach(i:int; def(s.feature[i])){
+#  	#counts [s.fileName][s. feature[i].accession][s. feature[i].ftype] << 1;
+#    counts [s.fileName][s. feature[i].accession] << 1;  	
+#}
+
+# number of exon per mRNA for each GFF file
+s: Sequence = input;
+counts: output sum[string][string] of int;
+foreach(i:int; def(s.feature[i])){
+  if (match("exon",s.feature[i].ftype))
+  	  counts [s.taxid][s.feature[i].parent]<< 1;
+} 

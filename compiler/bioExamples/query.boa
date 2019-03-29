@@ -1,0 +1,13 @@
+
+# What are list of protein functions for each sequence?
+c: Cluster = input;
+counts: output sum[string][string][string] of int;
+  
+ann := getFunctions(c.seqid);
+
+counts [c.id][c.seqid][ann]<<1;
+ 
+foreach(i:int; def(c.sequence[i])){
+ seq_ann := getFunctions(c.sequence[i].seqid);
+ counts[c.id][c.sequence[i].seqid][seq_ann] << 1;
+}; 

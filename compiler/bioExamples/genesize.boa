@@ -1,0 +1,16 @@
+# What is the maximum/minimum size of gene 
+g: Genome = input;
+geneMax: output maximum(1)[string][string] of string weight int;
+geneMin: output minimum(1)[string][string] of string weight int;
+
+foreach(i:int; def(g.sequence[i])){
+	featureData :=getFeature(g.sequence[i].refseq, g.sequence[i].accession); 
+    foreach(j:int; def(featureData.feature[j]))
+	  if (match("gene",featureData.feature[j].ftype)){
+	    geneLength :=featureData.feature[j].end-featureData.feature[j].start;
+	  	geneMax[g.refseq][g.taxid]<<g.refseq weight geneLength ;  
+	    geneMin[g.refseq][g.taxid]<<g.refseq weight geneLength ;  	
+	  		  	
+	   }	
+}
+

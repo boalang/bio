@@ -1,0 +1,5 @@
+# get dominant annotation for a given sequence id
+c: Cluster = input;
+counts: output sum[string][string] of int;
+  
+counts[c.id][c.seqid] << 1;

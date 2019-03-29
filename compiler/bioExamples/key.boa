@@ -1,0 +1,11 @@
+# for a given keyID provide clustering information
+s: Sequence = input;
+counts: output collection[string][string][int][int][int] of int;
+
+ exists (j: int;  s.annotation[j].keyID =="AAC45972.1" ){
+	foreach(i:int; def(s.cluster[i])){
+		counts[s.seqid][s.cluster[i].cid][s.cluster[i].similarity][s.cluster[i].seq_start][s.cluster[i].seq_stop] << 1;
+	 }
+ }
+
+

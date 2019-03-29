@@ -1,0 +1,10 @@
+# Number of clusters and proteins by similarity level
+s: Sequence = input;
+cluster_counts: output sum[int] of int;
+protein_counts: output sum[int] of int;
+
+foreach(i:int; def(s.cluster[i])){
+  protein_counts [s.cluster[i].similarity] <<  1;
+  if (s.cluster[i].representative) # because each cluster has one representative 
+	cluster_counts [s.cluster[i].similarity] <<  1;
+}

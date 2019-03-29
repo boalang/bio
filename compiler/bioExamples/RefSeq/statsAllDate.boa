@@ -1,0 +1,47 @@
+# Summary statistics of all features as well as assembly programs
+g: Genome = input;
+geneCounts: output sum[string][int][string] of int;
+exonCounts: output sum[string][int][string] of int;
+mRNACounts: output sum[string][int][string] of int;
+CDSCounts: output sum[string][int][string] of int;
+
+geneMean: output mean[string][int][string] of int;
+exonMean: output mean[string][int][string] of int;
+mRNAMean: output mean[string][int][string] of int;
+CDSMean: output mean[string][int][string] of int;
+AssemblerCounts: output sum[string][int][string][string] of int;
+
+# We need to load Assemblers info from disk
+adata := getAssembler(g.refseq);
+asYear :=yearof(adata.assembly_date);
+
+foreach(i:int; def(g.sequence[i])){
+    # iterate over all features for a this sequence
+    # we need to load the feature info from the features.seq 
+    fdata := getFeature(g.refseq, g.sequence[i].accession);
+   
+	foreach(j:int; def(fdata.feature[j])){
+		flength := fdata.feature[j].end-fdata.feature[j].start;
+		if (match("gene",fdata.feature[j].ftype)){
+		  	geneCounts [g.refseq][asYear][g.taxid]<< 1;
+		  	geneMean[g.refseq][asYear][g.taxid]<< flength;  	
+		}	
+	    if (match("exon",fdata.feature[j].ftype)){
+		  	exonCounts [g.refseq][asYear][g.taxid]<< 1;
+		  	exonMean [g.refseq][asYear][g.taxid]<< flength;  	
+		}
+		if (match("mRNA",fdata.feature[j].ftype)){
+		  	mRNACounts [g.refseq][asYear][g.taxid]<< 1;
+		  	mRNAMean [g.refseq][asYear][g.taxid]<< flength;  	
+		  	}	
+			    
+	    if (match("CDS",fdata.feature[j].ftype)){
+		  	CDSCounts [g.refseq][asYear][g.taxid]<< 1;
+		  	CDSMean [g.refseq][asYear][g.taxid]<< flength;  	
+		  	}
+	
+	}
+}
+foreach(k:int; def(adata.assembler[k])){
+	  	 AssemblerCounts [g.refseq][asYear][g.taxid][adata.assembler[k].name]<< 1;
+}

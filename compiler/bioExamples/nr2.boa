@@ -1,0 +1,15 @@
+# sequences that have hypothetical protein annotation
+s: Sequence = input;
+counts: output sum[string][string] of int;
+#counts: output top(10) of string weight int;
+ 
+foreach(i:int; def(s.annotation[i])){	
+  counts[s.seqid][s.annotation[i].defline]<<1;
+}
+ 
+#foreach(i:int; def(s.annotation[i])){	
+#  counts  << s.annotation[i].func weight 1;
+#}
+     
+     
+     

@@ -1,0 +1,36 @@
+s: Sequence = input;
+
+#clstrOut : output collection [string][string] of string;
+clstrOut : output collection [string][int][string][int][int][int][int][int][int] of int;
+
+  
+  
+
+cids := {
+"13741561", "26559833", "37311095","64827049" , "69434225", "70499074", "73557584", "76939270", "81606138", "82243640"
+};
+
+
+getDefline := function(seq: Sequence):string {
+  strDefline : string;
+
+  foreach(i:int; def(s.annotation[i])){
+      strDefline = strDefline + s.annotation[i].keyID + " ^{ " + s.annotation[i].tax_id + " " + s.annotation[i].tax_name + " }^ " + s.annotation[i].defline + " ^A " ;
+ }
+ return strDefline;
+};
+
+
+
+foreach(j:int; def(s.cluster[j]))
+  if (s.cluster[j].similarity==95){
+    for (i := 0; i < len(cids); i++) {
+            if (s.cluster[j].cid ==cids[i])
+                        #clstrOut[s.cluster[j].cid][s.seqid] <<  getDefline(s);
+                        clstrOut [s.seqid][s.cluster[j].similarity][s.cluster[j].cid][s.cluster[j].length][s.cluster[j].seq_start][s.cluster[j].seq_stop]
+                        [s.cluster[j].rep_start][s.cluster[j].seq_stop][s.cluster[j].match] <<  getDefline(s);
+
+        }
+  }
+
+  

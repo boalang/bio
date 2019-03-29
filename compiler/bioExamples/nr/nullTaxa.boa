@@ -1,0 +1,10 @@
+# number of annotations that don't have taxonomy name
+s: Sequence = input;
+countNull : output sum of int;
+countAll : output sum of int;
+
+foreach(i:int; def(s.annotation[i])){	
+ countAll <<1;
+ if (s.annotation[i].tax_name =="")
+  countNull  <<1;
+}

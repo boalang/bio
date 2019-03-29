@@ -1,0 +1,12 @@
+s: Sequence = input;
+counts: output sum[int] of int;
+ 
+# iterates over all clusters and if that sequence is rep, then if tax_name is not null emits 1 to the reducer
+ foreach(i:int; def(s.cluster[i])){
+  if (s.cluster[i].representative){
+    foreach(j:int; def(s.annotation[j])){
+      if (s.annotation[j].tax_name !="")
+    	counts[s.cluster[i].similarity] << 1;
+    }	
+   }
+ };

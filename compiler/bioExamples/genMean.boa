@@ -1,0 +1,16 @@
+s: Sequence = input;
+counts: output mean[string][string] of int;
+url: string;
+
+url="GCF_000734775.1_ASM73477v1_genomic";
+foreach(i:int; def(s.feature[i])){
+  if(match(url, s.url))
+  	counts [s.url][s. feature[i].ftype]<< len(s. feature);
+}
+
+//Doc this part
+url="GCF_000734775.1_ASM73477v1_genomic";
+foreach(i:int; def(s.feature[i])){
+  if(match(url, s.url))
+  	counts [s.url][s. feature[i].ftype]<< len(s. feature);
+}

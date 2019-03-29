@@ -1,0 +1,15 @@
+# top 10 genome with the largest and smallest gene size
+g: Genome = input;
+geneMax: output maximum(10)  of string weight int;
+geneMin: output minimum(10)  of string weight int;
+
+foreach(i:int; def(g.sequence[i])){
+	fdata := getFeature(g.refseq, g.sequence[i].accession); 
+
+    foreach(j:int; def(fdata.feature[j]))
+	  if (match("gene",fdata.feature[j].ftype)){
+	    geneLength :=fdata.feature[j].end-fdata.feature[j].start;
+	  	geneMax <<g.refseq weight geneLength ;  
+	    geneMin <<g.refseq weight geneLength ;    		  	
+	   }	
+}

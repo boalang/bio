@@ -1,0 +1,17 @@
+# top dominant taxa for each cluster
+s: Sequence = input;
+counts: output sum[string][string] of int;
+
+isRepresentative := function(seq: Sequence, sim: int):bool {
+ exists (i: int; seq.cluster[i].similarity ==sim && s.cluster[i].representative==true)
+ 	return true;
+ return false;
+};
+ 
+# if this sequence is a representative sequence for the 95% similarity
+if (isRepresentative(s,95)){
+	foreach(i:int; def(s.annotation[i])){
+   		counts[s.annotation[i].tax_name][s.cluster[1].cid] << 1;
+  }
+}; 
+

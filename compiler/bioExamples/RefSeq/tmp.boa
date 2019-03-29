@@ -1,0 +1,23 @@
+# Genome Size 
+g: Genome = input;
+counts: output collection[string] of string;
+
+adata :=getAssembler(g.refseq);
+foreach(i:int; def(adata.assembler[i])){
+    if ( adata.total_length > 2000000 && adata.total_length < 3000000 );{
+    	# print the geneIDs. We need to load the features data
+    	foreach(m:int; def(g.sequence[m])){
+			fdata := getFeature(g.refseq, g.sequence[m].accession); 
+		
+		    foreach(j:int; def(fdata.feature[j])){
+		        if (fdata.feature[j].ftype =="gene"){
+		        	foreach(k:int; def(fdata.feature[j].attribute[k]))
+		          		if (fdata.feature[j].attribute[k].tag =="ID")
+		    	     		counts [g.refseq] << fdata.feature[j].attribute[k].value;
+		    	}     
+		    }
+    	
+    	}
+    	
+    }	
+}

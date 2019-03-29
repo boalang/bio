@@ -1,0 +1,13 @@
+# Summary statistics of all assembly programs
+g: Genome = input;
+AsmStats: output collection [string][string][int][int][int][int][int][int][string] of int;
+
+# We need to load Assemblers info from disk
+adata := getAssembler(g.refseq);
+asYear :=yearof(adata.assembly_date);
+
+foreach(k:int; def(adata.assembler[k])){
+	if(asYear <= 2010)
+		AsmStats [g.refseq][g.taxid][adata.total_length][adata.total_gap_length][adata.scaffold_count]
+	          [adata.scaffold_N50][adata.contig_count][adata.contig_N50][adata.assembler[k].name] <<1;  
+}

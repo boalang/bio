@@ -1,0 +1,52 @@
+# how many fearure we have
+g: Genome = input;
+geneCounts: output sum[string] of int;
+exonCounts: output sum[string] of int;
+mRNACounts: output sum[string] of int;
+CDSCounts: output sum[string] of int;
+
+geneMean: output mean[string] of int;
+exonMean: output mean[string] of int;
+mRNAMean: output mean[string] of int;
+CDSMean: output mean[string] of int;
+AssemblerCounts: output sum[string][string] of int;
+
+
+
+foreach(i:int; def(g.sequence[i]))
+  foreach(j:int; def(g.sequence[i].feature[j])){
+  if (match("gene",g.sequence[i].feature[j].ftype)){
+  	geneCounts [g.taxid]<< 1;
+  	geneMean[g.taxid]<< g.sequence[i].feature[j].end-g.sequence[i].feature[j].start;  	
+  }	
+  	}
+foreach(i:int; def(g.sequence[i]))
+  foreach(j:int; def(g.sequence[i].feature[j])){
+  if (match("exon",g.sequence[i].feature[j].ftype)){
+  	exonCounts [g.taxid]<< 1;
+  	exonMean[g.taxid]<< g.sequence[i].feature[j].end-g.sequence[i].feature[j].start;  	
+  }	
+  	}
+ foreach(i:int; def(g.sequence[i]))
+  foreach(j:int; def(g.sequence[i].feature[j])){
+   if (match("mRNA",g.sequence[i].feature[j].ftype)){
+  	mRNACounts [g.taxid]<< 1;
+  	mRNAMean[g.taxid]<< g.sequence[i].feature[j].end-g.sequence[i].feature[j].start;  	
+  	}
+  	}
+ foreach(i:int; def(g.sequence[i]))
+  foreach(j:int; def(g.sequence[i].feature[j])){
+   if (match("CDS",g.sequence[i].feature[j].ftype)){
+  	CDSCounts [g.taxid]<< 1;
+  	CDSMean[g.taxid]<< g.sequence[i].feature[j].end-g.sequence[i].feature[j].start;  	
+  	}
+  }
+ 
+ # Assemblers
+ foreach(i:int; def(g.assembler[i])){
+  	 AssemblerCounts [g.taxid][g.assembler[i].assembler]<< 1;
+}
+
+ 
+
+

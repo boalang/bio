@@ -1,0 +1,13 @@
+# How many annoatations each prtoein has?
+
+c: Cluster = input;
+counts: output sum[string][string][int] of int;
+  
+rep_count := getCounts(c.seqid);
+
+counts [c.id][c.seqid][rep_count]<<1;
+ 
+foreach(i:int; def(c.sequence[i])){
+ seq_count := getCounts(c.sequence[i].seqid);
+ counts[c.id][c.sequence[i].seqid][seq_count] << 1;
+}; 

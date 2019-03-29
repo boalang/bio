@@ -1,0 +1,66 @@
+package boa.types;
+
+option optimize_for =SPEED;
+
+message Genome{
+	required string refseq=1;
+    required string taxid=2;
+	repeated Sequence sequence=3;
+	optional AssemblerRoot assemblerRoot=4;
+
+}
+
+message Sequence 
+{
+	required string accession=1;
+	required string header=2;
+	optional FeatureRoot featureRoot=3;
+	//optional string seq = 4;  //actual sequences ACTG letters from Fasta files. Temporarily disabled
+}
+
+
+message AssemblerRoot{
+	optional string refseq=1;
+	repeated Assembler assembler=2;      
+	optional int64 total_length=3;
+	optional int64 scaffold_count=4;  
+	optional int64 scaffold_N50=5;
+	optional int64 contig_N50=6;
+	optional int64 contig_count=7;
+	optional int64 total_gap_length=8;
+	optional uint64 assembly_date = 9;
+}
+
+message Assembler{
+   	required string name=1;
+	required string desc=2;
+
+}
+
+message FeatureRoot{
+
+    optional string refseq=1;
+    repeated Feature feature=2;
+}
+
+message Feature {
+    required string accession=1;
+	required string seqid=2;
+	required string source=3;
+	required string ftype=4;
+	required int64 start=5;
+	required int64 end=6;
+	required string score=7;
+	required string strand=8;
+	required string phase=9;
+	repeated Attribute attribute=10;
+	optional string parent=11;
+
+}
+
+message Attribute{
+	required string tag=1;
+	required string value=2;
+
+}
+

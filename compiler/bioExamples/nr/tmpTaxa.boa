@@ -1,0 +1,7 @@
+s: Sequence = input;
+countAll : output sum of int;
+
+foreach(i:int; def(s.annotation[i])){
+ if (match(s.annotation[i].tax_name ,`Streptococcus`))
+  countAll  <<1;
+}

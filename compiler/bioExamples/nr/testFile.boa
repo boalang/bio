@@ -1,0 +1,12 @@
+s: Sequence = input;
+counts: output collection[string] of int;
+
+strContent := readFile("/media/sf_BoaG/01_jupter_Boa/ids");
+#ids := {strContent};
+
+ids := splitall(strContent, ",");
+
+for (j := 0; j < len(ids); j++) {
+ if (s.seqid==ids[j])
+ 	counts[ids[j]] << 1; 
+}

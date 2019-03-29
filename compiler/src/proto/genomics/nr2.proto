@@ -1,0 +1,31 @@
+package boa.types;
+
+option optimize_for =SPEED;
+
+message Sequence{
+	required string seqid =1;
+	repeated Annotation annotation=2;
+	repeated Cluster cluster=3;
+}
+
+message Annotation{
+	required string keyID=1;
+	required string defline=2;
+	optional string tax_id =3; 
+	optional string tax_name =4;
+}
+message Cluster{
+	//required string seqid=1;
+	required int64 similarity=1;	
+	required string cid=2;	
+	required bool representative=3;
+	optional int64 length=4; //Number till aa : amino acid
+	optional int64 seq_start=5;
+	optional int64 seq_stop=6;
+	optional int64 rep_start=7;
+	optional int64 rep_stop=8;
+	optional int64 match=9;
+		
+}
+
+

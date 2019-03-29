@@ -1,0 +1,19 @@
+# For a given function what are the distribution of start and stop positions
+s: Sequence = input;
+counts: output collection[string][string][int][int] of int;
+
+hasFunc := function(s: Sequence, expr: string):bool {
+ exists(i: int; match(expr, s.annotation[i].func))
+ 	return true;
+ return false;
+};
+ 
+# We can also write it this way:
+# exists(j: int; match(`hypothetical protein`, s.annotation[j].func)){
+if (hasFunc(s,`hypothetical protein`)){
+	foreach(i:int; def(s.cluster[i])){
+	  if (s.cluster[i].representative ==false)
+   		counts[s.seqid][s.cluster[i].cid][s.cluster[i].rep_start][s.cluster[i].rep_stop] << 1;
+  }
+}; 
+

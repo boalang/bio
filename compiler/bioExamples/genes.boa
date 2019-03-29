@@ -1,0 +1,11 @@
+# Gene feature stats: Number and length 
+g: Genome = input;
+geneCounts: output sum[string][string] of int;
+geneMean: output mean[string][string] of int;
+foreach(i:int; def(g.sequence[i]))
+  foreach(j:int; def(g.sequence[i].feature[j])){
+	  if (match("gene",g.sequence[i].feature[j].ftype)){
+	  	geneCounts [g.refseq][g.taxid]<< 1;
+	  	geneMean[g.refseq][g.taxid]<< g.sequence[i].feature[j].end-g.sequence[i].feature[j].start;  	
+	   }	
+  }

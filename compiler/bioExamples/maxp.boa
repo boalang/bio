@@ -1,0 +1,12 @@
+# Max protein length
+s: Sequence = input;
+MaxProtein: output maximum(10) of string weight int;
+ClusterInfo : output collection [string][int] of int;
+
+foreach(i:int; def(s.cluster[i])){
+		MaxProtein  << s.seqid +" _ "+ s.cluster[i].cid weight s.cluster[i].length ;
+		#ClusterInfo [s.cluster[i].cid][s.cluster[i].length] <<1;
+}
+
+
+

@@ -1,0 +1,8 @@
+
+c: Cluster = input;
+counts: output sum[string][string][string] of int;
+ 
+ann := getAnnotations(c.seqid);
+ 
+if (match (`100339`, c.id))
+     counts[c.id][c.seqid][ann] << 1;

@@ -1,0 +1,5 @@
+f: function();
+
+f := function() {
+	v := 1;
+};

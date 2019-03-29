@@ -1,0 +1,10 @@
+# what are representative sequences for cluster in a certain similarity level e.g 90%?
+s: Sequence = input;
+counts: output collection[string][string] of int;
+
+foreach(i:int; def(s.cluster[i])){
+  if (s.cluster[i].representative ==true and s.cluster[i].similarity==95)
+	counts[s.seqid][s.cluster[i].cid] << 1;
+ }
+
+

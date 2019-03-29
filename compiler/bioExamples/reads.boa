@@ -1,0 +1,5 @@
+# list of sequence reads for each refseq
+g: Genome = input;
+counts: output sum[string][string] of int;
+foreach(i:int; def(g.sequence[i]))
+	counts [g.refseq][g.taxid]<< 1;
