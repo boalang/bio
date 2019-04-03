@@ -13,3 +13,6 @@
 
 ### Boa<sub>g</sub> Compiler source code
 * Boa<sub>g</sub> compiler is written in Java. See the [source code](https://github.com/boalang/bio/tree/master/compiler)
+
+### Box link to download dataset and VirtualBox
+* [Box Link](https://iastate.box.com/s/agr7i8yys1043erl06jpkq9r6gi42l18)
