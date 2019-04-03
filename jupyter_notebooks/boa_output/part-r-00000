@@ -1,5 +1,2 @@
-AsmStats[Arachne] = 3
-AsmStats[HGAP] = 1
-AsmStats[N/A] = 43
-AsmStats[Newbler] = 2
-AsmStats[Unknown] = 1
+MaxGenome[] = GCF_000149925.1, 88724376.0
+MinGenome[] = GCF_000146465.1, 2216898.0

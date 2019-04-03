@@ -1,11 +1,10 @@
 
-g: Genome = input;
-AsmStats: output sum [string]  of int;
- 
-# We need to load Assemblers info from disk
-adata := getAssembler(g.refseq);
- 
-foreach(k:int; def(adata.assembler[k])){
-     AsmStats [adata.assembler[k].name] <<1;  
-}
+g: Genome=input;
+MaxGenome: output maximum(1) of string weight int;
+MinGenome: output minimum(1) of string weight int;
+
+adata:= getAssembler(g.refseq);
+MaxGenome << g.refseq weight adata.total_length;
+if(adata.total_length>0)
+  MinGenome << g.refseq weight adata.total_length;
 

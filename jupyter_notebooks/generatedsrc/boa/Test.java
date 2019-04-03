@@ -132,16 +132,12 @@ public class Test extends boa.runtime.BoaRunner {
 
 				___adata = boa.functions.BoaGenomeIntrinsics.getAssembler(___g.getRefseq());
 
-				for (long ___k = 0; ___k < ___adata.getAssemblerList().size(); ___k++)
-				{
-					if ((___adata.getAssemblerList().get((int)(___k)) != null))
-					{
-						{
-							context.write(new boa.io.EmitKey("[" + (___adata.getAssemblerList().get((int)(___k)).getName()) + "]", "AsmStats", 0), new boa.io.EmitValue(1l));
-						}
-					}
-				}
+				context.write(new boa.io.EmitKey("MaxGenome", 0), new boa.io.EmitValue(___g.getRefseq(), ___adata.getTotalLength()));
 
+				if (___adata.getTotalLength() > 0l)
+				{
+					context.write(new boa.io.EmitKey("MinGenome", 0), new boa.io.EmitValue(___g.getRefseq(), ___adata.getTotalLength()));
+				}
 
 			}
 		}
@@ -188,7 +184,8 @@ public class Test extends boa.runtime.BoaRunner {
 		public TestBoaCombiner() {
 			super();
 
-			this.aggregators.put("0::AsmStats", new boa.aggregators.IntSumAggregator());
+			this.aggregators.put("0::MinGenome", new boa.aggregators.MinimumAggregator(1l));
+			this.aggregators.put("0::MaxGenome", new boa.aggregators.MaximumAggregator(1l));
 		}
 	}
 
@@ -196,7 +193,8 @@ public class Test extends boa.runtime.BoaRunner {
 		public TestBoaReducer() {
 			super();
 
-			this.aggregators.put("0::AsmStats", new boa.aggregators.IntSumAggregator());
+			this.aggregators.put("0::MinGenome", new boa.aggregators.MinimumAggregator(1l));
+			this.aggregators.put("0::MaxGenome", new boa.aggregators.MaximumAggregator(1l));
 		}
 	}
 
