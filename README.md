@@ -4,7 +4,7 @@
 * [Query over Refseq database](https://github.com/boalang/bio/tree/master/Boa%20queries)
 
 ### Run Boa<sub>g</sub> from jupyter notebook
-* [Instructions on How to integrate Boa<sub>g</sub> with jupyter ](https://github.com/boalang/bio/tree/master/Command_Line)
+* [Instructions on How to integrate Boa<sub>g</sub> with jupyter ](https://github.com/boalang/bio/tree/master/jupyter_notebooks)
 * [jupyter notebook example](https://github.com/boalang/bio/blob/master/jupyter_notebooks/Boa_ipython.ipynb)
 
 ### Run Boa<sub>g</sub> from command line
