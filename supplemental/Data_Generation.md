@@ -3,7 +3,7 @@
 
 ## Download from NCBI
 * Python script to download all the gff, txt, and fna files
-* time to download:  about 5 days. This could be done in parallel but NCBI might block your IP if you run more threads at the same time. We can download it on a different machine. The most time consuming one was Bacteria because it has more than 280K files for GFF and Assembly stats files.
+* Time to download:  about a week. This could be done in parallel but NCBI might block your IP if you run more threads at the same time. The most time consuming one was Bacteria because it has more than 280K files for GFF and Assembly stats files.
 
 
 ```Python
@@ -77,6 +77,14 @@ for directory in directory_list:
 
 
 ## Data generation
+* After downloading the dataset from NCBI you can rub the following command in the Command_Line folder in this repository:
+
+```
+ bash runbash.sh output_path  raw_data
+```
+*  The first command is the output location and the second command is the folder of the raw data. It can be the full RefSeq that has different folders or any subset of the RefSeq.
+* Full dataset can be obtained from the [Google Drive Link](https://drive.google.com/drive/folders/1u-APb-clMbPNpHXhalthPWEDsNT-OtnX?usp=sharing)
+
 
 ### System specification
 ```
@@ -154,6 +162,8 @@ du -ch /Users/hbagheri/Documents/NCBI/Data2019/
 ### Data schema
 
 #### Protobuf schema
+* Boa<sub>g</sub> database is written in binary based on the following schema.
+
 ```
 package boa.types;
 
