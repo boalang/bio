@@ -1,0 +1,16 @@
+g: Genome = input;
+geneCounts: output sum[string][string] of int;
+exonCounts: output sum[string][string] of int;
+adata := getAssembler(g.refseq);
+asYear :=yearof(adata.assembly_date);
+if(asYear < 2016){
+        foreach(i:int; def(g.sequence[i])){
+          fdata := getFeature(g.refseq, g.sequence[i].accession);
+          foreach(j:int; def(fdata.feature[j])){
+                  if (match("gene",fdata.feature[j].ftype))
+                        geneCounts [g.refseq][g.taxid]<< 1;
+                  if (match("exon",fdata.feature[j].ftype))
+                        exonCounts [g.refseq][g.taxid]<< 1;
+          }
+        }
+}     

@@ -1,0 +1,9 @@
+# What is the largest and smallest genome in RefSeq?
+g: Genome=input;
+MaxGenome: output maximum(1) of string weight int;
+MinGenome: output minimum(1) of string weight int;
+
+adata:= getAssembler(g.refseq);
+MaxGenome << g.refseq weight adata.total_length;
+if(adata.total_length>0)
+  MinGenome << g.refseq weight adata.total_length;

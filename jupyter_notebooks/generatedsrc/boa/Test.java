@@ -12,7 +12,6 @@ public class Test extends boa.runtime.BoaRunner {
 		job.setJarByClass(TestBoaMapper.class);
 
 		job.setMapperClass(TestBoaMapper.class);
-		job.setCombinerClass(TestBoaCombiner.class);
 		job.setReducerClass(TestBoaReducer.class);
 
 		return job;
@@ -126,18 +125,16 @@ public class Test extends boa.runtime.BoaRunner {
 		private static class Job0 implements BoaJob {
 			boa.types.GFeature.Genome ___g;
 			boa.types.GFeature.AssemblerRoot ___adata;
+			long ___asYear;
 
 			public void map(final boa.types.GFeature.Genome _input, final org.apache.hadoop.mapreduce.Mapper<org.apache.hadoop.io.Text, org.apache.hadoop.io.BytesWritable, boa.io.EmitKey, boa.io.EmitValue>.Context context) throws Exception {
 				___g = _input;
 
 				___adata = boa.functions.BoaGenomeIntrinsics.getAssembler(___g.getRefseq());
 
-				context.write(new boa.io.EmitKey("MaxGenome", 0), new boa.io.EmitValue(___g.getRefseq(), ___adata.getTotalLength()));
+				___asYear = boa.functions.BoaTimeIntrinsics.yearOf(___adata.getAssemblyDate());
 
-				if (___adata.getTotalLength() > 0l)
-				{
-					context.write(new boa.io.EmitKey("MinGenome", 0), new boa.io.EmitValue(___g.getRefseq(), ___adata.getTotalLength()));
-				}
+				context.write(new boa.io.EmitKey("[" + (___g.getRefseq()) + "]" + "[" + (___asYear) + "]" + "[" + (___g.getTaxid()) + "]" + "[" + (___adata.getTotalLength()) + "]" + "[" + (___adata.getTotalGapLength()) + "]" + "[" + (___adata.getScaffoldCount()) + "]" + "[" + (___adata.getScaffoldN50()) + "]" + "[" + (___adata.getContigCount()) + "]" + "[" + (___adata.getContigN50()) + "]", "counts", 0), new boa.io.EmitValue(1l));
 
 			}
 		}
@@ -184,8 +181,6 @@ public class Test extends boa.runtime.BoaRunner {
 		public TestBoaCombiner() {
 			super();
 
-			this.aggregators.put("0::MinGenome", new boa.aggregators.MinimumAggregator(1l));
-			this.aggregators.put("0::MaxGenome", new boa.aggregators.MaximumAggregator(1l));
 		}
 	}
 
@@ -193,8 +188,7 @@ public class Test extends boa.runtime.BoaRunner {
 		public TestBoaReducer() {
 			super();
 
-			this.aggregators.put("0::MinGenome", new boa.aggregators.MinimumAggregator(1l));
-			this.aggregators.put("0::MaxGenome", new boa.aggregators.MaximumAggregator(1l));
+			this.aggregators.put("0::counts", new boa.aggregators.CollectionAggregator());
 		}
 	}
 

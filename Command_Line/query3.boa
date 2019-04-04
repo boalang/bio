@@ -1,0 +1,7 @@
+# How has the popularity of bacterial genome assembly programs changed?
+g: Genome = input;
+counts: output sum [int][string][string] of int;
+asm := getAssembler(g.refseq);
+asYear :=yearof(asm.assembly_date);
+foreach(k:int; def(asm.assembler[k]))
+  counts [asYear][g.taxid][asm.assembler[k].name]<<1;

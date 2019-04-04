@@ -1,0 +1,10 @@
+# How has metazoan assembly quality changed forgenomes deposited before and after 2016?
+
+g: Genome = input;
+counts: output collection [string][int][string][int][int][int][int][int][int] of int;
+
+adata := getAssembler(g.refseq); # This line loads the assembly information for the given refseq id
+asYear :=yearof(adata.assembly_date); # this line returns the year of assembly
+
+counts [g.refseq][asYear][g.taxid][adata.total_length][adata.total_gap_length][adata.scaffold_count]
+       [adata.scaffold_N50][adata.contig_count][adata.contig_N50] <<1;
