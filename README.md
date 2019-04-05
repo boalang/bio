@@ -4,7 +4,7 @@ Boa<sub>g</sub> is a domain-specific language and infrastructure on top of Hadoo
 Website: https://boalang.github.io/bio/
 
 
-These instructions will get you a command line, jupyter notebook, Docker container, and Hadoop version of  Boa<sub>g</sub>. You can can also set up a programming environment in Eclipse.
+These instructions will get you a command line, jupyter notebook, Docker container, and Hadoop version of  Boa<sub>g</sub>. You can also set up a programming environment in Eclipse.
 
 ### Prerequisites
 
@@ -20,9 +20,10 @@ You need to install Java. Boa<sub>g</sub> compiler is written in java. It can be
 ## Boa<sub>g</sub>  examples:
 * [Query over Refseq database](https://github.com/boalang/bio/tree/master/Boa%20queries)
 
-## Run Boa<sub>g</sub> from jupyter notebook
-* [Instructions on How to integrate Boa<sub>g</sub> with jupyter](https://github.com/boalang/bio/tree/master/jupyter_notebooks)
-* [jupyter notebook example](https://github.com/boalang/bio/blob/master/jupyter_notebooks/Boa_ipython.ipynb)
+## Run Boa<sub>g</sub> from Jupyter notebook
+* Prerequisite is Jupyter: [install](https://jupyter.org/install)
+* [Instructions on How to integrate Boa<sub>g</sub> with Jupyter](https://github.com/boalang/bio/tree/master/jupyter_notebooks)
+* [Jupyter notebook example](https://github.com/boalang/bio/blob/master/jupyter_notebooks/Boa_ipython.ipynb)
 
 ## Run Boa<sub>g</sub> from command line
 * [Instructions on How to run Boa<sub>g</sub> scripts on a command line ](https://github.com/boalang/bio/tree/master/Command_Line)
@@ -41,3 +42,4 @@ You need to install Java. Boa<sub>g</sub> compiler is written in java. It can be
 
 ## Download dataset and VirtualBox
 * [Google Drive Link](https://drive.google.com/drive/folders/1u-APb-clMbPNpHXhalthPWEDsNT-OtnX?usp=sharing)
+* Web interface is also implemented in the Ubuntu linux and it can be seen in the VirtualBox.
