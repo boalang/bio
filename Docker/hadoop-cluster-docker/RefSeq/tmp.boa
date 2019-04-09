@@ -1,0 +1,3 @@
+g: Genome = input;
+AsmStats: output sum [string]  of int;
+AsmStats [g.taxid] << 1;

@@ -1,0 +1,15 @@
+# differnt features stats count and average length
+g: Genome = input;
+counts: output sum [string][string][string]  of int;
+featureLength: output mean[string][string][string] of int;
+
+foreach(i:int; def(g.sequence[i])){
+   fdata := getFeature(g.refseq, g.sequence[i].accession); 
+   foreach(j:int; def(fdata.feature[j])){
+		flength := fdata.feature[j].end-fdata.feature[j].start;
+		counts [g.refseq][g.taxid][fdata.feature[j].ftype] << 1;
+		featureLength[g.refseq][g.taxid][fdata.feature[j].ftype]<< flength;  	
+
+   }		  
+
+ }

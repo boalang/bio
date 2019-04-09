@@ -1,0 +1,8 @@
+g: Genome = input;
+counts: output sum [string]  of int;
+
+adata := getAssembler(g.refseq);
+
+foreach(k:int; def(adata.assembler[k])){
+     counts [adata.assembler[k].name] <<1;  
+}

@@ -1,0 +1,14 @@
+
+g: Genome = input;
+AsmStats: output collection [int][string][string][string] of int;
+ 
+# We need to load Assemblers info from disk
+adata := getAssembler(g.refseq);
+if (def(adata)){
+asYear :=yearof(adata.assembly_date);
+ 
+foreach(k:int; def(adata.assembler[k])){
+     AsmStats [asYear][g.refseq][g.taxid][adata.assembler[k].name] <<1;  
+}
+
+}

@@ -1,0 +1,1 @@
+{"datareaders":"boa.dsi.dsource.github.GithubReader, boa.dsi.dsource.git.GitReader","DomainTypes":[{"Project":"boa.types.Toplevel.Project"},{"Crash":"boa.types.Transport.Crash"},{"Genome":"boa.types.GFeature.Genome"},{"Sequence":"boa.types.Nr2.Sequence"}]}

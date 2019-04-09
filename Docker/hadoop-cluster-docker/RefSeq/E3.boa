@@ -1,0 +1,9 @@
+# top assembler for a  Genome range btw A and B  
+g: Genome = input;
+counts: output top(10) of string weight int;
+
+adata :=getAssembler(g.refseq);
+if (adata.total_length > 2000000 && adata.total_length < 3000000 ){
+   foreach(i:int; def(adata.assembler[i]))
+	counts <<  adata.assembler[i].name weight 1;		
+}

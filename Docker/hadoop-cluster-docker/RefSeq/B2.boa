@@ -1,0 +1,9 @@
+# Genome Size 
+g: Genome = input;
+counts: output collection[string] of int;
+
+adata :=getAssembler(g.refseq);
+foreach(i:int; def(adata.assembler[i])){
+    if ( adata.total_length > 2000000 && adata.total_length < 3000000 );
+    	counts [g.refseq] << adata.total_length;
+}

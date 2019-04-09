@@ -1,17 +1,21 @@
 ## Run Hadoop Cluster within Docker Containers
+* NB: this Docker version is forked from this GitHub repository: https://github.com/kiwenlau/hadoop-cluster-docker
 
-### 3 Nodes Hadoop Cluster
+### Three Nodes Hadoop Cluster
 
-##### 1. pull docker image
-
-```
-sudo docker pull kiwenlau/hadoop:1.0
-```
-
-##### 2. clone github repository
+##### 1. Clone the repository
 
 ```
-git clone https://github.com/kiwenlau/hadoop-cluster-docker
+git clone https://github.com/boalang/bio.git
+```
+
+##### 2. Move to the Docker folder  and build the container
+
+```
+cd Docker/hadoop-cluster-docker/
+
+docker build -t "boa/hadoop" .
+
 ```
 
 ##### 3. create hadoop network
@@ -23,7 +27,6 @@ sudo docker network create --driver=bridge hadoop
 ##### 4. start container
 
 ```
-cd hadoop-cluster-docker
 sudo ./start-container.sh
 ```
 
@@ -44,49 +47,19 @@ root@hadoop-master:~#
 ./start-hadoop.sh
 ```
 
-##### 6. run wordcount
+##### 6. Test Boa<sub>g</sub> query
+```
+cd RefSeq/
 
+bash dsmaster.sh maxMin.boa output1
 ```
-./run-wordcount.sh
-```
+
+
 
 **output**
 
 ```
-input file1.txt:
-Hello Hadoop
-
-input file2.txt:
-Hello Docker
-
-wordcount output:
-Docker    1
-Hadoop    1
-Hello    2
-```
-
-### Arbitrary size Hadoop cluster
-
-##### 1. pull docker images and clone github repository
-
-do 1~3 like section A
-
-##### 2. rebuild docker image
+MaxGenome[] = GCF_000149925.1, 88724376.0
+MinGenome[] = GCF_000146465.1, 2216898.0
 
 ```
-sudo ./resize-cluster.sh 5
-```
-- specify parameter > 1: 2, 3..
-- this script just rebuild hadoop image with different **slaves** file, which pecifies the name of all slave nodes
-
-
-##### 3. start container
-
-```
-sudo ./start-container.sh 5
-```
-- use the same parameter as the step 2
-
-##### 4. run hadoop cluster
-
-do 5~6 like section A
