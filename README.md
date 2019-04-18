@@ -20,18 +20,20 @@ You need to install Java. Boa<sub>g</sub> compiler is written in java. It can be
 ## Boa<sub>g</sub>  examples:
 * [Query over Refseq database](https://github.com/boalang/bio/tree/master/Boa%20queries)
 
-## Run Boa<sub>g</sub> from Jupyter notebook
+## Run Boa<sub>g</sub> 
+
+### from Jupyter notebook
 * Prerequisite is Jupyter: [install](https://jupyter.org/install)
 * [Instructions on How to integrate Boa<sub>g</sub> with Jupyter](https://github.com/boalang/bio/tree/master/jupyter_notebooks)
 * [Jupyter notebook example](https://github.com/boalang/bio/blob/master/jupyter_notebooks/Boa_ipython.ipynb)
 
-## Run Boa<sub>g</sub> from command line
+### from command line
 * [Instructions on How to run Boa<sub>g</sub> scripts on a command line ](https://github.com/boalang/bio/tree/master/Command_Line)
 
-## Run Boa<sub>g</sub> on a Docker container
+### on a Docker container
 * [Instructions on How to run Boa<sub>g</sub> scripts in a Docker container ](https://github.com/boalang/bio/tree/master/Docker)
 
-## Run Boa<sub>g</sub> on Hadoop
+### on Hadoop
 * [Instructions on how to run Boa<sub>g</sub> on Bridges](https://github.com/boalang/bio/blob/master/supplemental/09_Hadoop_RefSeq.md)
 
 ## Boa<sub>g</sub> Compiler source code
