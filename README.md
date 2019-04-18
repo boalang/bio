@@ -17,29 +17,29 @@ You need to install Java. Boa<sub>g</sub> compiler is written in java. It can be
 * [JSON files version of RefSeq for MongoDB](https://github.com/boalang/bio/blob/master/supplemental/11_MongoDB.md)
 
 
-## Boa<sub>g</sub>  examples:
-* [Query over Refseq database](https://github.com/boalang/bio/tree/master/Boa%20queries)
-
 ## Run Boa<sub>g</sub> 
 
-### from Jupyter notebook
+### From Jupyter notebook
 * Prerequisite is Jupyter: [install](https://jupyter.org/install)
 * [Instructions on How to integrate Boa<sub>g</sub> with Jupyter](https://github.com/boalang/bio/tree/master/jupyter_notebooks)
 * [Jupyter notebook example](https://github.com/boalang/bio/blob/master/jupyter_notebooks/Boa_ipython.ipynb)
 
-### from command line
+### From command line
 * [Instructions on How to run Boa<sub>g</sub> scripts on a command line ](https://github.com/boalang/bio/tree/master/Command_Line)
 
-### on a Docker container
+### On a Docker container
 * [Instructions on How to run Boa<sub>g</sub> scripts in a Docker container ](https://github.com/boalang/bio/tree/master/Docker)
 
-### on Hadoop
+### On Hadoop
 * [Instructions on how to run Boa<sub>g</sub> on Bridges](https://github.com/boalang/bio/blob/master/supplemental/09_Hadoop_RefSeq.md)
 
 ## Boa<sub>g</sub> Compiler source code
 * Boa<sub>g</sub> compiler is written in Java. See the [source code](https://github.com/boalang/bio/tree/master/compiler)
 * This is a video on step by step instructions to set up programming environment on Eclipse for Boa compiler. [link](https://www.youtube.com/watch?v=s4-xfprwJ0c)
 
+
+## Boa<sub>g</sub>  Query Script examples:
+* [Query over Refseq database](https://github.com/boalang/bio/tree/master/Boa%20queries)
 
 
 ## Download dataset and VirtualBox
