@@ -1,7 +1,7 @@
 
 # Data generation steps
 
-## Download from NCBI
+## Download the raw data from NCBI
 * Python script to download all the gff, txt, and fna files
 * Time to download:  about a week. This could be done in parallel but NCBI might block your IP if you run more threads at the same time. The most time consuming one was Bacteria because it has more than 280K files for GFF and Assembly stats files.
 
@@ -76,8 +76,8 @@ for directory in directory_list:
 ```
 
 
-## Data generation
-* After downloading the dataset from NCBI you can rub the following command in the Command_Line folder in this repository:
+## Boa<sub>g</sub> Data generation from the raw data
+* After downloading the dataset from NCBI you can run the following command in the Command_Line folder in this repository:
 
 ```
  bash runbash.sh output_path  raw_data
