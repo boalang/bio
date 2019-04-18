@@ -2,7 +2,8 @@
 # Instruction on run the Boa script on the VritualBox.
 
 * You should install the Virtual Box first: https://www.virtualbox.org/wiki/Downloads
-* Then double download the Ubuntu18.04.ova file and double click on it.
+* Then double download the Ubuntu18.04.ova file from  [Google Drive Link](https://drive.google.com/drive/folders/1u-APb-clMbPNpHXhalthPWEDsNT-OtnX?usp=sharing)
+ and double click on it.
 You need following  user and pass to login to the Linux.
 
   ```
