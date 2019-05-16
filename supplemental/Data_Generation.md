@@ -13,10 +13,7 @@
 import os
 import subprocess
 
-
 my_dic={}
-
-
 def dl_from_ncbi(assembly_summary):
     # download fna, gff and Assembly_stats files from ftp
     with open (assembly_summary) as f:
@@ -39,11 +36,7 @@ def dl_from_ncbi(assembly_summary):
                 print (" ################### "+ gfffileName)
 
 
-
 data=subprocess.check_output("curl ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/", shell=True)
-# print(data)
-
-
 with open("data.txt", 'w') as f:
     for line in data.strip().decode().splitlines():
         f.write(line + "\n")
@@ -54,7 +47,6 @@ with open("data.txt") as f:
         folders = line.split()
         if "." not in folders[8]:
             directory_list.append(folders[8])
-
 
 for directory in directory_list:
     if not os.path.exists(directory):
@@ -97,7 +89,6 @@ Memory: 32 GB 1867 MHz DDR3
 * raw data: 379G
 * BoaG dataset:64GB
 * time to generate the dataset: 14 hours
-*
 
 #### Raw data size in each folder
 
@@ -115,7 +106,6 @@ du -ch /Users/hbagheri/Documents/NCBI/Data2019/
 185M	/Users/hbagheri/Documents/NCBI/Data2019//viral
 379G	/Users/hbagheri/Documents/NCBI/Data2019/
 379G	total
-
 
 ```
 
