@@ -222,3 +222,12 @@ message Attribute{
 
 
 ```
+
+## Additional example of new data type integration
+
+* In order to integrate new dataset the data schema in protocol buffer format needs to be modified and java file that reads the raw data, for example GFF, TXT, Fastq, etc, and convert it to a binary format of Boa<sub>g</sub> database.
+* We also have provided additional example of integrating Fastq files from SRA to our infrastructure. The data schema file that needs to be added can be obtained here
+https://github.com/boalang/bio/blob/master/compiler/src/proto/genomics/SRA.proto
+and the data reader has written in Java:
+https://github.com/boalang/bio/blob/master/compiler/src/java/boa/dsi/dsource/bio/SRA.java
+After converting the Fastq file to Boa<sub>g</sub> database, we have observed 30% data reduction compared to the zipped raw file, i.e gz format.
